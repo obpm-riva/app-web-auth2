@@ -5,7 +5,7 @@
   "scripts": {
     "setup": "sh ./scripts/setup.sh",
     "clean": "rm -rf dist/",
-    "grunt": "grunt",
+    "grunt": "./node_modules/.bin/grunt",
     "webserver": "node node_modules/rec-la/webserver/main.js ./dist/$1"
   },
   "dependencies": {
