@@ -6,7 +6,7 @@
     "setup": "sh ./scripts/setup.sh",
     "clean": "rm -rf dist/",
     "grunt": "grunt",
-    "webserver": "node node_modules/rec-la/webserver/main.js ./dist"
+    "webserver": "node node_modules/rec-la/webserver/main.js ./dist/$1"
   },
   "dependencies": {
     "pryv": "git://github.com/pryv/lib-javascript.git"
@@ -22,7 +22,6 @@
     "grunt-browserify": "latest",
     "grunt-contrib-copy": "latest",
     "grunt-contrib-watch": "latest",
-    "grunt-contrib-jshint": "latest",
     "rec-la": "latest"
   }
 }
