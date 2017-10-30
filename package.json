@@ -1,5 +1,5 @@
 {
-  "name": "pryv-app-web-auth",
+  "name": "pryv-app-web-iam",
   "version": "0.2.0",
   "private": true,
   "scripts": {
