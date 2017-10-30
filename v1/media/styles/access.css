@@ -1,0 +1,87 @@
+/* Base styles are Bootstrap's */
+
+body {
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  background-color: #eef0f2;
+  font-weight: 300;
+}
+#simple-page-wrapper {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 30px 0;
+  text-align: center;
+}
+#simple-page-wrapper .form-group, #simple-page-wrapper .checkbox, #simple-page-wrapper .btn-block {
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#simple-page-wrapper .form-control {
+  text-align: center;
+}
+#simple-page-wrapper select > optgroup, #simple-page-wrapper select > option {
+  text-align: left;
+  padding: 0 10px;
+}
+#simple-page-wrapper select > optgroup option {
+  margin: 0 -10px; /* ie. compensate optgroup padding */
+}
+
+#validation-form-wrapper {
+  margin-right: 0 !important;
+}
+label {
+  font-weight: 200;
+}
+.btn_register{
+  margin-top: 0px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 2px solid;
+}
+.signinhubContainer {
+  margin-bottom:35px;
+}
+.logo {
+  margin-bottom:10px;
+}
+#alert-block {
+  display:none;
+}
+h1 {
+  font-weight: 100;
+  margin-bottom:30px;
+  letter-spacing: 1px;
+}
+.has-error span {
+  color: #FF423F;
+}
+.has-error .control-label, .has-error .help-block {
+  color: #FF423F;
+}
+.has-success .control-label, .has-success .help-block {
+  color: #20DD23;
+}
+hr {
+  border-top: 1px solid #FFF;
+  opacity: 0.3;
+}
+
+#invitationtoken-form-container {
+  display:none;
+}
+
+#login-form-cancelButton {
+  margin-top: 10px;
+}
+
+@media (max-width: 767px) {
+  .blockAccordion{
+    margin: 0 -30px;
+  }
+  #button-wrapper {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+}
+

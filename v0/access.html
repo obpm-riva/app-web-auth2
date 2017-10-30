@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>PrYv | Authentication</title>
+    <link rel="stylesheet" type="text/css" href="media/styles/app.css"/>
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/register/register-controller.js"></script>
+    <script type="text/javascript" src="/register/messages-en.js"></script>
+    <script type="text/javascript" src="media/scripts/signin-controller.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript">
+      var my_messages = {
+        'OK'  : '✔',
+        'CHECKING_USERNAME' : 'Checking username avalability.',
+        'USERNAME_AVAILABLE' : '✔ is available',
+        'USERNAME_NOT_AVAILABLE': 'is not available. Log-in ?',
+        'EMAIL_NOT_AVAILABLE': 'is already associated with a ●Pryv account. Log-in?',
+        'PASSWORD_DO_NOT_MATCH': 'does not match',
+        'COMPLETE_ALL_FIELDS': 'Before submiting form, please complete all fields.'
+      }; 
+     
+      var SIGNIN_MESSAGES = {
+        'UNKOWN_EMAIL': 'Unkown e-mail address',
+        'UNKOWN_USERNAME': 'Please check your username or password.',
+        'INVALID_CREDENTIALS': 'Wrong password',
+        'INVALID_PASSWORD': 'Invalid password',
+        'INVALID_KEY': 'Login session expired or invalid key. Please restart the sign-in process.',
+        'INTERNAL_ERROR': 'Internal Error'
+      };  
+    </script>
+
+    <div id="application-wrapper">
+      <div id="header-wrapper">
+        <img src="media/images/branding.png" width="100" height="50" alt="branding"/>
+      </div>
+
+      <div id="content-wrapper">
+
+        <!-- Login Form Wrapper -->
+        <div id="login-form-wrapper">
+          <form id="login-form">
+            <h1> Login <span class="form-toggle" data-mode="login">Not a user click here</span> </h1>
+
+            <span id='loginUsernameOrEmailCheck' class='error-notification-wrapper'></span>
+
+            <ol>
+              <li>
+                <input type="text" id="loginUsernameOrEmail" name="loginUsernameOrEmail" placeholder="Username"/>
+              </li>
+              <li>
+                <input type="password" id="loginPassword" name="loginPassword" placeholder="Password" />
+              </li>
+              <li>
+                <input type="button" id="loginButton" name="loginButton" class="blue-gradient" value="Login"/>
+              </li>
+            </ol>
+          </form>
+        </div>
+
+        <!-- Registration Form Wrapper -->
+        <div id="registration-form-wrapper">
+          <form id="registration-form">
+            <h1> Register <span class="form-toggle" data-mode="register">Already a user click here</span> </h1>
+            <ol>
+              <li>
+                <input type="text" id="registration-username" name="sign-up-username" placeholder="Choose a user name"/>
+              </li>
+              <li>
+                <input type="text" id="registration-email" name="sign-up-email" placeholder="Email"/>
+              </li>
+              <li>
+                <input type="password" id="registration-password" name="sign-up-password" placeholder="Password"/>
+              </li>
+              <li>
+                <input type="password" id="registration-2ndpassword" name="sign-up-2ndpassword" placeholder="Verify Password"/>
+              </li>
+              <li>
+                <input type="button" id="register" name="register" value="Register" class="blue-gradient"/> 
+              </li>
+            </ol>
+          </form>
+        </div>
+
+        <!-- User Permission Wrapper -->
+        <div id="validation-form-wrapper">
+          <h1></h1>
+
+          <h1>Request for permission</h1>
+
+          <h3>App Blah is requesting permission to do the following:</h3>
+
+          <div id="permission-contents-wrapper">
+          </div>
+
+          <div id="button-wrapper">
+            <input type="button" id="permissionAccept" class="blue-gradient" name="" value="Accept"/>
+            <input type="button" id="permissionReject" class="red-gradient" name="" value="Reject" />
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function()  {
+        /* Initializing Authorization Controller. */
+        AuthController.init();
+        AuthController.loadEventBindings();
+      });
+    </script>
+
+  </body>
+</html>

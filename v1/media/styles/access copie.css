@@ -1,0 +1,245 @@
+body {
+  background-color: #F5F5F5;
+  /*border-top-width: 5px;
+  border-top-color: #A70000;
+  border-top-style: solid;*/
+}
+/**
+ * Base Layout Styles.
+ */
+.header  {
+  background-color: #A70000;
+}
+.header img {
+  width:40px;
+}
+#login-form h1 {
+  color: #171817;
+}
+
+#login-form-wrapper ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 20px; 
+}
+
+#login-form-wrapper ol li   {
+  height: 40px;
+  margin-top: 10px;
+}
+
+#login-form-wrapper ol li input[type="submit"]  {
+  width:100px;
+  height:30px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  float: right;
+  border-radius: 3px;
+  color: white;
+  box-shadow: 0px 0px 3px #ABABAB;
+}
+
+/**
+ * Registration Form Wrapper Styles.
+ */
+
+#registration-form h1 {
+  color: #171817;
+}
+
+#registration-form ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 20px; 
+}
+
+#registration-form ol li   {
+  height: 40px;
+  margin-top: 10px;
+}
+
+#registration-form ol li input[type="submit"]  {
+  width:100px;
+  height:30px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  float: right;
+  border-radius: 3px;
+  color: white;
+  box-shadow: 0px 0px 3px #ABABAB;
+}
+
+
+/**
+ * Validation Form Wrapper Styles.
+ */
+
+#validation-form-wrapper  {
+  display: none;
+}
+#validation-form-wrapper .span8.offset2 {
+  background-color: #E0E6E9;
+}
+
+
+#validation-form-wrapper h4 {
+  color: #FFFFFF;
+  text-align: center;
+  background: url(/style/img/bgPermHeader.png) #6EAFDB repeat-x;
+  padding: 5px;
+  margin: 0 0 20px;
+  font-size: 14px;
+}
+#validation-form-detail b{color:#6EAFDB;}
+
+#validation-form-wrapper h3 {
+  color: #171817;
+}
+
+.permission-wrapper {
+  border-bottom: 1px solid #E0E0E0;
+  margin: 5px 15px;
+}
+
+.permission-block {
+  padding: 20px 0 20px 46px;
+  background-color:white;
+  background: url(/style/img/arrowSmall.png) #FFF no-repeat 14px;
+}
+
+.permission-block h2  {
+  font-size: 15px;
+  line-height: 16px;
+  margin: 0;
+}
+
+.permission-block ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.permission-block ol li   {
+  font-size: 13px;
+  color: #888;
+  line-height: 15px;
+}
+
+#button-wrapper {
+  text-align: right;
+  padding: 10px;
+}
+#button-wrapper input {
+  margin-left:10px;
+}
+.iconArrow{margin: 20px 10px;}
+.appIconPermission p {margin:10px 0;}
+
+/* ACCESS STYLE ******************************** */
+
+.alert{display: none;}
+
+form.login, form.registration  {
+  /*padding-top: 20px;*/
+}
+.accessContainer{
+  width: 220px;
+  margin: 0 auto 20px auto;
+}
+.form-horizontal.grouped .controls {
+  margin-left: 0px;
+}
+.logo{
+  width: 105px;
+  margin: 10px auto 10px auto;
+  display: block;
+}
+.login input{padding: 8px 6px;}
+.login button.btn{width:100%;}
+.registration button.btn{}
+
+
+.pryvDescription{
+  color: #9b9b9b;
+}
+
+/* BLOCK STYLE ******************************** */
+
+.blockAccordion{
+  background: url(/style/img/iconWorld.png) #E0E6E9 no-repeat center center;
+  color:#576366;
+  margin: 0px -105px;
+}
+.blockAccordionInner{
+  margin:20px 40px;
+}
+.blockAccordionInner h3,.blockAccordionInner h4 {
+  color:#3F687E;
+}
+
+
+.form-horizontal.grouped .input-first{
+  -webkit-border-radius: 6px 6px 0 0;
+  -moz-border-radius: 6px 6px 0 0;
+  border-radius: 6px 6px 0 0;
+}
+.form-horizontal.grouped .input-last{
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+}
+.sublink{float:right;color:#999;}
+hr {
+border-top: 1px solid #B6B6B6;
+border-bottom: 0px;
+}
+.help-inline {
+display: block;
+padding-left: 0;
+}
+/********************BTN PRYV COLOR********************/
+.btnPryvColor {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 1);
+  background-color: #840000;
+  background-image: -moz-linear-gradient(top, #c90000, #a70000);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#c90000), to(#a70000));
+  background-image: -webkit-linear-gradient(top, #c90000, #a70000);
+  background-image: -o-linear-gradient(top, #c90000, #a70000);
+  background-image: linear-gradient(to bottom, #c90000, #a70000);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c90000', endColorstr='#a70000', GradientType=0);
+  border-color: #800a00 #800a00 #800a00;
+  border-color: rgba(128, 10, 0, 1) rgba(128, 10, 0, 1) rgba(128, 10, 0, 1);
+  *background-color: #840000;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.btnPryvColor:hover,
+.btnPryvColor:focus,
+.btnPryvColor:active,
+.btnPryvColor.active,
+.btnPryvColor.disabled,
+.btnPryvColor[disabled] {
+  color: #ffffff;
+  background-color: #a70000;
+  *background-color: #a9302a;
+}
+.btnPryvColor:active,
+.btnPryvColor.active {
+  background-color: #942a25 \9;
+}
+
+@media (max-width: 767px) { 
+.blockAccordion{
+  margin: 0px -30px;
+}
+#button-wrapper {
+  text-align: center;
+}
+}
+

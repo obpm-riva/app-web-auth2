@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+  <title>Pryv — Sign in</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700,400italic|Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="https://pryv.github.io/app-web/styles/vendor.min.css"/>
+  <link rel="stylesheet" type="text/css" href="media/styles/access.css"/>
+</head>
+<body>
+  <div id="simple-page-wrapper">
+    <img class="logo" src="/access/v1/media/images/logo-minimal.png"/>
+
+    <!-- Login Form Wrapper BOOTSTRAP -->
+    <div id="login-form-wrapper" class="loginContainer">
+      <h1 id="login-form-register" data-localization="login-intro">Sign in</h1>
+
+      <form id="login-form" role="form">
+        <div class="form-group">
+          <label id="login-username-label">* Username</label>
+          <input class="form-control" type="text" id="loginUsernameOrEmail" name="loginUsernameOrEmail" autocorrect="off" autocapitalize="off"/>
+        </div>
+
+        <div class="form-group">
+          <label id="login-password-label">* Password</label>
+          <input class="form-control" type="password" id="loginPassword" name="loginPassword" />
+        </div>
+
+        <button type="submit" id="login-form-loginButton" name="loginButton" class="btn btn-primary btn-block">Sign in</button>
+        <button type="button" id="login-form-cancelButton"
+                name="cancelLoginButton" class="btn btn-default" value="Cancel">Cancel</button>
+
+        <div id="loading-block">
+          <div id="loading-info" class="alert alert-info fade in"></div>
+        </div>
+
+        <div id="alert-block" class="alert alert-danger fade in">
+          <p id='alert-message' class='error-notification-wrapper'></p>
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+          <button id="login-form-toggle" class="btn btn-default btn-sm form-toggle" data-mode="login">* Not a user? Click here</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Registration Form Wrapper -->
+    <div id="registration-content-wrapper" class="registrationContainer">
+      <div id="registration-content">
+        Loading...
+      </div>
+
+      <hr>
+
+      <div class="form-group">
+        <span id="register-form-toggle" class="btn btn-default btn-sm form-toggle" data-mode="register">* Have an account already?</span>
+      </div>
+    </div>
+
+    <!-- User Permission Wrapper -->
+    <div id="validation-form-wrapper">
+      <h4><span id="validation-form-title">* Request for permission</span></h4>
+
+      <div class="appIconPermission text-center">
+        <div>
+          <img id="icon-app" class="iconAppPlaceholder" width="56" height="56"
+               src="/access/v1/media/images/iconAppPlaceholder.png"/>
+
+          <img class="iconArrow" src="/access/v1/media/images/arrow.png"/>
+
+          <img class="iconAppPryv" src="/access/v1/media/images/iconAppPryv.png"/>
+        </div>
+
+        <p>
+          <span id="validation-form-detail" >* App {app} is requesting permission to do the following:</span>
+        </p>
+      </div>
+
+      <div id="permission-contents-wrapper"></div>
+
+      <div id="button-wrapper">
+        <input type="submit" id="permissionReject" class="btn btn-danger btn-lg" name="" value="Reject" />
+
+        <input type="submit" id="permissionAccept" class="btn btn-success btn-lg" name="" value="Accept"/>
+      </div>
+    </div>
+
+    <!-- Loader -->
+    <div id="loader-wrapper" class="loader">
+      <span id="loader-message"></span>
+         Loading ...
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/access/v1/bootstrap.min.js"></script>
+  <script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+  <!-- <script type="text/javascript" src="/lib/jquery.js"></script> -->
+  <script type="text/javascript" src="media/scripts/registration-controller.js"></script>
+  <script type="text/javascript" src="pryv-util.js"></script>
+  <script type="text/javascript" src="media/scripts/signin-controller.js"></script>
+  <script type="text/javascript">
+
+    Pryv.Utility.domReady(
+      function () {
+        Pryv.Utility.loadURLContentInElementId(
+          '/access/v1/media/elements/registration-content.html',
+          'registration-content',
+          function () {
+            AuthController.init();
+            RegistrationController.uiloaded = true;
+          }
+        );
+
+      }
+    );
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<div id="registration-process">
+  <div id="invitationtoken-form-container">
+    <form id="invitationtoken-form" class="invitationtoken" role="form">
+      <h1 id="invitationtoken-form-header" data-localization="invitationtoken-intro">* Invitation Only </h1>
+
+      <div id="registration-invitationtoken"  class="form-group">
+        <label class="control-label" for="registration-invitationtoken-input">* For a short period Pryv is registration is on invitation only.</label>
+        <input class="form-control" type="text" name="invitationtoken" id="registration-invitationtoken-input" placeholder="* Invitation code" autocorrect="off" autocapitalize="off" value="enjoy"/>
+        <span class="help-block"></span>
+        <span class="help-inline"></span>
+      </div>
+
+      <div class="accessContainer form-group">
+        <div class="controls">
+          <input type="submit" id="invitationtoken-submit" name="invitationtokenbutton" class="btn btn-primary btn-lg btn-block" value="* Validate">
+        </div>
+      </div>
+
+      <div id="invitationtoken-form-footer" data-localization="invitationtoken-footer">* No invitation code?
+        <a href="http://pryv.com/register">Apply to our beta</a>
+      </div>
+    </form>
+  </div>
+
+  <div id="registration-form-container">
+    <form id="registration-form" class="registration" role="form">
+      <h1 id="registration-form-register" data-localization="register-intro">* Register </h1>
+
+      <div id="registration-email"  class="form-group">
+        <label class="control-label" for="registration-email-input"  data-localization="register-email">* Enter your E-mail</label>
+        <input class="form-control" type="email" name="email" id="registration-email-input" placeholder="* Email" autocorrect="off" autocapitalize="off"/>
+        <span class="help-block"></span>
+        <span class="help-inline"></span>
+      </div>
+
+      <div id="registration-username" class="accessContainer form-group">
+        <label class="control-label" for="registration-username-input">* Choose a user name</label>
+        <input class="form-control" type="text" name="username" id="registration-username-input" placeholder="* Choose a user name" autocorrect="off" autocapitalize="off"/>
+        <span class="help-block"></span>
+        <span class="help-inline"></span>
+      </div>
+
+      <div  id="registration-password" class="accessContainer form-group">
+        <label class="control-label" for="registration-password-input">* Enter your password</label>
+        <input class="form-control" type="password" id="registration-password-input" name="password" placeholder="* Password"/>
+        <span class="help-block"></span>
+        <span class="help-inline"></span>
+      </div>
+
+      <div class="accessContainer form-group" id="registration-cpassword">
+        <label class="control-label" for="registration-cpassword-input">* Choose a password</label>
+        <input class="form-control" type="password"  name="cpassword" id="registration-cpassword-input" placeholder="* Verify Password"/>
+        <span class="help-block"></span>
+        <span class="help-inline"></span>
+      </div>
+
+      <div class="accessContainer form-group" id="registration-hosting" >
+        <div id="accordion2">
+          <div style="margin-bottom: 5px;">
+            <div class="accordion-heading">
+              <span class="control-label" for="registration-hosting-select">* Host your data at:</span>
+
+              <a class="" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                <i class="icon-question-sign"></i>
+              </a>
+            </div>
+
+            <div id="collapseTwo" class="blockAccordion accordion-body collapse">
+              <div class="blockAccordionInner">
+                <h3><span id="hostingChoiceInfoHeader">*Modal header</span></h3>
+
+                <span id="hostingChoiceInfoText">*Modal text</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <select class="form-control" name="hosting" id="registration-hosting-select">
+          </select>
+          <span class="help-block"></span>
+          <span class="help-inline"></span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <i class="icon-info-sign"></i>
+        <span id="registration-disclamer">..</span>
+      </div>
+
+      <div class="accessContainer form-group">
+        <div class="controls">
+          <input type="submit" id="registration-submit" name="register" class="btn btn-primary btn-lg btn-block" value="* Create an account">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Modal -->
+  <div id="registrationHelp" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+
+    <div class="modal-body">
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">>></button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="successMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="successMessageHeader">*Welcome</h4>
+        </div>
+
+        <div class="modal-body" style="text-align:center;">
+          <span class="glyphicon glyphicon-ok" style="font-size: 64px;color: #67CCAC;"></span>
+          <p id="successMessageText">*Modal text</p>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-primary btn" data-dismiss="modal" aria-hidden="true">Start your Pryv</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
