@@ -3,6 +3,8 @@
   "version": "0.2.0",
   "private": true,
   "scripts": {
+    "setup": "sh ./scripts/setup.sh",
+    "clean": "rm -rf dist/",
     "grunt": "grunt",
     "webserver": "node node_modules/rec-la/webserver/main.js ./dist"
   },
@@ -20,6 +22,7 @@
     "grunt-browserify": "latest",
     "grunt-contrib-copy": "latest",
     "grunt-contrib-watch": "latest",
-    "grunt-contrib-jshint": "latest"
+    "grunt-contrib-jshint": "latest",
+    "rec-la": "latest"
   }
 }

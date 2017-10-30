@@ -7,7 +7,11 @@ prerequisites, how to launch, how to link
 
 ## Contribute
 
-prerequisites, install, ..
+*Prerequisites*: NodeJS v8+, Yarn v0.27+
+
+Run `yarn setup` to install the dependencies and create the `dist/` folder to publish on gh-pages.
+
+Run `yarn clean` to delete the `dist/`, this will require to run `yarn setup` for tasks requiring `dist/`.
 
 ## License
 
