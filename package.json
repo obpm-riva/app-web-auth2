@@ -1,0 +1,25 @@
+{
+  "name": "pryv-app-web-auth",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "grunt": "grunt",
+    "webserver": "node node_modules/rec-la/webserver/main.js ./dist"
+  },
+  "dependencies": {
+    "pryv": "git://github.com/pryv/lib-javascript.git"
+  },
+  "devDependencies": {
+    "grunt": "latest",
+    "async": "latest",
+    "jquery": "latest",
+    "rec-la": "latest",
+    "js-cookie": "latest",
+    "superagent": "latest",
+    "i18next-client": "latest",
+    "grunt-browserify": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-contrib-jshint": "latest"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "en": {
+    "translation": {
+      "missing-poll": "Missing poll parameter in URL",
+      "missing-lang": "Missing lang parameter in URL",
+      "generic-error": "An error occurred",
+      "missing-password": "Enter your password",
+      "missing-username": "Enter your username/e-mail",
+      "missing-service-info": "Missing serviceInfo parameter in URL",
+      "missing-username-and-password": "Enter your username/e-mail and password",
+
+      "uid-with-mail": "Successfully associated e-mail {mail} with user {username}",
+      "access-cleaned": "Successfully cleaned advanced access",
+      "access-granted": "Access granted for {username}",
+      "access-refused": "Access refused by user",
+      "access-canceled": "Access canceled",
+      "login-with-e-mail": "Login with e-mail",
+      "login-with-username": "Login with username",
+
+      "permissions-all": "Access to all <b>my Pryv</b> data",
+      "permissions-create": "A new permission on stream <b>{name}</b> with level <b>{level}</b>",
+      "permissions-update": "An update of permission on stream <b>{name}</b> with level <b>{level}</b>",
+      "permissions-requested-by": "App <b>{appId}</b> is requesting:",
+
+      "closing": "Closing...",
+      "sending-state": "Sending state to register server",
+      "deleting-access": "Deleting advanced access for the app {appId}",
+      "creating-stream": "Creating stream {name}",
+      "creating-access": "Creating access for the app {appId}",
+      "updating-access": "Updating the access for the app {appId}",
+      "loading-settings": "Loading settings from register server",
+      "fetching-streams": "Fetching root streams of user {username}",
+      "fetching-accesses": "Fetching accesses of user {username}",
+      "loading-permissions": "Loading permissions...",
+      "checking-app-access": "Checking app access",
+      "loading-service-info": "Loading service info",
+
+
+      "cancel-button": "Cancel",
+      "sign-in-button": "Sign In",
+      "permissions-title": "Permissions",
+      "permissions-reject": "Reject",
+      "permissions-accept": "Accept",
+      "login-form-toggle": "Create an account",
+      "login-form-register": "Sign In",
+      "login-username-label": "Username or e-mail",
+      "login-password-label": "Password"
+    }
+  },
+
+  "fr": {
+    "translation": {
+      "missing-poll": "Paramètre poll manquant dans l'URL",
+      "missing-lang": "Paramètre lang manquant dans l'URL",
+      "generic-error": "Une erreur est survenue",
+      "missing-password": "Entrez votre mot de passe",
+      "missing-username": "Entrez votre nom d'utilisateur/e-mail",
+      "missing-service-info": "Paramètre serviceInfo manquant dans l'URL",
+      "missing-username-and-password": "Entrez votre nom d'utilisateur/e-mail et votre mot de passe",
+
+      "uid-with-mail": "L'e-mail {mail} a été associée avec succès à l'utilisateur {username}",
+      "access-cleaned": "L'accès avancé a été nettoyé avec succès",
+      "access-granted": "Accès accordé pour {username}",
+      "access-refused": "L'accès a été refusé par l'utilisateur {username}",
+      "access-canceled": "Accès annulé",
+      "login-with-e-mail": "Connexion avec e-mail",
+      "login-with-username": "Connexion avec nom d'utilisateur",
+
+      "permissions-all": "L'accès à toutes les données de <b>mon Pryv</b>",
+      "permissions-create": "Une nouvelle permission sur le stream <b>{name}</b> avec le niveau <b>{level}</b>",
+      "permissions-update": "Une modification de la permission sur le stream <b>{name}</b> avec le niveau <b>{level}</b>",
+      "permissions-requested-by": "L'application <b>{appId}</b> demande:",
+
+      "closing": "Fermeture...",
+      "sending-state": "Envoi de l'état au serveur register",
+      "deleting-access": "Suppression de l'accès avancé pour l'application {appId}",
+      "creating-stream": "Création du stream {name}",
+      "creating-access": "Création d'un accès pour l'application {appId}",
+      "updating-access": "Modification de l'accès pour l'application {appId}",
+      "loading-settings": "Chargement des paramètres depuis le serveur register",
+      "fetching-streams": "Récupération des streams racines de l'utilisateur {username}",
+      "fetching-accesses": "Récupération des accès de l'utilisateur {username}",
+      "loading-permissions": "Chargement des permissions...",
+      "checking-app-access": "Vérification des accès de l'application",
+      "loading-service-info": "Chargement des informations du service",
+
+
+      "cancel-button": "Annuler",
+      "sign-in-button": "Connexion",
+      "permissions-title": "Permissions",
+      "permissions-reject": "Rejeter",
+      "permissions-accept": "Accepter",
+      "login-form-toggle": "Créer un compte",
+      "login-form-register": "Connexion",
+      "login-username-label": "Nom d'utilisateur ou e-mail",
+      "login-password-label": "Mot de passe"
+    }
+  }
+}

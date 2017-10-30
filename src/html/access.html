@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+  <title>Pryv — Sign in</title>
+
+  <link rel="icon" href="./assets/page-logo.png">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400">
+  <link rel="stylesheet" type="text/css" href="./css/style.css"/>
+
+  <script type="text/javascript" src="./scripts/access-script.js"></script>
+</head>
+<body>
+<div class="wrapper">
+  <img class="logo" src="./assets/main-logo.png"/>
+
+  <!-- Login View -->
+  <div id="loginContainer">
+    <h1 id="loginFormTitle">Sign in</h1>
+
+    <form id="loginForm" action="">
+      <div class="form-group">
+        <label id="loginUsernameLabel">Username or e-mail</label>
+        <input class="form-control" type="text" id="loginUsernameOrEmail" name="loginUsernameOrEmail" autocorrect="off" autocapitalize="off"/>
+      </div>
+
+      <div class="form-group">
+        <label id="loginPasswordLabel">Password</label>
+        <input class="form-control" type="password" id="loginPassword" name="loginPassword" />
+      </div>
+
+      <button type="submit" id="signInButton" name="signInButton" class="btn btn-primary btn-block">Sign in</button>
+      <button type="button" id="cancelButton" name="cancelButton" class="btn btn-default">Cancel</button>
+
+      <hr>
+    </form>
+  </div>
+
+  <div class="form-group">
+    <button id="loginFormRegister" class="btn btn-default btn-sm form-toggle" data-mode="login">Create an account</button>
+    <button id="loginFormReset" class="btn btn-default btn-sm form-toggle" data-mode="login">Forgot password</button>
+  </div>
+
+  <!-- Permissions View -->
+  <div id="permissionsContainer">
+    <h1 id="permissionsTitle">Permissions</h1>
+
+    <img id="iconApp" src="./assets/app-icon.png">
+    <img id="iconArrow" src="./assets/arrow-icon.png">
+    <img id="iconAppPryv" src="./assets/pryv-icon.png">
+
+    <p id="permissionsRequestedBy"></p>
+    <div class="separator" id="mainSeparator"></div>
+    <div id="permissionsList"></div>
+
+    <div id="buttonWrapper">
+      <button type="submit" id="permissionsReject" class="btn btn-danger btn-lg">Reject</button>
+      <button type="submit" id="permissionsAccept" class="btn btn-success btn-lg">Accept</button>
+    </div>
+  </div>
+
+  <!-- Errors & Information -->
+  <div id="blockContainer">
+    <div id="infoBlock" class="alert alert-info">
+      <p id='infoMessage'></p>
+    </div>
+
+    <div id="alertBlock" class="alert alert-danger">
+      <p id='alertMessage'></p>
+    </div>
+  </div>
+
+  <!-- Loader View -->
+  <div id="loaderContainer">
+    <h4 id="loaderState"></h4>
+    <p id="loaderMessage"></p>
+  </div>
+</div>
+</body>
+</html>

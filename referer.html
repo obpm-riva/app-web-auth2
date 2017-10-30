@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pryv log referer</title>
+  <meta http-equiv="refresh" content="5;url=http://pryv.com">
+</head>
+<script>
+
+  var params = {referer : null, jumpto : 'http://pryv.com'};
+  if (window.location.search) {
+    var parArr = window.location.search.split('?')[1].split('&');
+    for(var i = 0; i < parArr.length; i++){
+      var parr = parArr[i].split('=');
+      params[parr[0]] = decodeURIComponent(parr[1]);
+    }
+  }
+
+  console.log('cookies: ' + document.cookie);
+  document.cookie = 'referer=' + params.r + '; path=/';
+  window.location = params.jumpto;
+</script>
+<body>
+  <h1><center><a href="http://pryv.com">http://pryv.com</a></center></h1>
+</body>
+</html>
