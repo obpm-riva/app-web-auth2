@@ -1,3 +1,6 @@
+# gh-pages folder
+dist/
+
 # Logs
 logs
 *.log
