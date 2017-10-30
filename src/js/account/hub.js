@@ -19,4 +19,10 @@ $(document).ready(function(){
       $toggle.prop('disabled', false);
     });
   });
+    
+  $('#regButton').click(function(e) {
+      e.preventDefault();
+      var origin = location.href;
+      location.href = origin.substring(0,origin.lastIndexOf('/') + 1) + 'register.html?returnUrl=' + origin;
+    });
 });

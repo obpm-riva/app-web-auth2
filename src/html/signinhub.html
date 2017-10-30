@@ -19,30 +19,26 @@
 </head>
 <body>
 
-  <div id="simple-page-wrapper">
-    <img class="logo" src="./assets/main-logo.png"/>
+  <div class="wrapper">
+      <img class="logo" src="./assets/main-logo.png"/>
+      <div id="simple-page-wrapper">
+          <div id="error" class="alert alert-danger" style="display: none;"></div>
 
-    <h1>Go to your Pryv</h1>
+          <form role="form" onsubmit="return false;">
+            <div id="signinhub-content"  class="form-group">
+              <div class="input-group">
+                <input class="form-control" type="username" name="username" id="signinhub-input" placeholder="Enter your username" autocorrect="off" autocapitalize="off"/>
+                <span class="input-group-btn">
+                  <button type="submit" id="signinhub-form-toggle" class="btn btn-primary form-toggle" data-mode="register">Go</button>
+                </span>
+              </div>
+            </div>
+          </form>
+      </div>
+      
+      <p><strong>Not yet a user?</strong> <a id="regButton" href="">Register for a free beta account here</a>.</p>
 
-    <div class="alert alert-danger hidden" role="alert"><strong>Username unknown</strong></div>
-    <!-- Registration Form Wrapper -->
-    <div id="signinhub-content-wrapper" class="signinhubContainer">
-      <form role="form" onsubmit="return false;">
-        <div id="signinhub-content"  class="form-group">
-          <div class="input-group">
-            <input class="form-control" type="username" name="username" id="signinhub-input" placeholder="Enter your username" autocorrect="off" autocapitalize="off"/>
-            <span class="input-group-btn">
-              <button type="submit" id="signinhub-form-toggle" class="btn btn-primary form-toggle" data-mode="register">Go</button>
-            </span>
-          </div>
-        </div>
-      </form>
-    </div>
-
-    <p><strong>Not yet a user?</strong> <a href="/access/register.html">Register for a free beta account here</a>.</p>
-
-    <p><strong>Why is this step necessary?</strong> Good question. It's only temporary; soon you'll be able to just sign in directly.</p>
+      <p><strong>Why is this step necessary?</strong> Good question. It's only temporary; soon you'll be able to just sign in directly.</p>
   </div>
-
 </body>
 </html>
