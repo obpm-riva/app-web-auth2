@@ -37,12 +37,12 @@
 
 
       "cancel-button": "Cancel",
-      "sign-in-button": "Sign In",
+      "sign-in-button": "Sign in",
       "permissions-title": "Permissions",
       "permissions-reject": "Reject",
       "permissions-accept": "Accept",
       "login-form-toggle": "Create an account",
-      "login-form-register": "Sign In",
+      "login-form-register": "Sign in",
       "login-username-label": "Username or e-mail",
       "login-password-label": "Password"
     }
