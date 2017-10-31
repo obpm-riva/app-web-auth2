@@ -112,6 +112,11 @@ requests.checkAppAccess = function (Settings, callback) {
     .set({ 'Authorization': Settings.auth.token })
     .end(function (err, res) {
       if (err) { return callback(err, Settings); }
+      if (res.body.matchingAccess) {
+        Settings.check.accessExists = true;
+        Settings.appToken = res.body.matchingAccess.token;
+        return callback(null, Settings);
+      }
       Settings.addCheck(res.body);
       callback(null, Settings);
     });

@@ -107,7 +107,9 @@ function openPage(page) {
  * @param Settings {Object}
  */
 function managePostLogin (Settings) {
-  if (Settings.check.checkedPermissions) {
+  if (Settings.check.accessExists || !Settings.check.checkedPermissions) {
+    methods.manageState(Settings, 'ACCEPTED', Settings.strs.closing);
+  } else {
     Settings.utils.permissionsState(false);
 
     managePermissionsView(Settings, function () {
@@ -125,8 +127,6 @@ function managePostLogin (Settings) {
         methods.manageState(Settings, 'REFUSED', Settings.strs.accessRefused);
       });
     });
-  } else {
-    methods.manageState(Settings, 'ACCEPTED', Settings.strs.closing);
   }
 }
 

@@ -224,5 +224,5 @@ function endPopUp(err, settings, stateTitle, message) {
     } else {
       window.close();
     }
-  }, 3000);
+  }, 2000);
 }
