@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "setup": "sh ./scripts/setup.sh",
-    "clean": "rm -rf dist/",
+    "clear": "rm -rf dist/",
     "grunt": "./node_modules/.bin/grunt",
-    "webserver": "node node_modules/rec-la/webserver/main.js ./dist/$1"
+    "webserver": "node node_modules/rec-la/webserver/main.js ./dist",
+    "upload": "sh ./scripts/publish-to-gh-pages.sh",
   },
   "dependencies": {
     "pryv": "1.0.3"
