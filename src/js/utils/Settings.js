@@ -56,25 +56,23 @@ SettingsConstructor.prototype.updateApiURL = function (username) {
 
 SettingsConstructor.retrieveServiceInfo = function() {
   var serviceInfo = pryv.utility.urls.parseClientURL().parseQuery().serviceInfo;
-    if(!serviceInfo && window.pryvServiceInfo) {
-        serviceInfo = window.pryvServiceInfo;
-        console.log('service info from window var: ' + serviceInfo);
-    } else if(serviceInfo) {
-      console.log('service info from url param: ' + serviceInfo);
-    }
-    if(!serviceInfo) {
+  if(serviceInfo) {
+    console.log('Service info from url param:');
+  } else if(window.pryvServiceInfo) {
+    serviceInfo = window.pryvServiceInfo;
+    console.log('Service info from window var:');
+  } else {
       var domain = document.location.hostname.substr(document.location.hostname.indexOf('.') + 1);
-      if (domain === 'rec.la') {
+      if(domain === 'rec.la') {
         domain = pryv.utility.urls.parseClientURL().parseQuery().domain;
-        console.log('service info from url param (domain) as from rec.la: ' + domain);
-      } 
-      else {
-        console.log('service info from hostname' + domain);
+        console.log('Service info from url param (domain), rec.la dev mode:');
+      } else {
+        console.log('Service info from hostname:');
       }
       serviceInfo = 'https://reg.' + domain + '/service/infos';
-      console.log('serviceInfo ' + serviceInfo);
-    }
-    return serviceInfo;
+  }
+  console.log(serviceInfo);
+  return serviceInfo;
 };
 
 module.exports = SettingsConstructor;
