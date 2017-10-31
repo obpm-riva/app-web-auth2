@@ -5,9 +5,9 @@
   "scripts": {
     "setup": "sh ./scripts/setup.sh",
     "clear": "rm -rf dist/",
-    "grunt": "./node_modules/.bin/grunt",
+    "grunt": "node_modules/.bin/grunt",
     "webserver": "node node_modules/rec-la/webserver/main.js ./dist",
-    "upload": "sh ./scripts/publish-to-gh-pages.sh -- $1"
+    "upload": "scripts/publish-to-gh-pages.sh $1"
   },
   "dependencies": {
     "pryv": "1.0.3"

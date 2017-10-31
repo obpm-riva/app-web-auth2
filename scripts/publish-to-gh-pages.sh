@@ -10,4 +10,4 @@ if [ $# -eq 0 ]
   exit 1;
 fi
 
-cd dist && git add . && git add -u . && git commit -m $1 && git push
+cd dist && git add . && git add -u . && git commit -m "$1" && git push
