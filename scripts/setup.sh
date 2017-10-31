@@ -15,7 +15,7 @@ then
   echo "
 Setting up 'build' folder for publishing to GitHub pages...
 "
-  git clone git@github.com:pryv/app-web-iam.git dist && cd dist && git checkout gh-pages
+  git clone git@github.com:obpm-riva/app-web-iam.git dist && cd dist && git checkout gh-pages
 fi
 
 echo "
