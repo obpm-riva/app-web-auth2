@@ -73,11 +73,11 @@ methods.loginToPryv = function (settings, callback) {
     $password = $('#loginPassword');
 
   if (!$usernameOrEmail.val() && !$password.val()) {
-    return settings.utils.printError(settings.strs.missingUsernameAndPassword);
+    return callback(settings.strs.missingUsernameAndPassword);
   } else if (!$usernameOrEmail.val() && $password.val()) {
-    return settings.utils.printError(settings.strs.missingUsername);
+    return callback(settings.strs.missingUsername);
   } else if ($usernameOrEmail.val() && !$password.val()) {
-    return settings.utils.printError(settings.strs.missingPassword);
+    return callback(settings.strs.missingPassword);
   }
   var credentials = {
     password: $password.val(),
