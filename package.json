@@ -9,7 +9,7 @@
     "webserver": "node node_modules/rec-la/webserver/main.js ./dist/$1"
   },
   "dependencies": {
-    "pryv": "git://github.com/pryv/lib-javascript.git"
+    "pryv": "1.0.3"
   },
   "devDependencies": {
     "grunt": "latest",
@@ -21,7 +21,6 @@
     "i18next-client": "latest",
     "grunt-browserify": "latest",
     "grunt-contrib-copy": "latest",
-    "grunt-contrib-watch": "latest",
-    "rec-la": "latest"
+    "grunt-contrib-watch": "latest"
   }
 }
