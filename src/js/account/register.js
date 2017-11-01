@@ -39,6 +39,7 @@ module.exports.requestRegisterUser = function (e, callback) {
           username : username,
           password: pass
         }
+        registerForm.get(0).reset();
         return callback(null, res);
       })
       .fail(function (xhr) {
