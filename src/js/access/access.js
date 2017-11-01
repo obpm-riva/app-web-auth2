@@ -22,6 +22,8 @@ $(window).ready(function () {
     }
     loadInfo(Settings);
     manageStatus(Settings);
+    managePasswordResetView();
+    manageRegistrationView();
   });
 });
 
@@ -93,12 +95,12 @@ function manageLoginView (Settings) {
 
   $registerButton.click(function() {
     $('#loginContainer').hide();
-    manageRegistrationView();
+    $('#registerContainer').show();
   });
 
   $resetButton.click(function() {
     $('#loginContainer').hide();
-    managePasswordResetView();
+    $('#resetContainer').show();
   });
 }
 
@@ -151,7 +153,6 @@ function managePermissionsView (Settings, callback) {
  * Manages user registration
  */
 function manageRegistrationView () {
-  $('#registerContainer').show();
   register.retrieveHostings();
   $('#registerForm').on('submit', register.requestRegisterUser);
   $('#alreadyUser').click(function() {
@@ -164,7 +165,6 @@ function manageRegistrationView () {
  * Manages password reset
  */
 function managePasswordResetView () {
-  $('#resetContainer').show();
   var $resetForm = $('#resetForm');
   var $changePass = $('#setPass');
   var resetToken = decodeURIComponent((new RegExp('resetToken=' + '(.+?)(&|$)')
