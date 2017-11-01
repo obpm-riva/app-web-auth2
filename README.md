@@ -1,10 +1,13 @@
-# app-web-iam
+# Identity & Authentication Management for app-web (app-web-iam)
 
 Pryv.io web pages for user registration, authentication & password reset.
 
 ## Usage
 
-TODO: how to link your platform to it.
+To use these pages:
+ 
+1. create symlink in #gh-pages, `${DOMAIN}` -> `{v0,1,2}/`
+2. `sw.${DOMAIN}/access/` must proxy to `pryv.github.io/app-web-iam/${DOMAIN}/` 
 
 ## Contribute
 
@@ -14,7 +17,7 @@ Run `yarn setup` to install the dependencies and create the `dist/` folder to pu
 
 Run `yarn grunt` to generate the web pages to `dist/v2`.
 
-Run `yarn webserver`, then open [https://pryv.github.io/app-web-access/?pryv-reg=reg.pryv.me](https://pryv.github.io/app-web-access/?pryv-reg=reg.pryv.me) (replace `pryv.me` if you are working on another platform), click on `Show/hide advanced options` then select `Run on local web-auth (port 4443)`, this will force it to use the pages hosted by the local server.
+Run `yarn webserver`, then open [https://pryv.github.io/app-web-access/?pryv-reg=reg.pryv.me](https://pryv.github.io/app-web-access/?pryv-reg=reg.pryv.me) (replace `pryv.me` if you are working on another platform), click on `Show/hide advanced options` then select `Run on local web-auth (port 4443)`, this will force it to use the pages hosted by the local server. Click on the red "Sign in" button to launch the web app.
 
 Once you are happy with the result, run `yarn upload COMMIT_MESSAGE`.
 
