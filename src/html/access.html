@@ -40,11 +40,11 @@
 
       <hr>
     </form>
-  </div>
-
-  <div class="form-group">
-    <button id="loginFormRegister" class="btn btn-default btn-sm form-toggle" data-mode="login">Create an account</button>
-    <button id="loginFormReset" class="btn btn-default btn-sm form-toggle" data-mode="login">Forgot password</button>
+    
+    <div class="form-group">
+      <button id="loginFormRegister" class="btn btn-default btn-sm form-toggle" data-mode="login">Create an account</button>
+      <button id="loginFormReset" class="btn btn-default btn-sm form-toggle" data-mode="login">Forgot password</button>
+    </div>
   </div>
 
   <!-- Permissions View -->
@@ -80,6 +80,98 @@
   <div id="loaderContainer">
     <h4 id="loaderState"></h4>
     <p id="loaderMessage"></p>
+  </div>
+  
+  <!-- Register View -->
+  <div id="registerContainer">
+    <div id="error" class="alert alert-danger" style="display: none;"></div>
+
+    <form role="form" id="registerForm">
+        <h1>Register a new user</h1>
+        
+        <div class="form-group">
+          <label>E-mail address</label>
+          <input class="form-control" name="email" type="text" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Username</label>
+          <input class="form-control" name="username" type="text" placeholder="Use at least 5 characters" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Password</label>
+          <input class="form-control" name="pass" type="password" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Confirm password</label>
+          <input class="form-control" name="rePass" type="password" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Host my data in</label>
+          <select class="form-control" id="hosting" required></select>
+        </div>
+        
+        <p>By registering you agree with our <a href="http://pryv.com/terms-of-use/" target="_blank"><strong>terms of use</strong></a> and our <a href="http://pryv.com/privacy/" target="_blank"><strong>privacy policy</strong></a>.</p>
+
+        <div class="form-group">
+            <input class="btn btn-success btn-block" type="submit" value="Send request">
+        </div>
+    </form>
+  </div>
+  
+  <!-- Reset Password View -->
+  <div id="resetContainer">
+    <div id="error" class="alert alert-danger" style="display: none;"></div>
+
+    <form role="form" id="setPass">
+        <h1>Set a new password</h1>
+
+        <div class="form-group">
+            <label>Username</label>
+            <input class="form-control" name="username" type="text" required>
+        </div>
+
+        <div class="form-group">
+            <label>New password</label>
+            <input class="form-control" name="password" type="password" required>
+        </div>
+
+        <div class="form-group">
+            <label>Re-type new password</label>
+            <input class="form-control" name="rePassword" type="password" required>
+        </div>
+
+        <div class="form-group">
+            <input class="btn btn-success btn-block" type="submit" value="Save">
+        </div>
+    </form>
+
+    <form role="form" id="resetForm">
+        <h1>Request password reset</h1>
+
+        <div class="form-group">
+            <label>Please enter your username</label>
+            <input class="form-control" name="username" type="text" required>
+        </div>
+
+        <div class="form-group">
+            <input class="btn btn-success btn-block" type="submit" value="Send request">
+        </div>
+    </form>
+
+    <div id="requestSent" class="panel panel-default" style="display: none;">
+        <div class="panel-body">
+            <div class="resend-password-wrapper" style="color: #000;">
+                <h3>We've sent password reset instructions to your e-mail address</h3>
+
+                <p>If you don't receive a message within a few minutes, you may want to have a
+                    look in your junk mail.</p>
+            </div>
+        </div>
+    </div>
   </div>
 </div>
 </body>

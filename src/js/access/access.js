@@ -3,14 +3,19 @@
 var $ = require('jquery'),
   cookie = require('js-cookie'),
   methods = require('./methods');
+  
+var register = require('../account/register');
+var reset = require('../account/reset');
 
 /**
  * Initialize login form
  */
 $(window).ready(function () {
   var $loginForm = $('#loginForm');
-
   $loginForm.submit(function () { return false; });
+  $('#registerContainer').hide();
+  $('#resetContainer').hide();
+  
   methods.buildSettings(function (err, Settings) {
     if (err) {
       return methods.manageState(Settings, 'ERROR', err);
@@ -87,19 +92,14 @@ function manageLoginView (Settings) {
   });
 
   $registerButton.click(function() {
-    openPage('register.html');
+    $('#loginContainer').hide();
+    manageRegistrationView();
   });
 
   $resetButton.click(function() {
-    openPage('reset-password.html');
+    $('#loginContainer').hide();
+    managePasswordResetView();
   });
-}
-
-function openPage(page) {
-  var origin = location.href;
-  // TODO: review the way of retrieving current url
-  location.href = origin.substring(0,origin.lastIndexOf('/') + 1) + page +
-    '?returnUrl=' + origin;
 }
 
 /**
@@ -145,4 +145,46 @@ function managePermissionsView (Settings, callback) {
       if (i === array.length - 1) { return callback(); }
     }, i * 1000);
   });
+}
+
+/**
+ * Manages user registration
+ */
+function manageRegistrationView () {
+  $('#registerContainer').show();
+  register.retrieveHostings();
+  $('#registerForm').on('submit', function(e) {
+    register.requestRegisterUser(e, function(err, res) {
+      if(err) {
+        $('#error').text(err).show();
+        $('#registerForm').find('input[type=submit]').prop('disabled', false);
+      } else {
+        $('#loginUsernameOrEmail').val(res.username);
+        $('#loginPassword').val(res.password);
+        $('#registerContainer').hide();
+        $('#loginContainer').show();
+      }
+    });
+  });
+}
+
+/**
+ * Manages password reset
+ */
+function managePasswordResetView () {
+  $('#resetContainer').show();
+  var $resetForm = $('#resetForm');
+  var $changePass = $('#setPass');
+  var resetToken = decodeURIComponent((new RegExp('resetToken=' + '(.+?)(&|$)')
+    .exec(location.search)||['',''])[1]);
+  
+  $resetForm.on('submit', reset.requestResetPassword);
+  $changePass.on('submit', reset.setPassword);
+  if (resetToken) {
+    $resetForm.hide();
+    $changePass.show();
+  } else {
+    $resetForm.show();
+    $changePass.hide();
+  }
 }

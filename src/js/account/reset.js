@@ -1,32 +1,30 @@
-var $ = require('jquery'),
-  pryv = require('pryv');
+var $ = require('jquery');
 
 var getURLParameter = function (name) {
   return decodeURIComponent((new RegExp(name + '=' + '(.+?)(&|$)')
     .exec(location.search)||['',''])[1]);
 };
 
-var getEnvironment = function () {
-  // TODO: Maybe use getURLParameter and parse
-  // TODO: Also return api env
-  var env = pryv.Auth.config.registerURL.host;
-  env = env.substring(4);
-  return env;
-};
-
-var requestResetPassword = function (e) {
+module.exports.requestResetPassword = function (e) {
   e.preventDefault();
   var resetForm = $('#resetForm');
   var username = resetForm.find('input[name=username]').val();
   if (username && username.length > 0) {
     resetForm.find('input[type=submit]').prop('disabled', true);
-    $.post('https://' + username + '.' + getEnvironment() +
+    var domain = Settings.retrieveServiceInfo().replace('/service/infos', '')
+      .replace('https://reg.');
+    $.post('https://' + username + '.' + domain +
       '/account/request-password-reset', {appId: 'static-web'})
       .done(function () {
         $('#error').hide().empty();
         resetForm.hide();
         $('#requestSent').show();
         resetForm.find('input[type=submit]').prop('disabled', false);
+        var returnUrl = location.href.substring(location.href.indexOf('returnUrl=')).replace('returnUrl=','');
+        if(!returnUrl) {
+          returnUrl = 'https://' + username + '.' +
+            reg.replace('https://reg.', '') + '/#/SignIn';
+        }
       })
       .fail(function () {
         $('#error').text('Username unknown').show();
@@ -35,7 +33,7 @@ var requestResetPassword = function (e) {
   }
 };
 
-var setPassword = function (e) {
+module.exports.setPassword = function (e) {
   e.preventDefault();
   var setPass = $('#setPass');
   var username = setPass.find('input[name=username]').val();
@@ -43,7 +41,9 @@ var setPassword = function (e) {
   var rePass = setPass.find('input[name=rePassword]').val();
   if (username && username.length > 0 && pass && pass === rePass) {
     setPass.find('input[type=submit]').prop('disabled', true);
-    $.post('https://' + username + '.' + getEnvironment() + '/account/reset-password',
+    var domain = Settings.retrieveServiceInfo().replace('/service/infos', '')
+      .replace('https://reg.');
+    $.post('https://' + username + '.' + domain + '/account/reset-password',
       {newPassword: pass, appId: 'static-web', resetToken : getURLParameter('resetToken')})
       .done(function () {
         window.location.replace('https://' + username + '.' +
@@ -55,18 +55,3 @@ var setPassword = function (e) {
       });
   }
 };
-
-$(document).ready(function(){
-  var $resetForm = $('#resetForm');
-  var $changePass = $('#setPass');
-  var resetToken = getURLParameter('resetToken');
-  $resetForm.on('submit', requestResetPassword);
-  $changePass.on('submit', setPassword);
-  if (resetToken) {
-    $resetForm.hide();
-    $changePass.show();
-  } else {
-    $resetForm.show();
-    $changePass.hide();
-  }
-});
