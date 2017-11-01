@@ -166,12 +166,11 @@ function manageRegistrationView () {
       }
     });
   });
+  $('#alreadyUser').click(function() {
+    $('#registerContainer').hide();
+    $('#loginContainer').show();
+  });
 }
-
-$('#alreadyUser').click(function() {
-  $('#registerContainer').hide();
-  $('#loginContainer').show();
-});
 
 /**
  * Manages password reset
