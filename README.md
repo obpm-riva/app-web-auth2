@@ -4,7 +4,10 @@ Pryv.io web pages for user registration, authentication & password reset.
 
 ## Usage
 
-TODO: how to link your platform to it.
+To use these pages:
+ 
+1. create symlink in #gh-pages, `${DOMAIN}` -> `{v0,1,2}/`
+2. `sw.${DOMAIN}/access/` must proxy to `pryv.github.io/app-web-iam/${DOMAIN}/` 
 
 ## Contribute
 
