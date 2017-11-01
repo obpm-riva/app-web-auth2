@@ -13,15 +13,17 @@
     "pryv": "1.0.3"
   },
   "devDependencies": {
-    "grunt": "latest",
     "async": "latest",
-    "jquery": "latest",
-    "rec-la": "latest",
-    "js-cookie": "latest",
-    "superagent": "latest",
-    "i18next-client": "latest",
+    "babel-eslint": "^8.0.1",
+    "eslint": "^4.10.0",
+    "grunt": "latest",
     "grunt-browserify": "latest",
     "grunt-contrib-copy": "latest",
-    "grunt-contrib-watch": "latest"
+    "grunt-contrib-watch": "latest",
+    "i18next-client": "latest",
+    "jquery": "latest",
+    "js-cookie": "latest",
+    "rec-la": "latest",
+    "superagent": "latest"
   }
 }
