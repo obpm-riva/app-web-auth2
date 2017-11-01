@@ -8,7 +8,7 @@ function getURLParameter (name) {
     .exec(location.search)||['',''])[1]);
 };
 
-module.exports.requestRegisterUser = function (e, callback) {
+module.exports.requestRegisterUser = function (e) {
   e.preventDefault();
   var registerForm = $('#registerForm');
   var username = registerForm.find('input[name=username]').val();
@@ -35,15 +35,15 @@ module.exports.requestRegisterUser = function (e, callback) {
         invitationtoken: 'enjoy'
       })
       .done(function () {
-        var res = {
-          username : username,
-          password: pass
-        }
         registerForm.get(0).reset();
-        return callback(null, res);
+        $('#loginUsernameOrEmail').val(username);
+        $('#loginPassword').val(pass);
+        $('#registerContainer').hide();
+        $('#loginContainer').show();
       })
       .fail(function (xhr) {
-        return callback(xhr.responseJSON.message);
+        $('#error').text(xhr.responseJSON.message).show();
+        $('#registerForm').find('input[type=submit]').prop('disabled', false);
       });
   }
 };

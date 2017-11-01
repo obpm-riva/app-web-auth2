@@ -153,19 +153,7 @@ function managePermissionsView (Settings, callback) {
 function manageRegistrationView () {
   $('#registerContainer').show();
   register.retrieveHostings();
-  $('#registerForm').on('submit', function(e) {
-    register.requestRegisterUser(e, function(err, res) {
-      if(err) {
-        $('#error').text(err).show();
-        $('#registerForm').find('input[type=submit]').prop('disabled', false);
-      } else {
-        $('#loginUsernameOrEmail').val(res.username);
-        $('#loginPassword').val(res.password);
-        $('#registerContainer').hide();
-        $('#loginContainer').show();
-      }
-    });
-  });
+  $('#registerForm').on('submit', register.requestRegisterUser);
   $('#alreadyUser').click(function() {
     $('#registerContainer').hide();
     $('#loginContainer').show();
@@ -191,4 +179,8 @@ function managePasswordResetView () {
     $resetForm.show();
     $changePass.hide();
   }
+  $('#goToLogin').click(function() {
+    $('#resetContainer').hide();
+    $('#loginContainer').show();
+  });
 }

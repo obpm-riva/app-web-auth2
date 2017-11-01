@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var Settings = require('../utils/Settings');
 
 var getURLParameter = function (name) {
   return decodeURIComponent((new RegExp(name + '=' + '(.+?)(&|$)')
@@ -12,19 +13,16 @@ module.exports.requestResetPassword = function (e) {
   if (username && username.length > 0) {
     resetForm.find('input[type=submit]').prop('disabled', true);
     var domain = Settings.retrieveServiceInfo().replace('/service/infos', '')
-      .replace('https://reg.');
+      .replace('https://reg.', '');
+      
     $.post('https://' + username + '.' + domain +
       '/account/request-password-reset', {appId: 'static-web'})
       .done(function () {
+        resetForm.get(0).reset();
         $('#error').hide().empty();
         resetForm.hide();
         $('#requestSent').show();
         resetForm.find('input[type=submit]').prop('disabled', false);
-        var returnUrl = location.href.substring(location.href.indexOf('returnUrl=')).replace('returnUrl=','');
-        if(!returnUrl) {
-          returnUrl = 'https://' + username + '.' +
-            reg.replace('https://reg.', '') + '/#/SignIn';
-        }
       })
       .fail(function () {
         $('#error').text('Username unknown').show();
@@ -42,12 +40,15 @@ module.exports.setPassword = function (e) {
   if (username && username.length > 0 && pass && pass === rePass) {
     setPass.find('input[type=submit]').prop('disabled', true);
     var domain = Settings.retrieveServiceInfo().replace('/service/infos', '')
-      .replace('https://reg.');
+      .replace('https://reg.', '');
     $.post('https://' + username + '.' + domain + '/account/reset-password',
       {newPassword: pass, appId: 'static-web', resetToken : getURLParameter('resetToken')})
       .done(function () {
-        window.location.replace('https://' + username + '.' +
-          getEnvironment() + '/#/SignIn');
+        setPass.get(0).reset();
+        $('#loginUsernameOrEmail').val(username);
+        $('#loginPassword').val(pass);
+        $('#resetContainer').hide();
+        $('#loginContainer').show();
       })
       .fail(function () {
         $('#error').text('Username unknown').show();
