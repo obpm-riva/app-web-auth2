@@ -37326,12 +37326,12 @@ function extend() {
 var $ = require('jquery');
 var Settings = require('../utils/Settings');
 
-var getURLParameter = function (name) {
+function getURLParameter (name) {
   return decodeURIComponent((new RegExp(name + '=' + '(.+?)(&|$)')
     .exec(location.search)||['',''])[1]);
 };
 
-var requestRegisterUser = function (e) {
+module.exports.requestRegisterUser = function (e) {
   e.preventDefault();
   var registerForm = $('#registerForm');
   var username = registerForm.find('input[name=username]').val();
@@ -37358,17 +37358,20 @@ var requestRegisterUser = function (e) {
         invitationtoken: 'enjoy'
       })
       .done(function () {
-        window.location.replace('https://' + username + '.' +
-          reg.replace('https://reg.', '') + '/#/SignIn');
+        registerForm.get(0).reset();
+        $('#loginUsernameOrEmail').val(username);
+        $('#loginPassword').val(pass);
+        $('#registerContainer').hide();
+        $('#loginContainer').show();
       })
       .fail(function (xhr) {
         $('#error').text(xhr.responseJSON.message).show();
-        registerForm.find('input[type=submit]').prop('disabled', false);
+        $('#registerForm').find('input[type=submit]').prop('disabled', false);
       });
   }
 };
 
-function retrieveHostings () {
+module.exports.retrieveHostings = function () {
   var registerForm = $('#registerForm');
   var hostings = $('#hosting');
   registerForm.find('input[type=submit]').prop('disabled', true);
@@ -37403,12 +37406,6 @@ function retrieveHostings () {
       $('#error').text('Unable to retrieve hostings: ' + xhr.responseJSON.message).show();
     });
 }
-
-$(document).ready(function(){
-  var $registerForm = $('#registerForm');
-  retrieveHostings();
-  $registerForm.on('submit', requestRegisterUser);
-});
 },{"../utils/Settings":89,"jquery":18}],89:[function(require,module,exports){
 /* global module, require */
 

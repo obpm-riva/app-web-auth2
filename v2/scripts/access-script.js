@@ -47532,20 +47532,27 @@ function extend() {
 var $ = require('jquery'),
   cookie = require('js-cookie'),
   methods = require('./methods');
+  
+var register = require('../account/register');
+var reset = require('../account/reset');
 
 /**
  * Initialize login form
  */
 $(window).ready(function () {
   var $loginForm = $('#loginForm');
-
   $loginForm.submit(function () { return false; });
+  $('#registerContainer').hide();
+  $('#resetContainer').hide();
+  
   methods.buildSettings(function (err, Settings) {
     if (err) {
       return methods.manageState(Settings, 'ERROR', err);
     }
     loadInfo(Settings);
     manageStatus(Settings);
+    managePasswordResetView();
+    manageRegistrationView();
   });
 });
 
@@ -47616,19 +47623,14 @@ function manageLoginView (Settings) {
   });
 
   $registerButton.click(function() {
-    openPage('register.html');
+    $('#loginContainer').hide();
+    $('#registerContainer').show();
   });
 
   $resetButton.click(function() {
-    openPage('reset-password.html');
+    $('#loginContainer').hide();
+    $('#resetContainer').show();
   });
-}
-
-function openPage(page) {
-  var origin = location.href;
-  // TODO: review the way of retrieving current url
-  location.href = origin.substring(0,origin.lastIndexOf('/') + 1) + page +
-    '?returnUrl=' + origin;
 }
 
 /**
@@ -47676,7 +47678,43 @@ function managePermissionsView (Settings, callback) {
   });
 }
 
-},{"./methods":100,"jquery":22,"js-cookie":23}],100:[function(require,module,exports){
+/**
+ * Manages user registration
+ */
+function manageRegistrationView () {
+  register.retrieveHostings();
+  $('#registerForm').on('submit', register.requestRegisterUser);
+  $('#alreadyUser').click(function() {
+    $('#registerContainer').hide();
+    $('#loginContainer').show();
+  });
+}
+
+/**
+ * Manages password reset
+ */
+function managePasswordResetView () {
+  var $resetForm = $('#resetForm');
+  var $changePass = $('#setPass');
+  var resetToken = decodeURIComponent((new RegExp('resetToken=' + '(.+?)(&|$)')
+    .exec(location.search)||['',''])[1]);
+  
+  $resetForm.on('submit', reset.requestResetPassword);
+  $changePass.on('submit', reset.setPassword);
+  if (resetToken) {
+    $resetForm.hide();
+    $changePass.show();
+  } else {
+    $resetForm.show();
+    $changePass.hide();
+  }
+  $('#goToLogin').click(function() {
+    $('#resetContainer').hide();
+    $('#loginContainer').show();
+  });
+}
+
+},{"../account/register":102,"../account/reset":103,"./methods":100,"jquery":22,"js-cookie":23}],100:[function(require,module,exports){
 /* global module, require */
 
 var cookie = require('js-cookie'),
@@ -47905,7 +47943,7 @@ function endPopUp(err, settings, stateTitle, message) {
     }
   }, 2000);
 }
-},{"../utils/Locale":102,"../utils/Settings":103,"./requests":101,"async":2,"jquery":22,"js-cookie":23,"pryv":48}],101:[function(require,module,exports){
+},{"../utils/Locale":104,"../utils/Settings":105,"./requests":101,"async":2,"jquery":22,"js-cookie":23,"pryv":48}],101:[function(require,module,exports){
 /* global module, require */
 
 var request = require('superagent');
@@ -48077,6 +48115,152 @@ requests.sendState = function (Settings, data, message, callback) {
 
 module.exports = requests;
 },{"superagent":85}],102:[function(require,module,exports){
+/* jshint ignore:start */
+
+var $ = require('jquery');
+var Settings = require('../utils/Settings');
+
+function getURLParameter (name) {
+  return decodeURIComponent((new RegExp(name + '=' + '(.+?)(&|$)')
+    .exec(location.search)||['',''])[1]);
+};
+
+module.exports.requestRegisterUser = function (e) {
+  e.preventDefault();
+  var registerForm = $('#registerForm');
+  var username = registerForm.find('input[name=username]').val();
+  var email = registerForm.find('input[name=email]').val();
+  var pass = registerForm.find('input[name=pass]').val();
+  var rePass = registerForm.find('input[name=rePass]').val();
+  var hosting = $('#hosting').val();
+
+  if(pass !== rePass) {
+    $('#error').text('Password confirmation failed!').show();
+  } else {
+    $('#error').hide().empty();
+    registerForm.find('input[type=submit]').prop('disabled', true);
+    var reg = Settings.retrieveServiceInfo().replace('/service/infos', '');
+    $.post(reg + '/user',
+      {
+        appid: getURLParameter('requestingAppId'),
+        username: username,
+        password: pass,
+        email: email,
+        languageCode: getURLParameter('lang'),
+        hosting: hosting,
+        // TODO: maybe make this optional
+        invitationtoken: 'enjoy'
+      })
+      .done(function () {
+        registerForm.get(0).reset();
+        $('#loginUsernameOrEmail').val(username);
+        $('#loginPassword').val(pass);
+        $('#registerContainer').hide();
+        $('#loginContainer').show();
+      })
+      .fail(function (xhr) {
+        $('#error').text(xhr.responseJSON.message).show();
+        $('#registerForm').find('input[type=submit]').prop('disabled', false);
+      });
+  }
+};
+
+module.exports.retrieveHostings = function () {
+  var registerForm = $('#registerForm');
+  var hostings = $('#hosting');
+  registerForm.find('input[type=submit]').prop('disabled', true);
+  var reg = Settings.retrieveServiceInfo().replace('/service/infos', '');
+  $.get(reg +'/hostings')
+    .done(function (data) {
+      $('#error').hide().empty();
+      registerForm.find('input[type=submit]').prop('disabled', false);
+      $.each(data, function (i, optgroups) {
+        $.each(optgroups, function (groupId, group) {
+          var $optgroup = $('<optgroup>', {label: group.name});
+          $optgroup.appendTo(hostings);
+          if (group.zones) {
+            $.each(group.zones, function (zoneId, zone) {
+              var zoneName = zone.name;
+              if (zone.hostings) {
+                $.each(zone.hostings, function (hostingId, hosting) {
+                  var $option = $('<option>', {
+                    text: zoneName + (! hosting.available ? ': coming soon' : ''),
+                    value: hostingId
+                  });
+                  $option.appendTo($optgroup);
+                });
+              }
+            });
+          }
+        });
+      });
+
+    })
+    .fail(function (xhr) {
+      $('#error').text('Unable to retrieve hostings: ' + xhr.responseJSON.message).show();
+    });
+}
+},{"../utils/Settings":105,"jquery":22}],103:[function(require,module,exports){
+var $ = require('jquery');
+var Settings = require('../utils/Settings');
+
+var getURLParameter = function (name) {
+  return decodeURIComponent((new RegExp(name + '=' + '(.+?)(&|$)')
+    .exec(location.search)||['',''])[1]);
+};
+
+module.exports.requestResetPassword = function (e) {
+  e.preventDefault();
+  var resetForm = $('#resetForm');
+  var username = resetForm.find('input[name=username]').val();
+  if (username && username.length > 0) {
+    resetForm.find('input[type=submit]').prop('disabled', true);
+    var domain = Settings.retrieveServiceInfo().replace('/service/infos', '')
+      .replace('https://reg.', '');
+      
+    $.post('https://' + username + '.' + domain +
+      '/account/request-password-reset', {appId: 'static-web'})
+      .done(function () {
+        resetForm.get(0).reset();
+        $('#error').hide().empty();
+        resetForm.hide();
+        $('#requestSent').show();
+        resetForm.find('input[type=submit]').prop('disabled', false);
+      })
+      .fail(function () {
+        $('#error').text('Username unknown').show();
+        resetForm.find('input[type=submit]').prop('disabled', false);
+      });
+  }
+};
+
+module.exports.setPassword = function (e) {
+  e.preventDefault();
+  var setPass = $('#setPass');
+  var username = setPass.find('input[name=username]').val();
+  var pass = setPass.find('input[name=password]').val();
+  var rePass = setPass.find('input[name=rePassword]').val();
+  if (username && username.length > 0 && pass && pass === rePass) {
+    setPass.find('input[type=submit]').prop('disabled', true);
+    var domain = Settings.retrieveServiceInfo().replace('/service/infos', '')
+      .replace('https://reg.', '');
+    $.post('https://' + username + '.' + domain + '/account/reset-password',
+      {newPassword: pass, appId: 'static-web', resetToken : getURLParameter('resetToken')})
+      .done(function () {
+        setPass.get(0).reset();
+        $('#loginUsernameOrEmail').val(username);
+        $('#loginPassword').val(pass);
+        $('#resetContainer').hide();
+        $('#loginContainer').show();
+      })
+      .fail(function () {
+        $('#error').text('Username unknown').show();
+        setPass.find('input[type=submit]').prop('disabled', false);
+      });
+  }
+};
+
+},{"../utils/Settings":105,"jquery":22}],104:[function(require,module,exports){
 /* global module, require */
 
 var $ = require('jquery'),
@@ -48187,7 +48371,7 @@ function updateLoginHTML(t) {
   $signInButton.text(t('sign-in-button'));
   $cancelButton.text(t('cancel-button'));
 }
-},{"./../../../locales.json":1,"i18next-client":17,"jquery":22,"pryv":48}],103:[function(require,module,exports){
+},{"./../../../locales.json":1,"i18next-client":17,"jquery":22,"pryv":48}],105:[function(require,module,exports){
 /* global module, require */
 
 var UtilityConstructor = require('./Utility');
@@ -48266,7 +48450,7 @@ SettingsConstructor.retrieveServiceInfo = function() {
 };
 
 module.exports = SettingsConstructor;
-},{"./Utility":104,"pryv":48}],104:[function(require,module,exports){
+},{"./Utility":106,"pryv":48}],106:[function(require,module,exports){
 /* global module, require */
 
 var $ = require('jquery');
