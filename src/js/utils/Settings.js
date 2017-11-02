@@ -62,14 +62,14 @@ SettingsConstructor.retrieveServiceInfo = function() {
     serviceInfo = window.pryvServiceInfo;
     console.log('Service info from window var:');
   } else {
-      var domain = document.location.hostname.substr(document.location.hostname.indexOf('.') + 1);
-      if(domain === 'rec.la') {
-        domain = pryv.utility.urls.parseClientURL().parseQuery().domain;
-        console.log('Service info from url param (domain), rec.la dev mode:');
-      } else {
-        console.log('Service info from hostname:');
-      }
-      serviceInfo = 'https://reg.' + domain + '/service/infos';
+    var domain = document.location.hostname.substr(document.location.hostname.indexOf('.') + 1);
+    if(domain === 'rec.la') {
+      domain = pryv.utility.urls.parseClientURL().parseQuery().domain;
+      console.log('Service info from url param (domain), rec.la dev mode:');
+    } else {
+      console.log('Service info from hostname:');
+    }
+    serviceInfo = 'https://reg.' + domain + '/service/infos';
   }
   console.log(serviceInfo);
   return serviceInfo;
