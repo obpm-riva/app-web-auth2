@@ -37344,10 +37344,10 @@ $(document).ready(function(){
   });
     
   $('#regButton').click(function(e) {
-      e.preventDefault();
-      var origin = location.href;
-      location.href = origin.substring(0,origin.lastIndexOf('/') + 1) + 'register.html?returnUrl=' + origin;
-    });
+    e.preventDefault();
+    var origin = location.href;
+    location.href = origin.substring(0,origin.lastIndexOf('/') + 1) + 'register.html?returnUrl=' + origin;
+  });
 });
 },{"../utils/Settings":89,"jquery":18}],89:[function(require,module,exports){
 /* global module, require */

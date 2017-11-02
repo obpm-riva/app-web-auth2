@@ -47529,10 +47529,9 @@ function extend() {
 },{}],99:[function(require,module,exports){
 /* global require */
 
-var $ = require('jquery'),
-  cookie = require('js-cookie'),
-  methods = require('./methods');
-  
+var $ = require('jquery');
+var cookie = require('js-cookie');
+var methods = require('./methods');
 var register = require('../account/register');
 var reset = require('../account/reset');
 
@@ -47551,8 +47550,8 @@ $(window).ready(function () {
     }
     loadInfo(Settings);
     manageStatus(Settings);
-    managePasswordResetView();
-    manageRegistrationView();
+    managePasswordResetView(Settings);
+    manageRegistrationView(Settings);
   });
 });
 
@@ -47562,9 +47561,9 @@ $(window).ready(function () {
  * @param Settings {Object}
  */
 function loadInfo (Settings) {
-  var $usernameField = $('#loginUsernameOrEmail'),
-    $passwordField = $('#loginPassword'),
-    $pageTitle = $('title');
+  var $usernameField = $('#loginUsernameOrEmail');
+  var $passwordField = $('#loginPassword');
+  var $pageTitle = $('title');
 
   if (cookie.get('credentials')) {
     var credentials = JSON.parse(cookie.get('credentials'));
@@ -47582,18 +47581,18 @@ function manageStatus(Settings) {
   Settings.utils.$blockContainer.hide();
 
   switch(Settings.access.status) {
-    case 'NEED_SIGNIN':
-      Settings.utils.toggleMainView('show');
-      manageLoginView(Settings);
-      break;
-    case 'ACCEPTED':
-      Settings.addAuth({ username: Settings.access.username,
-        token: Settings.access.token });
-      methods.manageState(Settings, 'ACCEPTED', Settings.strs.closing);
-      break;
-    case 'ERROR':
-      methods.manageState(Settings, 'ERROR', Settings.strs.genericError);
-      break;
+  case 'NEED_SIGNIN':
+    Settings.utils.toggleMainView('show');
+    manageLoginView(Settings);
+    break;
+  case 'ACCEPTED':
+    Settings.addAuth({ username: Settings.access.username,
+      token: Settings.access.token });
+    methods.manageState(Settings, 'ACCEPTED', Settings.strs.closing);
+    break;
+  case 'ERROR':
+    methods.manageState(Settings, 'ERROR', Settings.strs.genericError);
+    break;
   }
 }
 
@@ -47602,10 +47601,10 @@ function manageStatus(Settings) {
  * @param Settings
  */
 function manageLoginView (Settings) {
-  var $cancelButton = $('#cancelButton'),
-    $loginForm = $('#loginForm'),
-    $registerButton = $('#loginFormRegister'),
-    $resetButton = $('#loginFormReset');
+  var $cancelButton = $('#cancelButton');
+  var $loginForm = $('#loginForm');
+  var $registerButton = $('#loginFormRegister');
+  var $resetButton = $('#loginFormReset');
 
   $loginForm.submit(function () {
     if (!Settings.logIn) {
@@ -47644,8 +47643,8 @@ function managePostLogin (Settings) {
     Settings.utils.permissionsState(false);
 
     managePermissionsView(Settings, function () {
-      var $permissionsAccept = $('#permissionsAccept'),
-        $permissionsReject = $('#permissionsReject');
+      var $permissionsAccept = $('#permissionsAccept');
+      var $permissionsReject = $('#permissionsReject');
 
       setTimeout(function () { Settings.utils.permissionsState(false); }, 500);
       $permissionsAccept.click(function () {
@@ -47681,9 +47680,21 @@ function managePermissionsView (Settings, callback) {
 /**
  * Manages user registration
  */
-function manageRegistrationView () {
-  register.retrieveHostings();
-  $('#registerForm').on('submit', register.requestRegisterUser);
+function manageRegistrationView (Settings) {
+  var reg = Settings.info.register;
+  var appId = getURLParameter('requestingAppId');
+  var lang = getURLParameter('lang');
+  
+  var terms = $('#termsLink');
+  var support = $('#supportLink');
+  terms.attr('href', Settings.info.terms);
+  support.attr('href', Settings.info.support);
+  
+  register.retrieveHostings(reg);
+  $('#registerForm').on('submit', function(e) {
+    e.preventDefault();
+    register.requestRegisterUser(reg, appId, lang);
+  });
   $('#alreadyUser').click(function() {
     $('#registerContainer').hide();
     $('#loginContainer').show();
@@ -47693,14 +47704,20 @@ function manageRegistrationView () {
 /**
  * Manages password reset
  */
-function managePasswordResetView () {
+function managePasswordResetView (Settings) {
   var $resetForm = $('#resetForm');
   var $changePass = $('#setPass');
-  var resetToken = decodeURIComponent((new RegExp('resetToken=' + '(.+?)(&|$)')
-    .exec(location.search)||['',''])[1]);
-  
-  $resetForm.on('submit', reset.requestResetPassword);
-  $changePass.on('submit', reset.setPassword);
+  var resetToken = getURLParameter('resetToken');
+  var domain = Settings.info.register.replace('https://reg.', '');
+
+  $resetForm.on('submit', function(e) {
+    e.preventDefault();
+    reset.requestResetPassword(domain);
+  });
+  $changePass.on('submit', function(e) {
+    e.preventDefault();
+    reset.setPassword(domain, resetToken);
+  });
   if (resetToken) {
     $resetForm.hide();
     $changePass.show();
@@ -47714,17 +47731,21 @@ function managePasswordResetView () {
   });
 }
 
+function getURLParameter (name) {
+  return decodeURIComponent((new RegExp(name + '=' + '(.+?)(&|$)')
+    .exec(location.search)||['',''])[1]);
+}
 },{"../account/register":102,"../account/reset":103,"./methods":100,"jquery":22,"js-cookie":23}],100:[function(require,module,exports){
 /* global module, require */
 
-var cookie = require('js-cookie'),
-  async = require('async'),
-  pryv = require('pryv'),
-  $ = require('jquery');
+var cookie = require('js-cookie');
+var async = require('async');
+var pryv = require('pryv');
+var $ = require('jquery');
 
-var requests = require('./requests'),
-  Locale = require('../utils/Locale'),
-  Settings = require('../utils/Settings');
+var requests = require('./requests');
+var Locale = require('../utils/Locale');
+var Settings = require('../utils/Settings');
 
 var methods = {};
 
@@ -47786,8 +47807,8 @@ methods.buildSettings = function (callback) {
  * @param callback {Function}
  */
 methods.loginToPryv = function (settings, callback) {
-  var $usernameOrEmail = $('#loginUsernameOrEmail'),
-    $password = $('#loginPassword');
+  var $usernameOrEmail = $('#loginUsernameOrEmail');
+  var $password = $('#loginPassword');
 
   if (!$usernameOrEmail.val() && !$password.val()) {
     return callback(settings.strs.missingUsernameAndPassword);
@@ -47832,44 +47853,44 @@ methods.manageState = function (settings, status, message) {
   var data = {state: {}, stateTitle: ''};
 
   switch (status) {
-    case 'ACCEPTED':
-      data = {
-        stateTitle: settings.strs.accessGranted.replace('{username}', settings.auth.username),
-        state: {
-          status: status,
-          username: settings.auth.username,
-          token: settings.appToken,
-          lang: settings.params.lang
-        }
-      };
-      break;
-    case 'REFUSED':
-      data = {
-        stateTitle: settings.strs.accessCanceled,
-        state: {
-          status: status,
-          reasonId: 'REFUSED_BY_USER',
-          message: message
-        }
-      };
-      break;
-    case 'ERROR':
-      if (message.response) {
-        message = message.response.body;
+  case 'ACCEPTED':
+    data = {
+      stateTitle: settings.strs.accessGranted.replace('{username}', settings.auth.username),
+      state: {
+        status: status,
+        username: settings.auth.username,
+        token: settings.appToken,
+        lang: settings.params.lang
       }
-      if (message.error) {
-        message = message.error;
+    };
+    break;
+  case 'REFUSED':
+    data = {
+      stateTitle: settings.strs.accessCanceled,
+      state: {
+        status: status,
+        reasonId: 'REFUSED_BY_USER',
+        message: message
       }
-      data = {
-        stateTitle: settings.strs.genericError,
-        state: {
-          status: 'ERROR',
-          id: message.id || 'INTERNAL_ERROR',
-          message: message.message || '',
-          detail: message.detail || ''
-        }
-      };
-      break;
+    };
+    break;
+  case 'ERROR':
+    if (message.response) {
+      message = message.response.body;
+    }
+    if (message.error) {
+      message = message.error;
+    }
+    data = {
+      stateTitle: settings.strs.genericError,
+      state: {
+        status: 'ERROR',
+        id: message.id || 'INTERNAL_ERROR',
+        message: message.message || '',
+        detail: message.detail || ''
+      }
+    };
+    break;
   }
 
   if (status === 'ACCEPTED' && !data.state.token) {
@@ -48009,9 +48030,6 @@ requests.getUidIfEmail = function (Settings, credentials, callback) {
       .get(Settings.info.register + '/' + credentials.usernameOrEmail + '/uid')
       .end(function (err, res) {
         if (err) { return callback(err, Settings); }
-        console.log(Settings.strs.uidWithMail
-          .replace('{mail}', '\"' + credentials.usernameOrEmail + '\"')
-          .replace('{username}', '\"' + res.body.uid + '\"'));
         callback(null, Settings, { uid: res.body.uid, password: credentials.password });
       });
   } else {
@@ -48115,18 +48133,9 @@ requests.sendState = function (Settings, data, message, callback) {
 
 module.exports = requests;
 },{"superagent":85}],102:[function(require,module,exports){
-/* jshint ignore:start */
-
 var $ = require('jquery');
-var Settings = require('../utils/Settings');
 
-function getURLParameter (name) {
-  return decodeURIComponent((new RegExp(name + '=' + '(.+?)(&|$)')
-    .exec(location.search)||['',''])[1]);
-};
-
-module.exports.requestRegisterUser = function (e) {
-  e.preventDefault();
+module.exports.requestRegisterUser = function (reg, appID, lang) {
   var registerForm = $('#registerForm');
   var username = registerForm.find('input[name=username]').val();
   var email = registerForm.find('input[name=email]').val();
@@ -48139,14 +48148,13 @@ module.exports.requestRegisterUser = function (e) {
   } else {
     $('#error').hide().empty();
     registerForm.find('input[type=submit]').prop('disabled', true);
-    var reg = Settings.retrieveServiceInfo().replace('/service/infos', '');
     $.post(reg + '/user',
       {
-        appid: getURLParameter('requestingAppId'),
+        appid: appID,
         username: username,
         password: pass,
         email: email,
-        languageCode: getURLParameter('lang'),
+        languageCode: lang,
         hosting: hosting,
         // TODO: maybe make this optional
         invitationtoken: 'enjoy'
@@ -48165,11 +48173,10 @@ module.exports.requestRegisterUser = function (e) {
   }
 };
 
-module.exports.retrieveHostings = function () {
+module.exports.retrieveHostings = function (reg) {
   var registerForm = $('#registerForm');
   var hostings = $('#hosting');
   registerForm.find('input[type=submit]').prop('disabled', true);
-  var reg = Settings.retrieveServiceInfo().replace('/service/infos', '');
   $.get(reg +'/hostings')
     .done(function (data) {
       $('#error').hide().empty();
@@ -48199,25 +48206,15 @@ module.exports.retrieveHostings = function () {
     .fail(function (xhr) {
       $('#error').text('Unable to retrieve hostings: ' + xhr.responseJSON.message).show();
     });
-}
-},{"../utils/Settings":105,"jquery":22}],103:[function(require,module,exports){
-var $ = require('jquery');
-var Settings = require('../utils/Settings');
-
-var getURLParameter = function (name) {
-  return decodeURIComponent((new RegExp(name + '=' + '(.+?)(&|$)')
-    .exec(location.search)||['',''])[1]);
 };
+},{"jquery":22}],103:[function(require,module,exports){
+var $ = require('jquery');
 
-module.exports.requestResetPassword = function (e) {
-  e.preventDefault();
+module.exports.requestResetPassword = function (domain) {
   var resetForm = $('#resetForm');
   var username = resetForm.find('input[name=username]').val();
   if (username && username.length > 0) {
     resetForm.find('input[type=submit]').prop('disabled', true);
-    var domain = Settings.retrieveServiceInfo().replace('/service/infos', '')
-      .replace('https://reg.', '');
-      
     $.post('https://' + username + '.' + domain +
       '/account/request-password-reset', {appId: 'static-web'})
       .done(function () {
@@ -48234,18 +48231,15 @@ module.exports.requestResetPassword = function (e) {
   }
 };
 
-module.exports.setPassword = function (e) {
-  e.preventDefault();
+module.exports.setPassword = function (domain, token) {
   var setPass = $('#setPass');
   var username = setPass.find('input[name=username]').val();
   var pass = setPass.find('input[name=password]').val();
   var rePass = setPass.find('input[name=rePassword]').val();
   if (username && username.length > 0 && pass && pass === rePass) {
     setPass.find('input[type=submit]').prop('disabled', true);
-    var domain = Settings.retrieveServiceInfo().replace('/service/infos', '')
-      .replace('https://reg.', '');
     $.post('https://' + username + '.' + domain + '/account/reset-password',
-      {newPassword: pass, appId: 'static-web', resetToken : getURLParameter('resetToken')})
+      {newPassword: pass, appId: 'static-web', resetToken : token})
       .done(function () {
         setPass.get(0).reset();
         $('#loginUsernameOrEmail').val(username);
@@ -48260,7 +48254,7 @@ module.exports.setPassword = function (e) {
   }
 };
 
-},{"../utils/Settings":105,"jquery":22}],104:[function(require,module,exports){
+},{"jquery":22}],104:[function(require,module,exports){
 /* global module, require */
 
 var $ = require('jquery'),
