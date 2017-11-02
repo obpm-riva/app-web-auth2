@@ -63,9 +63,6 @@ requests.getUidIfEmail = function (Settings, credentials, callback) {
       .get(Settings.info.register + '/' + credentials.usernameOrEmail + '/uid')
       .end(function (err, res) {
         if (err) { return callback(err, Settings); }
-        console.log(Settings.strs.uidWithMail
-          .replace('{mail}', '\"' + credentials.usernameOrEmail + '\"')
-          .replace('{username}', '\"' + res.body.uid + '\"'));
         callback(null, Settings, { uid: res.body.uid, password: credentials.password });
       });
   } else {
