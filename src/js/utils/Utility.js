@@ -149,6 +149,12 @@ UtilityConstructor.prototype.permissionsView = function (Settings) {
   $permissionsContainer.fadeIn(1000, 'linear');
   $permissionsRequestedBy.html(Settings.strs.permissionsRequestedBy
     .replace('{appId}', Settings.access.requestingAppId));
+  
+  var apps = Settings.info.apps;
+  var appId = Settings.access.requestingAppId;
+  if(apps && apps[appId] && apps[appId].icon) {
+    $('#iconApp').attr('src', apps[appId].icon);
+  }
 };
 
 /**
