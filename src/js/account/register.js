@@ -1,5 +1,3 @@
-/* jshint ignore:start */
-
 var $ = require('jquery');
 
 module.exports.requestRegisterUser = function (reg, appID, lang) {

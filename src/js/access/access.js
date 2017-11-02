@@ -1,9 +1,8 @@
 /* global require */
 
-var $ = require('jquery'),
-  cookie = require('js-cookie'),
-  methods = require('./methods');
-  
+var $ = require('jquery');
+var cookie = require('js-cookie');
+var methods = require('./methods');
 var register = require('../account/register');
 var reset = require('../account/reset');
 
@@ -33,9 +32,9 @@ $(window).ready(function () {
  * @param Settings {Object}
  */
 function loadInfo (Settings) {
-  var $usernameField = $('#loginUsernameOrEmail'),
-    $passwordField = $('#loginPassword'),
-    $pageTitle = $('title');
+  var $usernameField = $('#loginUsernameOrEmail');
+  var $passwordField = $('#loginPassword');
+  var $pageTitle = $('title');
 
   if (cookie.get('credentials')) {
     var credentials = JSON.parse(cookie.get('credentials'));
@@ -53,18 +52,18 @@ function manageStatus(Settings) {
   Settings.utils.$blockContainer.hide();
 
   switch(Settings.access.status) {
-    case 'NEED_SIGNIN':
-      Settings.utils.toggleMainView('show');
-      manageLoginView(Settings);
-      break;
-    case 'ACCEPTED':
-      Settings.addAuth({ username: Settings.access.username,
-        token: Settings.access.token });
-      methods.manageState(Settings, 'ACCEPTED', Settings.strs.closing);
-      break;
-    case 'ERROR':
-      methods.manageState(Settings, 'ERROR', Settings.strs.genericError);
-      break;
+  case 'NEED_SIGNIN':
+    Settings.utils.toggleMainView('show');
+    manageLoginView(Settings);
+    break;
+  case 'ACCEPTED':
+    Settings.addAuth({ username: Settings.access.username,
+      token: Settings.access.token });
+    methods.manageState(Settings, 'ACCEPTED', Settings.strs.closing);
+    break;
+  case 'ERROR':
+    methods.manageState(Settings, 'ERROR', Settings.strs.genericError);
+    break;
   }
 }
 
@@ -73,10 +72,10 @@ function manageStatus(Settings) {
  * @param Settings
  */
 function manageLoginView (Settings) {
-  var $cancelButton = $('#cancelButton'),
-    $loginForm = $('#loginForm'),
-    $registerButton = $('#loginFormRegister'),
-    $resetButton = $('#loginFormReset');
+  var $cancelButton = $('#cancelButton');
+  var $loginForm = $('#loginForm');
+  var $registerButton = $('#loginFormRegister');
+  var $resetButton = $('#loginFormReset');
 
   $loginForm.submit(function () {
     if (!Settings.logIn) {
@@ -115,8 +114,8 @@ function managePostLogin (Settings) {
     Settings.utils.permissionsState(false);
 
     managePermissionsView(Settings, function () {
-      var $permissionsAccept = $('#permissionsAccept'),
-        $permissionsReject = $('#permissionsReject');
+      var $permissionsAccept = $('#permissionsAccept');
+      var $permissionsReject = $('#permissionsReject');
 
       setTimeout(function () { Settings.utils.permissionsState(false); }, 500);
       $permissionsAccept.click(function () {
