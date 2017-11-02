@@ -22,8 +22,8 @@ $(window).ready(function () {
     }
     loadInfo(Settings);
     manageStatus(Settings);
-    managePasswordResetView();
-    manageRegistrationView();
+    managePasswordResetView(Settings);
+    manageRegistrationView(Settings);
   });
 });
 
@@ -152,9 +152,21 @@ function managePermissionsView (Settings, callback) {
 /**
  * Manages user registration
  */
-function manageRegistrationView () {
-  register.retrieveHostings();
-  $('#registerForm').on('submit', register.requestRegisterUser);
+function manageRegistrationView (Settings) {
+  var reg = Settings.info.register;
+  var appId = getURLParameter('requestingAppId');
+  var lang = getURLParameter('lang');
+  
+  var terms = $('#termsLink');
+  var support = $('#supportLink');
+  terms.attr('href', Settings.info.terms);
+  support.attr('href', Settings.info.support);
+  
+  register.retrieveHostings(reg);
+  $('#registerForm').on('submit', function(e) {
+    e.preventDefault();
+    register.requestRegisterUser(reg, appId, lang);
+  });
   $('#alreadyUser').click(function() {
     $('#registerContainer').hide();
     $('#loginContainer').show();
@@ -164,14 +176,20 @@ function manageRegistrationView () {
 /**
  * Manages password reset
  */
-function managePasswordResetView () {
+function managePasswordResetView (Settings) {
   var $resetForm = $('#resetForm');
   var $changePass = $('#setPass');
-  var resetToken = decodeURIComponent((new RegExp('resetToken=' + '(.+?)(&|$)')
-    .exec(location.search)||['',''])[1]);
-  
-  $resetForm.on('submit', reset.requestResetPassword);
-  $changePass.on('submit', reset.setPassword);
+  var resetToken = getURLParameter('resetToken');
+  var domain = Settings.info.register.replace('https://reg.', '');
+
+  $resetForm.on('submit', function(e) {
+    e.preventDefault();
+    reset.requestResetPassword(domain);
+  });
+  $changePass.on('submit', function(e) {
+    e.preventDefault();
+    reset.setPassword(domain, resetToken);
+  });
   if (resetToken) {
     $resetForm.hide();
     $changePass.show();
@@ -183,4 +201,9 @@ function managePasswordResetView () {
     $('#resetContainer').hide();
     $('#loginContainer').show();
   });
+}
+
+function getURLParameter (name) {
+  return decodeURIComponent((new RegExp(name + '=' + '(.+?)(&|$)')
+    .exec(location.search)||['',''])[1]);
 }

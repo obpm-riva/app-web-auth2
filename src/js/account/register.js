@@ -1,15 +1,8 @@
 /* jshint ignore:start */
 
 var $ = require('jquery');
-var Settings = require('../utils/Settings');
 
-function getURLParameter (name) {
-  return decodeURIComponent((new RegExp(name + '=' + '(.+?)(&|$)')
-    .exec(location.search)||['',''])[1]);
-};
-
-module.exports.requestRegisterUser = function (e) {
-  e.preventDefault();
+module.exports.requestRegisterUser = function (reg, appID, lang) {
   var registerForm = $('#registerForm');
   var username = registerForm.find('input[name=username]').val();
   var email = registerForm.find('input[name=email]').val();
@@ -22,14 +15,13 @@ module.exports.requestRegisterUser = function (e) {
   } else {
     $('#error').hide().empty();
     registerForm.find('input[type=submit]').prop('disabled', true);
-    var reg = Settings.retrieveServiceInfo().replace('/service/infos', '');
     $.post(reg + '/user',
       {
-        appid: getURLParameter('requestingAppId'),
+        appid: appID,
         username: username,
         password: pass,
         email: email,
-        languageCode: getURLParameter('lang'),
+        languageCode: lang,
         hosting: hosting,
         // TODO: maybe make this optional
         invitationtoken: 'enjoy'
@@ -48,11 +40,10 @@ module.exports.requestRegisterUser = function (e) {
   }
 };
 
-module.exports.retrieveHostings = function () {
+module.exports.retrieveHostings = function (reg) {
   var registerForm = $('#registerForm');
   var hostings = $('#hosting');
   registerForm.find('input[type=submit]').prop('disabled', true);
-  var reg = Settings.retrieveServiceInfo().replace('/service/infos', '');
   $.get(reg +'/hostings')
     .done(function (data) {
       $('#error').hide().empty();
@@ -82,4 +73,4 @@ module.exports.retrieveHostings = function () {
     .fail(function (xhr) {
       $('#error').text('Unable to retrieve hostings: ' + xhr.responseJSON.message).show();
     });
-}
+};
