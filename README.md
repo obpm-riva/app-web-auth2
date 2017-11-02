@@ -1,4 +1,4 @@
-# Identity & Authentication Management for app-web (app-web-iam)
+# Authentication web app (app-web-auth)
 
 Pryv.io web pages for user registration, authentication & password reset.
 
