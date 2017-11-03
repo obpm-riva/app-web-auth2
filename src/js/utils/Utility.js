@@ -88,24 +88,24 @@ UtilityConstructor.prototype.blockState = function (state, block) {
   switch(block) {
   case 'info':
     switch (state) {
-      case 'show':
-        this.$alertBlock.hide();
-        this.$infoBlock.show();
-        break;
-      case 'hide':
-        this.$infoBlock.hide();
-        break;
+    case 'show':
+      this.$alertBlock.hide();
+      this.$infoBlock.show();
+      break;
+    case 'hide':
+      this.$infoBlock.hide();
+      break;
     }
     break;
   case 'alert':
     switch (state) {
-      case 'show':
-        this.$infoBlock.hide();
-        this.$alertBlock.show();
-        break;
-      case 'hide':
-        this.$alertBlock.hide();
-        break;
+    case 'show':
+      this.$infoBlock.hide();
+      this.$alertBlock.show();
+      break;
+    case 'hide':
+      this.$alertBlock.hide();
+      break;
     }
     break;
   }
