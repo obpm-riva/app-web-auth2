@@ -1,13 +1,13 @@
 /* global module, require */
 
-var cookie = require('js-cookie'),
-  async = require('async'),
-  pryv = require('pryv'),
-  $ = require('jquery');
+var cookie = require('js-cookie');
+var async = require('async');
+var pryv = require('pryv');
+var $ = require('jquery');
 
-var requests = require('./requests'),
-  Locale = require('../utils/Locale'),
-  Settings = require('../utils/Settings');
+var requests = require('./requests');
+var Locale = require('../utils/Locale');
+var Settings = require('../utils/Settings');
 
 var methods = {};
 
@@ -69,8 +69,8 @@ methods.buildSettings = function (callback) {
  * @param callback {Function}
  */
 methods.loginToPryv = function (settings, callback) {
-  var $usernameOrEmail = $('#loginUsernameOrEmail'),
-    $password = $('#loginPassword');
+  var $usernameOrEmail = $('#loginUsernameOrEmail');
+  var $password = $('#loginPassword');
 
   if (!$usernameOrEmail.val() && !$password.val()) {
     return callback(settings.strs.missingUsernameAndPassword);
@@ -115,44 +115,44 @@ methods.manageState = function (settings, status, message) {
   var data = {state: {}, stateTitle: ''};
 
   switch (status) {
-    case 'ACCEPTED':
-      data = {
-        stateTitle: settings.strs.accessGranted.replace('{username}', settings.auth.username),
-        state: {
-          status: status,
-          username: settings.auth.username,
-          token: settings.appToken,
-          lang: settings.params.lang
-        }
-      };
-      break;
-    case 'REFUSED':
-      data = {
-        stateTitle: settings.strs.accessCanceled,
-        state: {
-          status: status,
-          reasonId: 'REFUSED_BY_USER',
-          message: message
-        }
-      };
-      break;
-    case 'ERROR':
-      if (message.response) {
-        message = message.response.body;
+  case 'ACCEPTED':
+    data = {
+      stateTitle: settings.strs.accessGranted.replace('{username}', settings.auth.username),
+      state: {
+        status: status,
+        username: settings.auth.username,
+        token: settings.appToken,
+        lang: settings.params.lang
       }
-      if (message.error) {
-        message = message.error;
+    };
+    break;
+  case 'REFUSED':
+    data = {
+      stateTitle: settings.strs.accessCanceled,
+      state: {
+        status: status,
+        reasonId: 'REFUSED_BY_USER',
+        message: message
       }
-      data = {
-        stateTitle: settings.strs.genericError,
-        state: {
-          status: 'ERROR',
-          id: message.id || 'INTERNAL_ERROR',
-          message: message.message || '',
-          detail: message.detail || ''
-        }
-      };
-      break;
+    };
+    break;
+  case 'ERROR':
+    if (message.response) {
+      message = message.response.body;
+    }
+    if (message.error) {
+      message = message.error;
+    }
+    data = {
+      stateTitle: settings.strs.genericError,
+      state: {
+        status: 'ERROR',
+        id: message.id || 'INTERNAL_ERROR',
+        message: message.message || '',
+        detail: message.detail || ''
+      }
+    };
+    break;
   }
 
   if (status === 'ACCEPTED' && !data.state.token) {

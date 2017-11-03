@@ -1,9 +1,8 @@
 /* global require */
 
-var $ = require('jquery'),
-  cookie = require('js-cookie'),
-  methods = require('./methods');
-  
+var $ = require('jquery');
+var cookie = require('js-cookie');
+var methods = require('./methods');
 var register = require('../account/register');
 var reset = require('../account/reset');
 
@@ -22,8 +21,8 @@ $(window).ready(function () {
     }
     loadInfo(Settings);
     manageStatus(Settings);
-    managePasswordResetView();
-    manageRegistrationView();
+    managePasswordResetView(Settings);
+    manageRegistrationView(Settings);
   });
 });
 
@@ -33,9 +32,9 @@ $(window).ready(function () {
  * @param Settings {Object}
  */
 function loadInfo (Settings) {
-  var $usernameField = $('#loginUsernameOrEmail'),
-    $passwordField = $('#loginPassword'),
-    $pageTitle = $('title');
+  var $usernameField = $('#loginUsernameOrEmail');
+  var $passwordField = $('#loginPassword');
+  var $pageTitle = $('title');
 
   if (cookie.get('credentials')) {
     var credentials = JSON.parse(cookie.get('credentials'));
@@ -53,18 +52,18 @@ function manageStatus(Settings) {
   Settings.utils.$blockContainer.hide();
 
   switch(Settings.access.status) {
-    case 'NEED_SIGNIN':
-      Settings.utils.toggleMainView('show');
-      manageLoginView(Settings);
-      break;
-    case 'ACCEPTED':
-      Settings.addAuth({ username: Settings.access.username,
-        token: Settings.access.token });
-      methods.manageState(Settings, 'ACCEPTED', Settings.strs.closing);
-      break;
-    case 'ERROR':
-      methods.manageState(Settings, 'ERROR', Settings.strs.genericError);
-      break;
+  case 'NEED_SIGNIN':
+    Settings.utils.toggleMainView('show');
+    manageLoginView(Settings);
+    break;
+  case 'ACCEPTED':
+    Settings.addAuth({ username: Settings.access.username,
+      token: Settings.access.token });
+    methods.manageState(Settings, 'ACCEPTED', Settings.strs.closing);
+    break;
+  case 'ERROR':
+    methods.manageState(Settings, 'ERROR', Settings.strs.genericError);
+    break;
   }
 }
 
@@ -73,10 +72,10 @@ function manageStatus(Settings) {
  * @param Settings
  */
 function manageLoginView (Settings) {
-  var $cancelButton = $('#cancelButton'),
-    $loginForm = $('#loginForm'),
-    $registerButton = $('#loginFormRegister'),
-    $resetButton = $('#loginFormReset');
+  var $cancelButton = $('#cancelButton');
+  var $loginForm = $('#loginForm');
+  var $registerButton = $('#loginFormRegister');
+  var $resetButton = $('#loginFormReset');
 
   $loginForm.submit(function () {
     if (!Settings.logIn) {
@@ -115,8 +114,8 @@ function managePostLogin (Settings) {
     Settings.utils.permissionsState(false);
 
     managePermissionsView(Settings, function () {
-      var $permissionsAccept = $('#permissionsAccept'),
-        $permissionsReject = $('#permissionsReject');
+      var $permissionsAccept = $('#permissionsAccept');
+      var $permissionsReject = $('#permissionsReject');
 
       setTimeout(function () { Settings.utils.permissionsState(false); }, 500);
       $permissionsAccept.click(function () {
@@ -152,9 +151,21 @@ function managePermissionsView (Settings, callback) {
 /**
  * Manages user registration
  */
-function manageRegistrationView () {
-  register.retrieveHostings();
-  $('#registerForm').on('submit', register.requestRegisterUser);
+function manageRegistrationView (Settings) {
+  var reg = Settings.info.register;
+  var appId = getURLParameter('requestingAppId');
+  var lang = getURLParameter('lang');
+  
+  var terms = $('#termsLink');
+  var support = $('#supportLink');
+  terms.attr('href', Settings.info.terms);
+  support.attr('href', Settings.info.support);
+  
+  register.retrieveHostings(reg);
+  $('#registerForm').on('submit', function(e) {
+    e.preventDefault();
+    register.requestRegisterUser(reg, appId, lang);
+  });
   $('#alreadyUser').click(function() {
     $('#registerContainer').hide();
     $('#loginContainer').show();
@@ -164,17 +175,25 @@ function manageRegistrationView () {
 /**
  * Manages password reset
  */
-function managePasswordResetView () {
+function managePasswordResetView (Settings) {
   var $resetForm = $('#resetForm');
   var $changePass = $('#setPass');
-  var resetToken = decodeURIComponent((new RegExp('resetToken=' + '(.+?)(&|$)')
-    .exec(location.search)||['',''])[1]);
-  
-  $resetForm.on('submit', reset.requestResetPassword);
-  $changePass.on('submit', reset.setPassword);
+  var resetToken = getURLParameter('resetToken');
+  var domain = Settings.info.register.replace('https://reg.', '');
+
+  $resetForm.on('submit', function(e) {
+    e.preventDefault();
+    reset.requestResetPassword(domain);
+  });
+  $changePass.on('submit', function(e) {
+    e.preventDefault();
+    reset.setPassword(domain, resetToken);
+  });
   if (resetToken) {
     $resetForm.hide();
     $changePass.show();
+    $('#loginContainer').hide();
+    $('#resetContainer').show();
   } else {
     $resetForm.show();
     $changePass.hide();
@@ -183,4 +202,9 @@ function managePasswordResetView () {
     $('#resetContainer').hide();
     $('#loginContainer').show();
   });
+}
+
+function getURLParameter (name) {
+  return decodeURIComponent((new RegExp(name + '=' + '(.+?)(&|$)')
+    .exec(location.search)||['',''])[1]);
 }
