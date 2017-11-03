@@ -1,8 +1,8 @@
 /* global module, require */
 
-var $ = require('jquery'),
-  pryv = require('pryv'),
-  i18n = require('i18next-client');
+var $ = require('jquery');
+var pryv = require('pryv');
+var i18n = require('i18next-client');
 
 var Locale = {};
 
@@ -31,52 +31,52 @@ Locale.translate = function (page, callback) {
     .init(options, function (err, t) {
       if (err) { return callback(err); }
       switch (page) {
-        case 'login':
-          updateLoginHTML(t);
-          callback(null, {
-            /* Errors */
-            missingPoll: t('missing-poll'),
-            missingLang: t('missing-lang'),
-            genericError: t('generic-error'),
-            missingPassword: t('missing-password'),
-            missingUsername: t('missing-username'),
-            missingServiceInfo: t('missing-service-info'),
-            missingUsernameAndPassword: t('missing-username-and-password'),
+      case 'login':
+        updateLoginHTML(t);
+        callback(null, {
+          /* Errors */
+          missingPoll: t('missing-poll'),
+          missingLang: t('missing-lang'),
+          genericError: t('generic-error'),
+          missingPassword: t('missing-password'),
+          missingUsername: t('missing-username'),
+          missingServiceInfo: t('missing-service-info'),
+          missingUsernameAndPassword: t('missing-username-and-password'),
 
-            /* States */
-            uidWithMail: t('uid-with-mail'),
-            accessCleaned: t('access-cleaned'),
-            accessGranted: t('access-granted'),
-            accessRefused: t('access-refused'),
-            accessCanceled: t('access-canceled'),
-            loginWithEmail: t('login-with-e-mail'),
-            loginWithUsername: t('login-with-username'),
+          /* States */
+          uidWithMail: t('uid-with-mail'),
+          accessCleaned: t('access-cleaned'),
+          accessGranted: t('access-granted'),
+          accessRefused: t('access-refused'),
+          accessCanceled: t('access-canceled'),
+          loginWithEmail: t('login-with-e-mail'),
+          loginWithUsername: t('login-with-username'),
 
-            /* Permissions */
-            permissionsAll: t('permissions-all'),
-            permissionsCreate: t('permissions-create'),
-            permissionsUpdate: t('permissions-update'),
-            permissionsRequestedBy: t('permissions-requested-by'),
+          /* Permissions */
+          permissionsAll: t('permissions-all'),
+          permissionsCreate: t('permissions-create'),
+          permissionsUpdate: t('permissions-update'),
+          permissionsRequestedBy: t('permissions-requested-by'),
 
-            /* Ongoing processes */
-            closing: t('closing'),
-            sendingState: t('sending-state'),
-            deletingAccess: t('deleting-access'),
-            creatingStream: t('creating-stream'),
-            creatingAccess: t('creating-access'),
-            updatingAccess: t('updating-access'),
-            loadingSettings: t('loading-settings'),
-            fetchingStreams: t('fetching-streams'),
-            fetchingAccesses: t('fetching-accesses'),
-            loadingPermissions: t('loading-permissions'),
-            checkingAppAccess: t('checking-app-access'),
-            loadingServiceInfo: t('loading-service-info')
-          });
-          break;
-        case 'register':
-          break;
-        case 'reset-password':
-          break;
+          /* Ongoing processes */
+          closing: t('closing'),
+          sendingState: t('sending-state'),
+          deletingAccess: t('deleting-access'),
+          creatingStream: t('creating-stream'),
+          creatingAccess: t('creating-access'),
+          updatingAccess: t('updating-access'),
+          loadingSettings: t('loading-settings'),
+          fetchingStreams: t('fetching-streams'),
+          fetchingAccesses: t('fetching-accesses'),
+          loadingPermissions: t('loading-permissions'),
+          checkingAppAccess: t('checking-app-access'),
+          loadingServiceInfo: t('loading-service-info')
+        });
+        break;
+      case 'register':
+        break;
+      case 'reset-password':
+        break;
       }
     });
 };
@@ -88,15 +88,15 @@ module.exports = Locale;
  * @param t {Function}
  */
 function updateLoginHTML(t) {
-  var $loginFormTitle = $('#loginFormTitle'),
-    $loginUsernameLabel = $('#loginUsernameLabel'),
-    $loginPasswordLabel = $('#loginPasswordLabel'),
-    $permissionsAccept = $('#permissionsAccept'),
-    $permissionsReject = $('#permissionsReject'),
-    $permissionsTitle = $('#permissionsTitle'),
-    $loginFormToggle = $('#loginFormToggle'),
-    $signInButton = $('#signInButton'),
-    $cancelButton = $('#cancelButton');
+  var $loginFormTitle = $('#loginFormTitle');
+  var $loginUsernameLabel = $('#loginUsernameLabel');
+  var $loginPasswordLabel = $('#loginPasswordLabel');
+  var $permissionsAccept = $('#permissionsAccept');
+  var $permissionsReject = $('#permissionsReject');
+  var $permissionsTitle = $('#permissionsTitle');
+  var $loginFormToggle = $('#loginFormToggle');
+  var $signInButton = $('#signInButton');
+  var $cancelButton = $('#cancelButton');
 
   $loginUsernameLabel.text(t('login-username-label'));
   $loginPasswordLabel.text(t('login-password-label'));

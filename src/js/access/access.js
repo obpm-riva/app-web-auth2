@@ -192,6 +192,8 @@ function managePasswordResetView (Settings) {
   if (resetToken) {
     $resetForm.hide();
     $changePass.show();
+    $('#loginContainer').hide();
+    $('#resetContainer').show();
   } else {
     $resetForm.show();
     $changePass.hide();

@@ -7,6 +7,7 @@
     "clear": "rm -rf dist/",
     "grunt": "node_modules/.bin/grunt",
     "webserver": "node node_modules/rec-la/webserver/main.js ./dist",
+    "eslint": "node_modules/.bin/eslint src",
     "upload": "scripts/publish-to-gh-pages.sh $1"
   },
   "dependencies": {
