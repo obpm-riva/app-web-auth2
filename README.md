@@ -46,6 +46,8 @@ You will find the images under `assets/img`.
 
 ### Commit
 
+Run `yarn eslint` to run the linter on `src/`.
+
 Once you are happy with the result, run `yarn upload COMMIT_MESSAGE`.
 
 Run `yarn clear` to delete the `dist/` folder, this will require to run `yarn setup` for tasks requiring `dist/`.
