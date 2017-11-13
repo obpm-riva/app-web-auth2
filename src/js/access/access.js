@@ -170,6 +170,11 @@ function manageRegistrationView (Settings) {
     $('#registerContainer').hide();
     $('#loginContainer').show();
   });
+  if(getURLParameter('standaloneRegister')) {
+    $('#registerContainer').show();
+    $('#loginContainer').hide();
+    $('#resetContainer').hide();
+  }
 }
 
 /**
@@ -202,6 +207,11 @@ function managePasswordResetView (Settings) {
     $('#resetContainer').hide();
     $('#loginContainer').show();
   });
+  if(getURLParameter('standaloneReset')) {
+    $('#resetContainer').show();
+    $('#loginContainer').hide();
+    $('#registerContainer').hide();
+  }
 }
 
 function getURLParameter (name) {
