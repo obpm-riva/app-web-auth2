@@ -2,16 +2,16 @@
 
 Pryv.io web pages for user registration, authentication & password reset.
 
-These web page are the "popup frame" that opens during the authentication process [http://api.pryv.com/reference/#authentication](http://api.pryv.com/reference/#authentication)
+These web pages are the "popup frame" that opens during the authentication process [http://api.pryv.com/reference/#authentication](http://api.pryv.com/reference/#authentication)
 
 The App flow:
 
 1. Frame (access.html) is open by the web-app or mobile app.
-1. It proposes a login or register (register flow see bellow) 
-1. Login is called by [`POST /auth/login`](http://pryv.github.io/reference-full/#login-user) => result *personal token*
-1. *personal token* is used to call [`POST /accesses/check-app`](http://pryv.github.io/reference-full/#check-app-authorization) => receive either a token if already existing `matchingAccess`or the modification reuqired. If there is a matching access, process is over and the frame closes. 
-1. The frame displays a list of modification from the result of the previous `check-app` call and ask the user for consent.
-1. If consent is given the process ends.
+2. It proposes to login or register (register flow see bellow) 
+3. Login is called by [`POST /auth/login`](https://api.pryv.com/reference-full/#login-user) => result *personal token*
+4. The *personal token* is used to call [`POST /accesses/check-app`](https://api.pryv.com/reference-full/#check-app-authorization) => receive either a token if a `matchingAccess` already exists or the required modification. If there is a matching access, the process is over and the frame closes. 
+5. The frame displays a list of modification from the result of the previous `check-app` call and asks the user for consent.
+6. If the consent is given the process ends.
 
 Registration:
  
@@ -20,7 +20,7 @@ Registration:
 
 ## Extra API documentation
 
-Some fileds can be validated directly durring fill-in with the following calls.
+Some fields can be validated directly during the fill-in with the following calls.
 
 Registration
 
@@ -35,7 +35,7 @@ Registration
 	- 200 `{reserved: true/false}`
 
 
-## Customizing
+## Customization
 
 *Prerequisites*: Node v8+, Yarn v0.27+
 
@@ -70,13 +70,14 @@ You will find the images under `assets/img`.
 3. If needed, Customize the permissions and appId 
 4. Click on `Show/hide advanced options` then select `Run on local web-auth (port 4443)`, this will force it to use the pages hosted by the local server. 
 5. Click on "Request Access", this will send an [Auth request](http://api.pryv.com/reference/#auth-request) to the host that you set in the `pryv-reg` URL parameter and parse the response.
-6. Click on the red "Sign in" button to launch the `access.html` page of the web app. 
+6. Click on the red "Sign in" button to launch the `access.html` page of the web app.   
+7. You can find a sequence of actions to test the web pages in [/test](#test/README.md).
 
 ### Commit
 
 Run `yarn eslint` to run the linter on `src/`.
 
-Once you are happy with the result, run `yarn upload COMMIT_MESSAGE`.
+Once you are satisfied with the result, run `yarn upload COMMIT_MESSAGE`.
 
 Run `yarn clear` to delete the `dist/` folder, this will require to run `yarn setup` for tasks requiring `dist/`.
 
