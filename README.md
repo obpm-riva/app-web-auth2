@@ -2,16 +2,44 @@
 
 Pryv.io web pages for user registration, authentication & password reset.
 
-## Usage
+These web page are the "popup frame" that opens during the authentication process [http://api.pryv.com/reference/#authentication](http://api.pryv.com/reference/#authentication)
 
-To use these pages:
+The App flow:
 
-1. create a symlink in #gh-pages, `${DOMAIN}` -> `{v0,1,2}/`
-2. `sw.${DOMAIN}/access/` must proxy to `pryv.github.io/app-web-auth2/${DOMAIN}/` 
+1. Frame (access.html) is open by the web-app or mobile app.
+1. It proposes a login or register (register flow see bellow) 
+1. Login is called by [`POST /auth/login`](http://pryv.github.io/reference-full/#login-user) => result *personal token*
+1. *personal token* is used to call [`POST /accesses/check-app`](http://pryv.github.io/reference-full/#check-app-authorization) => receive either a token if already existing `matchingAccess`or the modification reuqired. If there is a matching access, process is over and the frame closes. 
+1. The frame displays a list of modification from the result of the previous `check-app` call and ask the user for consent.
+1. If consent is given the process ends.
 
-## Contribute
+Registration:
+ 
+1. Is a "side" frame where the use can create an account. 
+1. When done the result is equivalent to a `LOGIN`
+
+## Extra API documentation
+
+Some fileds can be validated directly durring fill-in with the following calls.
+
+Registration
+
+- invitationToken: `POST /access/invitationtoken/check` `{invitationtoken: '....'}` => result in `text/plain` "true" or "false"
+- email check if valid and available: `POST /access/email/check` `{email: '....'}` => result in `text/plain` "true" or "false" 
+- email status: `GET /{email}/check_email` return => 
+	- 400 'INVALID_EMAIL'
+	- 200 `{exists: true/false}` 
+- username check if valid and available: `POST /access/username/check` `{username: '....'}` => result in `text/plain` "true" or "false"
+- username status: `GET /{username}/check_username` return => 
+	- 400 'INVALID_USERNAME'
+	- 200 `{reserved: true/false}`
+
+
+## Customizing
 
 *Prerequisites*: Node v8+, Yarn v0.27+
+
+Pages need to be built (see "Build" section). The result is published into the `dist/` folder. The content of this folder is to be published on the `gh-pages`git branch.
 
 ### Build
 
@@ -51,6 +79,14 @@ Run `yarn eslint` to run the linter on `src/`.
 Once you are happy with the result, run `yarn upload COMMIT_MESSAGE`.
 
 Run `yarn clear` to delete the `dist/` folder, this will require to run `yarn setup` for tasks requiring `dist/`.
+
+## Note to publish from github pages
+
+To use these pages:
+
+1. create a symlink in #gh-pages, `${DOMAIN}` -> `{v0,1,2}/`
+2. `sw.${DOMAIN}/access/` must proxy to `pryv.github.io/app-web-auth2/${DOMAIN}/` 
+
 
 ## License
 
