@@ -2,10 +2,16 @@ var $ = require('jquery');
 
 module.exports.requestRegisterUser = function (reg, appID, lang) {
   var registerForm = $('#registerForm');
+  /*
   var username = registerForm.find('input[name=username]').val();
   var email = registerForm.find('input[name=email]').val();
   var pass = registerForm.find('input[name=pass]').val();
   var rePass = registerForm.find('input[name=rePass]').val();
+  */
+  var username = 'testuser' + Math.floor((Math.random() * 100000000) + 1);
+  var email = username + '@bidule.com';
+  var pass = 'PASSWORD';
+  var rePass = pass;
   var hosting = $('#hosting').val();
 
   if(pass !== rePass) {
