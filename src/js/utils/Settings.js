@@ -54,7 +54,16 @@ SettingsConstructor.prototype.updateApiURL = function (username) {
   this.info.api = this.info.api.replace('{username}', username);
 };
 
+/**
+ * Returns the service infos URL by: by retrieving the domain from:
+ * 1) Looking for it in the query parameters
+ * 2) Building it from the hostname found in the hostname (Production)
+ * 3) If it is `rec.la`, fetches the domain from the root level path (Development)
+ *
+ * @returns {String}
+ */
 SettingsConstructor.retrieveServiceInfo = function() {
+
   var serviceInfo = pryv.utility.urls.parseClientURL().parseQuery().serviceInfo;
   if(serviceInfo) {
     console.log('Service info from url param:');
@@ -64,7 +73,7 @@ SettingsConstructor.retrieveServiceInfo = function() {
   } else {
     var domain = document.location.hostname.substr(document.location.hostname.indexOf('.') + 1);
     if(domain === 'rec.la') {
-      domain = pryv.utility.urls.parseClientURL().parseQuery().domain;
+      domain = pryv.utility.urls.parseClientURL().path.split('/')[1];
       console.log('Service info from url param (domain), rec.la dev mode:');
     } else {
       console.log('Service info from hostname:');
