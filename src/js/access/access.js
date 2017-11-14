@@ -23,7 +23,7 @@ $(window).ready(function () {
   let page = '';
   if(getURLParameter('standaloneRegister')) {
     page = REGISTER_PAGE;
-  } else if (getURLParameter('standaloneResetPassword')) {
+  } else if (getURLParameter('standaloneReset')) {
     page = RESET_PASSWORD_PAGE;
   } else if (getURLParameter('standaloneSigninhub')) {
     page = SIGNIN_PAGE;
