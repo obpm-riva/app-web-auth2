@@ -6,6 +6,11 @@ var methods = require('./methods');
 var register = require('../account/register');
 var reset = require('../account/reset');
 
+const ACCESS_PAGE = 'access', 
+      REGISTER_PAGE = 'register',
+      SIGNIN_PAGE = 'signinhub',
+      RESET_PASSWORD_PAGE = 'resetPassword';
+
 /**
  * Initialize login form
  */
@@ -14,8 +19,19 @@ $(window).ready(function () {
   $loginForm.submit(function () { return false; });
   $('#registerContainer').hide();
   $('#resetContainer').hide();
+
+  let page = '';
+  if(getURLParameter('standaloneRegister')) {
+    page = REGISTER_PAGE;
+  } else if (getURLParameter('standaloneResetPassword')) {
+    page = RESET_PASSWORD_PAGE;
+  } else if (getURLParameter('standaloneSigninhub')) {
+    page = SIGNIN_PAGE;
+  } else {
+    page = ACCESS_PAGE;
+  }
   
-  methods.buildSettings(function (err, Settings) {
+  methods.buildSettings(page, function (err, Settings) {
     if (err) {
       return methods.manageState(Settings, 'ERROR', err);
     }

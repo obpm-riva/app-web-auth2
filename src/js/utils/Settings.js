@@ -62,7 +62,7 @@ SettingsConstructor.prototype.updateApiURL = function (username) {
  *
  * @returns {String}
  */
-SettingsConstructor.retrieveServiceInfo = function() {
+SettingsConstructor.computeServiceInfoURL = function() {
 
   var serviceInfo = pryv.utility.urls.parseClientURL().parseQuery().serviceInfo;
   if(serviceInfo) {

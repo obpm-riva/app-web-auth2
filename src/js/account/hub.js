@@ -10,7 +10,7 @@ $(document).ready(function(){
     $error.hide();
     $toggle.prop('disabled', true);
     var username = $('#signinhub-input').val().trim();
-    var reg = Settings.retrieveServiceInfo().replace('/service/infos', '');
+    var reg = Settings.computeServiceInfoURL().replace('/service/infos', '');
     var domain = reg.replace('https://reg.', '');
     $.post(reg + '/' + username + '/server').done( function () {
       window.location = 'https://' + username + '.' + domain + '/#/SignIn';
