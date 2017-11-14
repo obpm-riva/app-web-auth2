@@ -92,7 +92,7 @@ function manageLoginView (Settings) {
   var $loginForm = $('#loginForm');
   var $registerButton = $('#loginFormRegister');
   var $resetButton = $('#loginFormReset');
-
+  
   $loginForm.submit(function () {
     if (!Settings.logIn) {
       Settings.logIn = true;
@@ -178,6 +178,13 @@ function manageRegistrationView (Settings) {
   support.attr('href', Settings.info.support);
   
   register.retrieveHostings(reg);
+  
+  var username = 'testuser' + Math.floor((Math.random() * 100000000) + 1);
+  $('#registerForm').find('input[name=username]').val(username);
+  $('#registerForm').find('input[name=email]').val(username + '@bidule.com');
+  $('#registerForm').find('input[name=pass]').val('PASSWORD');
+  $('#registerForm').find('input[name=rePass]').val('PASSWORD');
+  
   $('#registerForm').on('submit', function(e) {
     e.preventDefault();
     register.requestRegisterUser(reg, appId, lang);
