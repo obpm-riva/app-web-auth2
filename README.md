@@ -22,7 +22,7 @@ Registration:
 
 Some fields can be validated directly during the fill-in with the following calls.
 
-Registration
+Endpoint URL for the following calls: `https://reg.obpm-dev.io`
 
 - invitationToken: `POST /access/invitationtoken/check` `{invitationtoken: '....'}` => result in `text/plain` "true" or "false"
 - email check if valid and available: `POST /access/email/check` `{email: '....'}` => result in `text/plain` "true" or "false" 
