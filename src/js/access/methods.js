@@ -16,49 +16,58 @@ var methods = {};
  * adds translated messages, URL parameters, service info and access info
  * @param callback {Function}
  */
-methods.buildSettings = function (callback) {
-  var settings = new Settings('login');
+methods.buildSettings = function (page, callback) {
+  let settings = new Settings('login');
 
-  Locale.translate('login', function (err, strs) {
-    if (err) {
-      return callback(err, settings);
-    }
-    settings.addStrs(strs);
-    settings.utils.genericError = settings.strs.genericError;
+  settings.setGoal(page);
 
-    // TODO change the parameters given by the Pryv Button in Lib-Javascript to fit this format
-    // Settings.addParams({
-    //   poll: pryv.utility.urls.parseClientURL().parseQuery().poll,
-    //   lang: pryv.utility.urls.parseClientURL().parseQuery().lang,
-    //   serviceInfo: pryv.utility.urls.parseClientURL().parseQuery().serviceInfo
-    //   returnURL: pryv.utility.urls.parseClientURL().parseQuery().returnURL
-    // });
+  async.series([
+    function loadTranslate(stepDone) { // To remove when possible
+      Locale.translate('login', function (err, strs) {
+        if (err) {
+          return stepDone(err, settings);
+        }
+        settings.addStrs(strs);
+        settings.utils.genericError = settings.strs.genericError;
+        stepDone();
+      });
+    },
+    function fetchSettings(stepDone) {
+      // TODO change the parameters given by the Pryv Button in Lib-Javascript to fit this format
+      // Settings.addParams({
+      //   poll: pryv.utility.urls.parseClientURL().parseQuery().poll,
+      //   lang: pryv.utility.urls.parseClientURL().parseQuery().lang,
+      //   serviceInfo: pryv.utility.urls.parseClientURL().parseQuery().serviceInfo
+      //   returnURL: pryv.utility.urls.parseClientURL().parseQuery().returnURL
+      // });
 
-    // TODO delete this var when the Pryv Button has been updated                      <-------- !
-    // From here ------------
-    var serviceInfo = Settings.retrieveServiceInfo();
-    settings.addParams({
-      poll: 'null',
-      serviceInfo: serviceInfo,
-      key: pryv.utility.urls.parseClientURL().parseQuery().key,
-      lang: pryv.utility.urls.parseClientURL().parseQuery().lang,
-      returnURL: pryv.utility.urls.parseClientURL().parseQuery().returnURL
-    });
-    // To here --------------
+      // TODO delete this var when the Pryv Button has been updated                      <-------- !
+      // From here ------------
+      let serviceInfo = Settings.computeServiceInfoURL();
+      settings.addParams({
+        poll: 'null',
+        serviceInfo: serviceInfo,
+        key: pryv.utility.urls.parseClientURL().parseQuery().key,
+        lang: pryv.utility.urls.parseClientURL().parseQuery().lang || 'en',
+        returnURL: pryv.utility.urls.parseClientURL().parseQuery().returnURL
+      });
+      // To here --------------
 
-    async.waterfall([
-      function (stepDone) {
-        stepDone(null, settings);
-      },
-      parseUrlParams,
-      requests.getServiceInfo,
-      requests.getAccessInfoFromRegister
-    ], function (err, settings) {
-      if (err) {
-        return callback(err, settings);
+      async.applyEach([
+          parseUrlParams,
+          requests.getServiceInfo
+        ],
+        settings,
+        stepDone);
+    },
+    function fetchPollingUrlIfNeeded(stepDone) {
+      if (page === 'access') { // do only if accessed from Auth request
+        return requests.getPollingUrl(settings, stepDone);
       }
-      callback(null, settings);
-    });
+      stepDone();
+    }
+  ], function (err) {
+    callback(err, settings);
   });
 };
 

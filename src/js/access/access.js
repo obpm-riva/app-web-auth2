@@ -6,6 +6,11 @@ var methods = require('./methods');
 var register = require('../account/register');
 var reset = require('../account/reset');
 
+const ACCESS_PAGE = 'access', 
+      REGISTER_PAGE = 'register',
+      SIGNIN_PAGE = 'signinhub',
+      RESET_PASSWORD_PAGE = 'resetPassword';
+
 /**
  * Initialize login form
  */
@@ -14,8 +19,19 @@ $(window).ready(function () {
   $loginForm.submit(function () { return false; });
   $('#registerContainer').hide();
   $('#resetContainer').hide();
+
+  let page = '';
+  if(getURLParameter('standaloneRegister')) {
+    page = REGISTER_PAGE;
+  } else if (getURLParameter('standaloneReset')) {
+    page = RESET_PASSWORD_PAGE;
+  } else if (getURLParameter('standaloneSigninhub')) {
+    page = SIGNIN_PAGE;
+  } else {
+    page = ACCESS_PAGE;
+  }
   
-  methods.buildSettings(function (err, Settings) {
+  methods.buildSettings(page, function (err, Settings) {
     if (err) {
       return methods.manageState(Settings, 'ERROR', err);
     }
@@ -76,7 +92,7 @@ function manageLoginView (Settings) {
   var $loginForm = $('#loginForm');
   var $registerButton = $('#loginFormRegister');
   var $resetButton = $('#loginFormReset');
-
+  
   $loginForm.submit(function () {
     if (!Settings.logIn) {
       Settings.logIn = true;
@@ -152,7 +168,6 @@ function managePermissionsView (Settings, callback) {
  * Manages user registration
  */
 function manageRegistrationView (Settings) {
-  var reg = Settings.info.register;
   var appId = getURLParameter('requestingAppId');
   var lang = getURLParameter('lang');
   
@@ -161,10 +176,11 @@ function manageRegistrationView (Settings) {
   terms.attr('href', Settings.info.terms);
   support.attr('href', Settings.info.support);
   
-  register.retrieveHostings(reg);
+  register.retrieveHostings(Settings.info.register);
+  
   $('#registerForm').on('submit', function(e) {
     e.preventDefault();
-    register.requestRegisterUser(reg, appId, lang);
+    register.requestRegisterUser(getURLParameter('returnURL'), appId, lang, Settings);
   });
   $('#alreadyUser').click(function() {
     $('#registerContainer').hide();

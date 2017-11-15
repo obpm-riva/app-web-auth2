@@ -19,7 +19,9 @@ requests.getServiceInfo = function (Settings, callback) {
   request
     .get(Settings.params.serviceInfo)
     .end(function (err, res) {
-      if (err) { return callback(err, Settings); }
+      if (err) {
+        return callback(err, Settings);
+      }
       Settings.addInfo(res.body);
       callback(null, Settings);
     });
@@ -31,7 +33,7 @@ requests.getServiceInfo = function (Settings, callback) {
  * @param Settings {Object}
  * @param callback {Object}
  */
-requests.getAccessInfoFromRegister = function (Settings, callback) {
+requests.getPollingUrl = function (Settings, callback) {
   Settings.utils.printInfo(Settings.strs.loadingSettings);
 
   // TODO delete this var when the Pryv Button has been updated                  <-------- !
