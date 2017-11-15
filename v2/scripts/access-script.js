@@ -47535,6 +47535,11 @@ var methods = require('./methods');
 var register = require('../account/register');
 var reset = require('../account/reset');
 
+const ACCESS_PAGE = 'access', 
+      REGISTER_PAGE = 'register',
+      SIGNIN_PAGE = 'signinhub',
+      RESET_PASSWORD_PAGE = 'resetPassword';
+
 /**
  * Initialize login form
  */
@@ -47543,8 +47548,19 @@ $(window).ready(function () {
   $loginForm.submit(function () { return false; });
   $('#registerContainer').hide();
   $('#resetContainer').hide();
+
+  let page = '';
+  if(getURLParameter('standaloneRegister')) {
+    page = REGISTER_PAGE;
+  } else if (getURLParameter('standaloneReset')) {
+    page = RESET_PASSWORD_PAGE;
+  } else if (getURLParameter('standaloneSigninhub')) {
+    page = SIGNIN_PAGE;
+  } else {
+    page = ACCESS_PAGE;
+  }
   
-  methods.buildSettings(function (err, Settings) {
+  methods.buildSettings(page, function (err, Settings) {
     if (err) {
       return methods.manageState(Settings, 'ERROR', err);
     }
@@ -47605,7 +47621,7 @@ function manageLoginView (Settings) {
   var $loginForm = $('#loginForm');
   var $registerButton = $('#loginFormRegister');
   var $resetButton = $('#loginFormReset');
-
+  
   $loginForm.submit(function () {
     if (!Settings.logIn) {
       Settings.logIn = true;
@@ -47681,7 +47697,6 @@ function managePermissionsView (Settings, callback) {
  * Manages user registration
  */
 function manageRegistrationView (Settings) {
-  var reg = Settings.info.register;
   var appId = getURLParameter('requestingAppId');
   var lang = getURLParameter('lang');
   
@@ -47690,10 +47705,11 @@ function manageRegistrationView (Settings) {
   terms.attr('href', Settings.info.terms);
   support.attr('href', Settings.info.support);
   
-  register.retrieveHostings(reg);
+  register.retrieveHostings(Settings.info.register);
+  
   $('#registerForm').on('submit', function(e) {
     e.preventDefault();
-    register.requestRegisterUser(reg, appId, lang);
+    register.requestRegisterUser(getURLParameter('returnURL'), appId, lang, Settings);
   });
   $('#alreadyUser').click(function() {
     $('#registerContainer').hide();
@@ -47766,49 +47782,58 @@ var methods = {};
  * adds translated messages, URL parameters, service info and access info
  * @param callback {Function}
  */
-methods.buildSettings = function (callback) {
-  var settings = new Settings('login');
+methods.buildSettings = function (page, callback) {
+  let settings = new Settings('login');
 
-  Locale.translate('login', function (err, strs) {
-    if (err) {
-      return callback(err, settings);
-    }
-    settings.addStrs(strs);
-    settings.utils.genericError = settings.strs.genericError;
+  settings.setGoal(page);
 
-    // TODO change the parameters given by the Pryv Button in Lib-Javascript to fit this format
-    // Settings.addParams({
-    //   poll: pryv.utility.urls.parseClientURL().parseQuery().poll,
-    //   lang: pryv.utility.urls.parseClientURL().parseQuery().lang,
-    //   serviceInfo: pryv.utility.urls.parseClientURL().parseQuery().serviceInfo
-    //   returnURL: pryv.utility.urls.parseClientURL().parseQuery().returnURL
-    // });
+  async.series([
+    function loadTranslate(stepDone) { // To remove when possible
+      Locale.translate('login', function (err, strs) {
+        if (err) {
+          return stepDone(err, settings);
+        }
+        settings.addStrs(strs);
+        settings.utils.genericError = settings.strs.genericError;
+        stepDone();
+      });
+    },
+    function fetchSettings(stepDone) {
+      // TODO change the parameters given by the Pryv Button in Lib-Javascript to fit this format
+      // Settings.addParams({
+      //   poll: pryv.utility.urls.parseClientURL().parseQuery().poll,
+      //   lang: pryv.utility.urls.parseClientURL().parseQuery().lang,
+      //   serviceInfo: pryv.utility.urls.parseClientURL().parseQuery().serviceInfo
+      //   returnURL: pryv.utility.urls.parseClientURL().parseQuery().returnURL
+      // });
 
-    // TODO delete this var when the Pryv Button has been updated                      <-------- !
-    // From here ------------
-    var serviceInfo = Settings.retrieveServiceInfo();
-    settings.addParams({
-      poll: 'null',
-      serviceInfo: serviceInfo,
-      key: pryv.utility.urls.parseClientURL().parseQuery().key,
-      lang: pryv.utility.urls.parseClientURL().parseQuery().lang,
-      returnURL: pryv.utility.urls.parseClientURL().parseQuery().returnURL
-    });
-    // To here --------------
+      // TODO delete this var when the Pryv Button has been updated                      <-------- !
+      // From here ------------
+      let serviceInfo = Settings.computeServiceInfoURL();
+      settings.addParams({
+        poll: 'null',
+        serviceInfo: serviceInfo,
+        key: pryv.utility.urls.parseClientURL().parseQuery().key,
+        lang: pryv.utility.urls.parseClientURL().parseQuery().lang || 'en',
+        returnURL: pryv.utility.urls.parseClientURL().parseQuery().returnURL
+      });
+      // To here --------------
 
-    async.waterfall([
-      function (stepDone) {
-        stepDone(null, settings);
-      },
-      parseUrlParams,
-      requests.getServiceInfo,
-      requests.getAccessInfoFromRegister
-    ], function (err, settings) {
-      if (err) {
-        return callback(err, settings);
+      async.applyEach([
+          parseUrlParams,
+          requests.getServiceInfo
+        ],
+        settings,
+        stepDone);
+    },
+    function fetchPollingUrlIfNeeded(stepDone) {
+      if (page === 'access') { // do only if accessed from Auth request
+        return requests.getPollingUrl(settings, stepDone);
       }
-      callback(null, settings);
-    });
+      stepDone();
+    }
+  ], function (err) {
+    callback(err, settings);
   });
 };
 
@@ -47998,7 +48023,9 @@ requests.getServiceInfo = function (Settings, callback) {
   request
     .get(Settings.params.serviceInfo)
     .end(function (err, res) {
-      if (err) { return callback(err, Settings); }
+      if (err) {
+        return callback(err, Settings);
+      }
       Settings.addInfo(res.body);
       callback(null, Settings);
     });
@@ -48010,7 +48037,7 @@ requests.getServiceInfo = function (Settings, callback) {
  * @param Settings {Object}
  * @param callback {Object}
  */
-requests.getAccessInfoFromRegister = function (Settings, callback) {
+requests.getPollingUrl = function (Settings, callback) {
   Settings.utils.printInfo(Settings.strs.loadingSettings);
 
   // TODO delete this var when the Pryv Button has been updated                  <-------- !
@@ -48147,13 +48174,14 @@ module.exports = requests;
 },{"superagent":85}],102:[function(require,module,exports){
 var $ = require('jquery');
 
-module.exports.requestRegisterUser = function (reg, appID, lang) {
+module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings) {
   var registerForm = $('#registerForm');
   var username = registerForm.find('input[name=username]').val();
   var email = registerForm.find('input[name=email]').val();
   var pass = registerForm.find('input[name=pass]').val();
   var rePass = registerForm.find('input[name=rePass]').val();
   var hosting = $('#hosting').val();
+  var reg = Settings.info.register;
 
   if(pass !== rePass) {
     $('#error').text('Password confirmation failed!').show();
@@ -48176,7 +48204,13 @@ module.exports.requestRegisterUser = function (reg, appID, lang) {
         $('#loginUsernameOrEmail').val(username);
         $('#loginPassword').val(pass);
         $('#registerContainer').hide();
-        $('#loginContainer').show();
+
+        if (Settings.isRegisterStandalone()) {
+          var redirect = returnURL || Settings.info.api.replace('{username}', username);
+          window.location.replace(redirect);
+        } else {
+          $('#loginContainer').show();
+        }
       })
       .fail(function (xhr) {
         $('#error').text(xhr.responseJSON.message).show();
@@ -48284,11 +48318,6 @@ var Locale = {};
  */
 Locale.translate = function (page, callback) {
   var lang = 'en';
-
-  if (page === 'login') {
-    lang = pryv.utility.urls.parseClientURL().parseQuery().lang;
-    if (!lang) { return callback('Missing lang parameter in URL'); }
-  }
 
   var options = {
     lng: lang,
@@ -48401,6 +48430,31 @@ var SettingsConstructor = function (page) {
   this.utils.toggleMainView('hide');
 };
 
+
+SettingsConstructor.prototype.setGoal = function (goal) {
+  const goals = ['access', 'register', 'signinhub', 'resetPassword'];
+  if (goals.indexOf(goal) < 0) {
+    throw new Error('goal must be one of ' + JSON.stringify(goals) + ', instead of \`' + goal + '\`');
+  }
+  this.goal = goal;
+};
+
+SettingsConstructor.prototype.isAccess = function () {
+  return this.goal === 'access';
+};
+
+SettingsConstructor.prototype.isRegisterStandalone = function () {
+  return this.goal === 'register';
+};
+
+SettingsConstructor.prototype.isSigninhub = function () {
+  return this.goal === 'signinhub';
+};
+
+SettingsConstructor.prototype.isResetPasswordStandalone = function () {
+  return this.goal === 'resetPassword';
+};
+
 SettingsConstructor.prototype.addParams = function (params) {
   this.params = params;
 };
@@ -48434,7 +48488,16 @@ SettingsConstructor.prototype.updateApiURL = function (username) {
   this.info.api = this.info.api.replace('{username}', username);
 };
 
-SettingsConstructor.retrieveServiceInfo = function() {
+/**
+ * Returns the service infos URL by: by retrieving the domain from:
+ * 1) Looking for it in the query parameters
+ * 2) Building it from the hostname found in the hostname (Production)
+ * 3) If it is `rec.la`, fetches the domain from the root level path (Development)
+ *
+ * @returns {String}
+ */
+SettingsConstructor.computeServiceInfoURL = function() {
+
   var serviceInfo = pryv.utility.urls.parseClientURL().parseQuery().serviceInfo;
   if(serviceInfo) {
     console.log('Service info from url param:');
@@ -48444,8 +48507,11 @@ SettingsConstructor.retrieveServiceInfo = function() {
   } else {
     var domain = document.location.hostname.substr(document.location.hostname.indexOf('.') + 1);
     if(domain === 'rec.la') {
-      domain = pryv.utility.urls.parseClientURL().parseQuery().domain;
-      console.log('Service info from url param (domain), rec.la dev mode:');
+      domain = pryv.utility.urls.parseClientURL().path.split('/')[1];
+      console.log('Service info built from 1st path object (domain), rec.la dev mode:');
+    } else if (domain === 'github.io') {
+      domain = pryv.utility.urls.parseClientURL().path.split('/')[2];
+      console.log('Service info built from 2nd path object (domain), direct access from gh pages:');
     } else {
       console.log('Service info from hostname:');
     }

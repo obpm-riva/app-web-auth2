@@ -37333,7 +37333,7 @@ $(document).ready(function(){
     $error.hide();
     $toggle.prop('disabled', true);
     var username = $('#signinhub-input').val().trim();
-    var reg = Settings.retrieveServiceInfo().replace('/service/infos', '');
+    var reg = Settings.computeServiceInfoURL().replace('/service/infos', '');
     var domain = reg.replace('https://reg.', '');
     $.post(reg + '/' + username + '/server').done( function () {
       window.location = 'https://' + username + '.' + domain + '/#/SignIn';
@@ -37374,6 +37374,31 @@ var SettingsConstructor = function (page) {
   this.utils.toggleMainView('hide');
 };
 
+
+SettingsConstructor.prototype.setGoal = function (goal) {
+  const goals = ['access', 'register', 'signinhub', 'resetPassword'];
+  if (goals.indexOf(goal) < 0) {
+    throw new Error('goal must be one of ' + JSON.stringify(goals) + ', instead of \`' + goal + '\`');
+  }
+  this.goal = goal;
+};
+
+SettingsConstructor.prototype.isAccess = function () {
+  return this.goal === 'access';
+};
+
+SettingsConstructor.prototype.isRegisterStandalone = function () {
+  return this.goal === 'register';
+};
+
+SettingsConstructor.prototype.isSigninhub = function () {
+  return this.goal === 'signinhub';
+};
+
+SettingsConstructor.prototype.isResetPasswordStandalone = function () {
+  return this.goal === 'resetPassword';
+};
+
 SettingsConstructor.prototype.addParams = function (params) {
   this.params = params;
 };
@@ -37407,7 +37432,16 @@ SettingsConstructor.prototype.updateApiURL = function (username) {
   this.info.api = this.info.api.replace('{username}', username);
 };
 
-SettingsConstructor.retrieveServiceInfo = function() {
+/**
+ * Returns the service infos URL by: by retrieving the domain from:
+ * 1) Looking for it in the query parameters
+ * 2) Building it from the hostname found in the hostname (Production)
+ * 3) If it is `rec.la`, fetches the domain from the root level path (Development)
+ *
+ * @returns {String}
+ */
+SettingsConstructor.computeServiceInfoURL = function() {
+
   var serviceInfo = pryv.utility.urls.parseClientURL().parseQuery().serviceInfo;
   if(serviceInfo) {
     console.log('Service info from url param:');
@@ -37417,8 +37451,11 @@ SettingsConstructor.retrieveServiceInfo = function() {
   } else {
     var domain = document.location.hostname.substr(document.location.hostname.indexOf('.') + 1);
     if(domain === 'rec.la') {
-      domain = pryv.utility.urls.parseClientURL().parseQuery().domain;
-      console.log('Service info from url param (domain), rec.la dev mode:');
+      domain = pryv.utility.urls.parseClientURL().path.split('/')[1];
+      console.log('Service info built from 1st path object (domain), rec.la dev mode:');
+    } else if (domain === 'github.io') {
+      domain = pryv.utility.urls.parseClientURL().path.split('/')[2];
+      console.log('Service info built from 2nd path object (domain), direct access from gh pages:');
     } else {
       console.log('Service info from hostname:');
     }
