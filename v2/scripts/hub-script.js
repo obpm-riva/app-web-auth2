@@ -37326,18 +37326,19 @@ var Settings = require('../utils/Settings');
 
 $(document).ready(function(){
   var $toggle = $('#signinhub-form-toggle');
-  var $alert = $('.alert');
+  var $error = $('#error');
+  $error.hide();
 
   $toggle.click(function () {
+    $error.hide();
     $toggle.prop('disabled', true);
-    $alert.addClass('hidden');
     var username = $('#signinhub-input').val().trim();
     var reg = Settings.retrieveServiceInfo().replace('/service/infos', '');
     var domain = reg.replace('https://reg.', '');
     $.post(reg + '/' + username + '/server').done( function () {
       window.location = 'https://' + username + '.' + domain + '/#/SignIn';
     }).fail(function () {
-      $alert.removeClass('hidden');
+      $error.show();
     }).always(function () {
       $toggle.prop('disabled', false);
     });
@@ -37346,7 +37347,7 @@ $(document).ready(function(){
   $('#regButton').click(function(e) {
     e.preventDefault();
     var origin = location.href;
-    location.href = origin.substring(0,origin.lastIndexOf('/') + 1) + 'register.html?returnUrl=' + origin;
+    location.href = origin.substring(0,origin.lastIndexOf('/') + 1) + 'access.html?returnUrl=' + origin + '&standaloneRegister=true';
   });
 });
 },{"../utils/Settings":89,"jquery":18}],89:[function(require,module,exports){
@@ -37414,14 +37415,14 @@ SettingsConstructor.retrieveServiceInfo = function() {
     serviceInfo = window.pryvServiceInfo;
     console.log('Service info from window var:');
   } else {
-      var domain = document.location.hostname.substr(document.location.hostname.indexOf('.') + 1);
-      if(domain === 'rec.la') {
-        domain = pryv.utility.urls.parseClientURL().parseQuery().domain;
-        console.log('Service info from url param (domain), rec.la dev mode:');
-      } else {
-        console.log('Service info from hostname:');
-      }
-      serviceInfo = 'https://reg.' + domain + '/service/infos';
+    var domain = document.location.hostname.substr(document.location.hostname.indexOf('.') + 1);
+    if(domain === 'rec.la') {
+      domain = pryv.utility.urls.parseClientURL().parseQuery().domain;
+      console.log('Service info from url param (domain), rec.la dev mode:');
+    } else {
+      console.log('Service info from hostname:');
+    }
+    serviceInfo = 'https://reg.' + domain + '/service/infos';
   }
   console.log(serviceInfo);
   return serviceInfo;
@@ -37448,17 +37449,17 @@ var UtilityConstructor = function (page) {
   this.url = formatURL($(location).attr('href'));
 
   switch(page) {
-    case 'login':
-      this.mainView = {
-        $loginContainer: $('#loginContainer'),
-        $loginFormRegister:  $('#loginFormRegister'),
-        $loginFormReset: $('#loginFormReset')
-      };
-      break;
-    case 'register':
-      break;
-    case 'reset-password':
-      break;
+  case 'login':
+    this.mainView = {
+      $loginContainer: $('#loginContainer'),
+      $loginFormRegister:  $('#loginFormRegister'),
+      $loginFormReset: $('#loginFormReset')
+    };
+    break;
+  case 'register':
+    break;
+  case 'reset-password':
+    break;
   }
 };
 
@@ -37471,12 +37472,12 @@ UtilityConstructor.prototype.toggleMainView = function (state) {
   for (var key in this.mainView) {
     if (this.mainView.hasOwnProperty(key)) {
       switch(state) {
-        case 'show':
-          this.mainView[key].fadeIn(1000, 'linear');
-          break;
-        case 'hide':
-          this.mainView[key].hide();
-          break;
+      case 'show':
+        this.mainView[key].fadeIn(1000, 'linear');
+        break;
+      case 'hide':
+        this.mainView[key].hide();
+        break;
       }
     }
   }
@@ -37517,28 +37518,28 @@ UtilityConstructor.prototype.printError = function (error) {
  */
 UtilityConstructor.prototype.blockState = function (state, block) {
   switch(block) {
-    case 'info':
-      switch (state) {
-        case 'show':
-          this.$alertBlock.hide();
-          this.$infoBlock.show();
-          break;
-        case 'hide':
-          this.$infoBlock.hide();
-          break;
-      }
+  case 'info':
+    switch (state) {
+    case 'show':
+      this.$alertBlock.hide();
+      this.$infoBlock.show();
       break;
-    case 'alert':
-      switch (state) {
-        case 'show':
-          this.$infoBlock.hide();
-          this.$alertBlock.show();
-          break;
-        case 'hide':
-          this.$alertBlock.hide();
-          break;
-      }
+    case 'hide':
+      this.$infoBlock.hide();
       break;
+    }
+    break;
+  case 'alert':
+    switch (state) {
+    case 'show':
+      this.$infoBlock.hide();
+      this.$alertBlock.show();
+      break;
+    case 'hide':
+      this.$alertBlock.hide();
+      break;
+    }
+    break;
   }
 };
 
@@ -37550,10 +37551,10 @@ UtilityConstructor.prototype.blockState = function (state, block) {
  * @param message {String | Object}
  */
 UtilityConstructor.prototype.loaderView = function (state, message) {
-  var $permissionsContainer = $('#permissionsContainer'),
-    $loaderContainer = $('#loaderContainer'),
-    $loaderMessage = $('#loaderMessage'),
-    $loaderState = $('#loaderState');
+  var $permissionsContainer = $('#permissionsContainer');
+  var $loaderContainer = $('#loaderContainer');
+  var $loaderMessage = $('#loaderMessage');
+  var $loaderState = $('#loaderState');
 
   this.toggleMainView('hide');
   this.$blockContainer.hide();
@@ -37572,14 +37573,20 @@ UtilityConstructor.prototype.loaderView = function (state, message) {
  * @param Settings {Object}
  */
 UtilityConstructor.prototype.permissionsView = function (Settings) {
-  var $permissionsContainer = $('#permissionsContainer'),
-    $permissionsRequestedBy = $('#permissionsRequestedBy');
+  var $permissionsContainer = $('#permissionsContainer');
+  var $permissionsRequestedBy = $('#permissionsRequestedBy');
 
   this.toggleMainView('hide');
   this.$blockContainer.hide();
   $permissionsContainer.fadeIn(1000, 'linear');
   $permissionsRequestedBy.html(Settings.strs.permissionsRequestedBy
     .replace('{appId}', Settings.access.requestingAppId));
+  
+  var apps = Settings.info.apps;
+  var appId = Settings.access.requestingAppId;
+  if(apps && apps[appId] && apps[appId].icon) {
+    $('#iconApp').attr('src', apps[appId].icon);
+  }
 };
 
 /**
@@ -37596,8 +37603,8 @@ UtilityConstructor.prototype.addPermission = function (Settings, data) {
     html = Settings.strs.permissionsAll;
   } else {
     html = data.name ? Settings.strs.permissionsUpdate
-        .replace('{name}', data.name)
-        .replace('{level}', data.level)
+      .replace('{name}', data.name)
+      .replace('{level}', data.level)
       : Settings.strs.permissionsCreate
         .replace('{name}', data.defaultName)
         .replace('{level}', data.level);
@@ -37612,8 +37619,8 @@ UtilityConstructor.prototype.addPermission = function (Settings, data) {
  * @param state {Boolean}
  */
 UtilityConstructor.prototype.permissionsState = function (state) {
-  var $permissionsAccept = $('#permissionsAccept'),
-    $permissionsReject = $('#permissionsReject');
+  var $permissionsAccept = $('#permissionsAccept');
+  var $permissionsReject = $('#permissionsReject');
 
   $permissionsAccept.prop('disabled', state);
   $permissionsReject.prop('disabled', state);
@@ -37639,8 +37646,8 @@ function formatURL (url) {
  * @returns       {String}
  */
 function formatMessage ($elem, message){
-  var width = $elem.innerWidth() - ($elem.outerWidth() - $elem.innerWidth()),
-    newMessage = '';
+  var width = $elem.innerWidth() - ($elem.outerWidth() - $elem.innerWidth());
+  var newMessage = '';
 
   for (var i = 0; i < message.length; i++) {
     if (i > 0 && i % width === 0) {
@@ -37693,7 +37700,7 @@ function searchKeyInObject (obj, query, res) {
  */
 String.prototype.htmlTag = function (tag, className) {
   if (className) {
-    return '<' + tag + ' class=\"' + className + '\">' + this + '</' + tag + '>';
+    return '<' + tag + ' class="' + className + '">' + this + '</' + tag + '>';
   } else {
     return '<' + tag + '>' + this + '</' + tag + '>';
   }

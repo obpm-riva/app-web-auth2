@@ -47699,6 +47699,11 @@ function manageRegistrationView (Settings) {
     $('#registerContainer').hide();
     $('#loginContainer').show();
   });
+  if(getURLParameter('standaloneRegister')) {
+    $('#registerContainer').show();
+    $('#loginContainer').hide();
+    $('#resetContainer').hide();
+  }
 }
 
 /**
@@ -47721,6 +47726,8 @@ function managePasswordResetView (Settings) {
   if (resetToken) {
     $resetForm.hide();
     $changePass.show();
+    $('#loginContainer').hide();
+    $('#resetContainer').show();
   } else {
     $resetForm.show();
     $changePass.hide();
@@ -47729,6 +47736,11 @@ function managePasswordResetView (Settings) {
     $('#resetContainer').hide();
     $('#loginContainer').show();
   });
+  if(getURLParameter('standaloneReset')) {
+    $('#resetContainer').show();
+    $('#loginContainer').hide();
+    $('#registerContainer').hide();
+  }
 }
 
 function getURLParameter (name) {
@@ -48257,9 +48269,9 @@ module.exports.setPassword = function (domain, token) {
 },{"jquery":22}],104:[function(require,module,exports){
 /* global module, require */
 
-var $ = require('jquery'),
-  pryv = require('pryv'),
-  i18n = require('i18next-client');
+var $ = require('jquery');
+var pryv = require('pryv');
+var i18n = require('i18next-client');
 
 var Locale = {};
 
@@ -48288,52 +48300,52 @@ Locale.translate = function (page, callback) {
     .init(options, function (err, t) {
       if (err) { return callback(err); }
       switch (page) {
-        case 'login':
-          updateLoginHTML(t);
-          callback(null, {
-            /* Errors */
-            missingPoll: t('missing-poll'),
-            missingLang: t('missing-lang'),
-            genericError: t('generic-error'),
-            missingPassword: t('missing-password'),
-            missingUsername: t('missing-username'),
-            missingServiceInfo: t('missing-service-info'),
-            missingUsernameAndPassword: t('missing-username-and-password'),
+      case 'login':
+        updateLoginHTML(t);
+        callback(null, {
+          /* Errors */
+          missingPoll: t('missing-poll'),
+          missingLang: t('missing-lang'),
+          genericError: t('generic-error'),
+          missingPassword: t('missing-password'),
+          missingUsername: t('missing-username'),
+          missingServiceInfo: t('missing-service-info'),
+          missingUsernameAndPassword: t('missing-username-and-password'),
 
-            /* States */
-            uidWithMail: t('uid-with-mail'),
-            accessCleaned: t('access-cleaned'),
-            accessGranted: t('access-granted'),
-            accessRefused: t('access-refused'),
-            accessCanceled: t('access-canceled'),
-            loginWithEmail: t('login-with-e-mail'),
-            loginWithUsername: t('login-with-username'),
+          /* States */
+          uidWithMail: t('uid-with-mail'),
+          accessCleaned: t('access-cleaned'),
+          accessGranted: t('access-granted'),
+          accessRefused: t('access-refused'),
+          accessCanceled: t('access-canceled'),
+          loginWithEmail: t('login-with-e-mail'),
+          loginWithUsername: t('login-with-username'),
 
-            /* Permissions */
-            permissionsAll: t('permissions-all'),
-            permissionsCreate: t('permissions-create'),
-            permissionsUpdate: t('permissions-update'),
-            permissionsRequestedBy: t('permissions-requested-by'),
+          /* Permissions */
+          permissionsAll: t('permissions-all'),
+          permissionsCreate: t('permissions-create'),
+          permissionsUpdate: t('permissions-update'),
+          permissionsRequestedBy: t('permissions-requested-by'),
 
-            /* Ongoing processes */
-            closing: t('closing'),
-            sendingState: t('sending-state'),
-            deletingAccess: t('deleting-access'),
-            creatingStream: t('creating-stream'),
-            creatingAccess: t('creating-access'),
-            updatingAccess: t('updating-access'),
-            loadingSettings: t('loading-settings'),
-            fetchingStreams: t('fetching-streams'),
-            fetchingAccesses: t('fetching-accesses'),
-            loadingPermissions: t('loading-permissions'),
-            checkingAppAccess: t('checking-app-access'),
-            loadingServiceInfo: t('loading-service-info')
-          });
-          break;
-        case 'register':
-          break;
-        case 'reset-password':
-          break;
+          /* Ongoing processes */
+          closing: t('closing'),
+          sendingState: t('sending-state'),
+          deletingAccess: t('deleting-access'),
+          creatingStream: t('creating-stream'),
+          creatingAccess: t('creating-access'),
+          updatingAccess: t('updating-access'),
+          loadingSettings: t('loading-settings'),
+          fetchingStreams: t('fetching-streams'),
+          fetchingAccesses: t('fetching-accesses'),
+          loadingPermissions: t('loading-permissions'),
+          checkingAppAccess: t('checking-app-access'),
+          loadingServiceInfo: t('loading-service-info')
+        });
+        break;
+      case 'register':
+        break;
+      case 'reset-password':
+        break;
       }
     });
 };
@@ -48345,15 +48357,15 @@ module.exports = Locale;
  * @param t {Function}
  */
 function updateLoginHTML(t) {
-  var $loginFormTitle = $('#loginFormTitle'),
-    $loginUsernameLabel = $('#loginUsernameLabel'),
-    $loginPasswordLabel = $('#loginPasswordLabel'),
-    $permissionsAccept = $('#permissionsAccept'),
-    $permissionsReject = $('#permissionsReject'),
-    $permissionsTitle = $('#permissionsTitle'),
-    $loginFormToggle = $('#loginFormToggle'),
-    $signInButton = $('#signInButton'),
-    $cancelButton = $('#cancelButton');
+  var $loginFormTitle = $('#loginFormTitle');
+  var $loginUsernameLabel = $('#loginUsernameLabel');
+  var $loginPasswordLabel = $('#loginPasswordLabel');
+  var $permissionsAccept = $('#permissionsAccept');
+  var $permissionsReject = $('#permissionsReject');
+  var $permissionsTitle = $('#permissionsTitle');
+  var $loginFormToggle = $('#loginFormToggle');
+  var $signInButton = $('#signInButton');
+  var $cancelButton = $('#cancelButton');
 
   $loginUsernameLabel.text(t('login-username-label'));
   $loginPasswordLabel.text(t('login-password-label'));
@@ -48430,14 +48442,14 @@ SettingsConstructor.retrieveServiceInfo = function() {
     serviceInfo = window.pryvServiceInfo;
     console.log('Service info from window var:');
   } else {
-      var domain = document.location.hostname.substr(document.location.hostname.indexOf('.') + 1);
-      if(domain === 'rec.la') {
-        domain = pryv.utility.urls.parseClientURL().parseQuery().domain;
-        console.log('Service info from url param (domain), rec.la dev mode:');
-      } else {
-        console.log('Service info from hostname:');
-      }
-      serviceInfo = 'https://reg.' + domain + '/service/infos';
+    var domain = document.location.hostname.substr(document.location.hostname.indexOf('.') + 1);
+    if(domain === 'rec.la') {
+      domain = pryv.utility.urls.parseClientURL().parseQuery().domain;
+      console.log('Service info from url param (domain), rec.la dev mode:');
+    } else {
+      console.log('Service info from hostname:');
+    }
+    serviceInfo = 'https://reg.' + domain + '/service/infos';
   }
   console.log(serviceInfo);
   return serviceInfo;
@@ -48464,17 +48476,17 @@ var UtilityConstructor = function (page) {
   this.url = formatURL($(location).attr('href'));
 
   switch(page) {
-    case 'login':
-      this.mainView = {
-        $loginContainer: $('#loginContainer'),
-        $loginFormRegister:  $('#loginFormRegister'),
-        $loginFormReset: $('#loginFormReset')
-      };
-      break;
-    case 'register':
-      break;
-    case 'reset-password':
-      break;
+  case 'login':
+    this.mainView = {
+      $loginContainer: $('#loginContainer'),
+      $loginFormRegister:  $('#loginFormRegister'),
+      $loginFormReset: $('#loginFormReset')
+    };
+    break;
+  case 'register':
+    break;
+  case 'reset-password':
+    break;
   }
 };
 
@@ -48487,12 +48499,12 @@ UtilityConstructor.prototype.toggleMainView = function (state) {
   for (var key in this.mainView) {
     if (this.mainView.hasOwnProperty(key)) {
       switch(state) {
-        case 'show':
-          this.mainView[key].fadeIn(1000, 'linear');
-          break;
-        case 'hide':
-          this.mainView[key].hide();
-          break;
+      case 'show':
+        this.mainView[key].fadeIn(1000, 'linear');
+        break;
+      case 'hide':
+        this.mainView[key].hide();
+        break;
       }
     }
   }
@@ -48533,28 +48545,28 @@ UtilityConstructor.prototype.printError = function (error) {
  */
 UtilityConstructor.prototype.blockState = function (state, block) {
   switch(block) {
-    case 'info':
-      switch (state) {
-        case 'show':
-          this.$alertBlock.hide();
-          this.$infoBlock.show();
-          break;
-        case 'hide':
-          this.$infoBlock.hide();
-          break;
-      }
+  case 'info':
+    switch (state) {
+    case 'show':
+      this.$alertBlock.hide();
+      this.$infoBlock.show();
       break;
-    case 'alert':
-      switch (state) {
-        case 'show':
-          this.$infoBlock.hide();
-          this.$alertBlock.show();
-          break;
-        case 'hide':
-          this.$alertBlock.hide();
-          break;
-      }
+    case 'hide':
+      this.$infoBlock.hide();
       break;
+    }
+    break;
+  case 'alert':
+    switch (state) {
+    case 'show':
+      this.$infoBlock.hide();
+      this.$alertBlock.show();
+      break;
+    case 'hide':
+      this.$alertBlock.hide();
+      break;
+    }
+    break;
   }
 };
 
@@ -48566,10 +48578,10 @@ UtilityConstructor.prototype.blockState = function (state, block) {
  * @param message {String | Object}
  */
 UtilityConstructor.prototype.loaderView = function (state, message) {
-  var $permissionsContainer = $('#permissionsContainer'),
-    $loaderContainer = $('#loaderContainer'),
-    $loaderMessage = $('#loaderMessage'),
-    $loaderState = $('#loaderState');
+  var $permissionsContainer = $('#permissionsContainer');
+  var $loaderContainer = $('#loaderContainer');
+  var $loaderMessage = $('#loaderMessage');
+  var $loaderState = $('#loaderState');
 
   this.toggleMainView('hide');
   this.$blockContainer.hide();
@@ -48588,14 +48600,20 @@ UtilityConstructor.prototype.loaderView = function (state, message) {
  * @param Settings {Object}
  */
 UtilityConstructor.prototype.permissionsView = function (Settings) {
-  var $permissionsContainer = $('#permissionsContainer'),
-    $permissionsRequestedBy = $('#permissionsRequestedBy');
+  var $permissionsContainer = $('#permissionsContainer');
+  var $permissionsRequestedBy = $('#permissionsRequestedBy');
 
   this.toggleMainView('hide');
   this.$blockContainer.hide();
   $permissionsContainer.fadeIn(1000, 'linear');
   $permissionsRequestedBy.html(Settings.strs.permissionsRequestedBy
     .replace('{appId}', Settings.access.requestingAppId));
+  
+  var apps = Settings.info.apps;
+  var appId = Settings.access.requestingAppId;
+  if(apps && apps[appId] && apps[appId].icon) {
+    $('#iconApp').attr('src', apps[appId].icon);
+  }
 };
 
 /**
@@ -48612,8 +48630,8 @@ UtilityConstructor.prototype.addPermission = function (Settings, data) {
     html = Settings.strs.permissionsAll;
   } else {
     html = data.name ? Settings.strs.permissionsUpdate
-        .replace('{name}', data.name)
-        .replace('{level}', data.level)
+      .replace('{name}', data.name)
+      .replace('{level}', data.level)
       : Settings.strs.permissionsCreate
         .replace('{name}', data.defaultName)
         .replace('{level}', data.level);
@@ -48628,8 +48646,8 @@ UtilityConstructor.prototype.addPermission = function (Settings, data) {
  * @param state {Boolean}
  */
 UtilityConstructor.prototype.permissionsState = function (state) {
-  var $permissionsAccept = $('#permissionsAccept'),
-    $permissionsReject = $('#permissionsReject');
+  var $permissionsAccept = $('#permissionsAccept');
+  var $permissionsReject = $('#permissionsReject');
 
   $permissionsAccept.prop('disabled', state);
   $permissionsReject.prop('disabled', state);
@@ -48655,8 +48673,8 @@ function formatURL (url) {
  * @returns       {String}
  */
 function formatMessage ($elem, message){
-  var width = $elem.innerWidth() - ($elem.outerWidth() - $elem.innerWidth()),
-    newMessage = '';
+  var width = $elem.innerWidth() - ($elem.outerWidth() - $elem.innerWidth());
+  var newMessage = '';
 
   for (var i = 0; i < message.length; i++) {
     if (i > 0 && i % width === 0) {
@@ -48709,7 +48727,7 @@ function searchKeyInObject (obj, query, res) {
  */
 String.prototype.htmlTag = function (tag, className) {
   if (className) {
-    return '<' + tag + ' class=\"' + className + '\">' + this + '</' + tag + '>';
+    return '<' + tag + ' class="' + className + '">' + this + '</' + tag + '>';
   } else {
     return '<' + tag + '>' + this + '</' + tag + '>';
   }
