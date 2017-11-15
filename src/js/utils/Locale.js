@@ -16,11 +16,6 @@ var Locale = {};
 Locale.translate = function (page, callback) {
   var lang = 'en';
 
-  if (page === 'login') {
-    lang = pryv.utility.urls.parseClientURL().parseQuery().lang;
-    if (!lang) { return callback('Missing lang parameter in URL'); }
-  }
-
   var options = {
     lng: lang,
     fallbackLng : 'en',
