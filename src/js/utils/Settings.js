@@ -74,7 +74,10 @@ SettingsConstructor.computeServiceInfoURL = function() {
     var domain = document.location.hostname.substr(document.location.hostname.indexOf('.') + 1);
     if(domain === 'rec.la') {
       domain = pryv.utility.urls.parseClientURL().path.split('/')[1];
-      console.log('Service info from url param (domain), rec.la dev mode:');
+      console.log('Service info built from 1st path object (domain), rec.la dev mode:');
+    } else if (domain === 'github.io') {
+      domain = pryv.utility.urls.parseClientURL().path.split('/')[2];
+      console.log('Service info built from 2nd path object (domain), direct access from gh pages:');
     } else {
       console.log('Service info from hostname:');
     }
