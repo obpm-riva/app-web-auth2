@@ -32,7 +32,7 @@ module.exports.requestRegisterUser = function (reg, appID, lang, Settings) {
         $('#registerContainer').hide();
 
         if (Settings.isRegisterStandalone()) {
-          // ouvrir username.domain
+          window.location.replace(reg.replace('reg', username) + '/#/SignIn');
         } else {
           $('#loginContainer').show();
         }
