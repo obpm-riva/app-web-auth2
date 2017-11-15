@@ -178,12 +178,6 @@ function manageRegistrationView (Settings) {
   
   register.retrieveHostings(Settings.info.register);
   
-  var username = 'testuser' + Math.floor((Math.random() * 100000000) + 1);
-  $('#registerForm').find('input[name=username]').val(username);
-  $('#registerForm').find('input[name=email]').val(username + '@bidule.com');
-  $('#registerForm').find('input[name=pass]').val('PASSWORD');
-  $('#registerForm').find('input[name=rePass]').val('PASSWORD');
-  
   $('#registerForm').on('submit', function(e) {
     e.preventDefault();
     register.requestRegisterUser(getURLParameter('returnURL'), appId, lang, Settings);
