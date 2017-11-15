@@ -10,9 +10,9 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
   var reg = Settings.info.register;
 
   if(pass !== rePass) {
-    $('#error').text('Password confirmation failed!').show();
+    $('#registerError').text('Password confirmation failed!').show();
   } else {
-    $('#error').hide().empty();
+    $('#registerError').hide().empty();
     registerForm.find('input[type=submit]').prop('disabled', true);
     $.post(reg + '/user',
       {
@@ -51,7 +51,7 @@ module.exports.retrieveHostings = function (reg) {
   registerForm.find('input[type=submit]').prop('disabled', true);
   $.get(reg +'/hostings')
     .done(function (data) {
-      $('#error').hide().empty();
+      $('#registerError').hide().empty();
       registerForm.find('input[type=submit]').prop('disabled', false);
       $.each(data, function (i, optgroups) {
         $.each(optgroups, function (groupId, group) {
