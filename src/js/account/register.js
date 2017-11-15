@@ -39,7 +39,7 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
         }
       })
       .fail(function (xhr) {
-        $('#error').text(xhr.responseJSON.message).show();
+        $('#registerError').text(xhr.responseJSON.message).show();
         $('#registerForm').find('input[type=submit]').prop('disabled', false);
       });
   }
@@ -76,6 +76,6 @@ module.exports.retrieveHostings = function (reg) {
 
     })
     .fail(function (xhr) {
-      $('#error').text('Unable to retrieve hostings: ' + xhr.responseJSON.message).show();
+      $('#registerError').text('Unable to retrieve hostings: ' + xhr.responseJSON.message).show();
     });
 };

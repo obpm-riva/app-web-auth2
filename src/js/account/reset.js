@@ -9,13 +9,13 @@ module.exports.requestResetPassword = function (domain) {
       '/account/request-password-reset', {appId: 'static-web'})
       .done(function () {
         resetForm.get(0).reset();
-        $('#error').hide().empty();
+        $('#passwordError').hide().empty();
         resetForm.hide();
         $('#requestSent').show();
         resetForm.find('input[type=submit]').prop('disabled', false);
       })
       .fail(function () {
-        $('#error').text('Username unknown').show();
+        $('#passwordError').text('Username unknown').show();
         resetForm.find('input[type=submit]').prop('disabled', false);
       });
   }
@@ -43,7 +43,7 @@ module.exports.setPassword = function (returnURL, domain, token, Settings) {
         }
       })
       .fail(function () {
-        $('#error').text('Username unknown').show();
+        $('#passwordError').text('Username unknown').show();
         setPass.find('input[type=submit]').prop('disabled', false);
       });
   }
