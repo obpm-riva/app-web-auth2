@@ -4,7 +4,7 @@
 2. Click on "helpdesk" link and check that its valid, close the helpdesk page.
 3. Check that you can alternate between login, registration and password reset views by clicking on "Create an account", "Already an user? Sign in.", "Forgot password" and "Go back to Sign in." buttons. 
 4. Go to registration view, click on "terms of use" link and check that its valid, close the terms page.
-5. Complete the form with new test user information and click on "Send request".
+5. Complete the form with new test user information and click on "Create".
 6. Check that you are back in the login view with the username and password fields filled with your just created test user credentials.
 7. Click on "Sign in" and check that the requested permissions are shown.
 8. Accept the permissions and check that the popup closes and that the "Username" and "Access Token" fields are filled once back in app-web-access.
