@@ -190,6 +190,7 @@ function manageRegistrationView (Settings) {
     $('#registerContainer').show();
     $('#loginContainer').hide();
     $('#resetContainer').hide();
+    $('#alreadyUser').hide();
   }
 }
 
@@ -227,6 +228,7 @@ function managePasswordResetView (Settings) {
     $('#resetContainer').show();
     $('#loginContainer').hide();
     $('#registerContainer').hide();
+    $('#goToLogin').hide();
   }
 }
 
