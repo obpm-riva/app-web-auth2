@@ -168,7 +168,6 @@ function managePermissionsView (Settings, callback) {
  * Manages user registration
  */
 function manageRegistrationView (Settings) {
-  var reg = Settings.info.register;
   var appId = getURLParameter('requestingAppId');
   var lang = getURLParameter('lang');
   
@@ -177,7 +176,7 @@ function manageRegistrationView (Settings) {
   terms.attr('href', Settings.info.terms);
   support.attr('href', Settings.info.support);
   
-  register.retrieveHostings(reg);
+  register.retrieveHostings(Settings.info.register);
   
   var username = 'testuser' + Math.floor((Math.random() * 100000000) + 1);
   $('#registerForm').find('input[name=username]').val(username);
@@ -187,7 +186,7 @@ function manageRegistrationView (Settings) {
   
   $('#registerForm').on('submit', function(e) {
     e.preventDefault();
-    register.requestRegisterUser(reg, appId, lang, Settings);
+    register.requestRegisterUser(getURLParameter('returnURL'), appId, lang, Settings);
   });
   $('#alreadyUser').click(function() {
     $('#registerContainer').hide();
