@@ -209,7 +209,7 @@ function managePasswordResetView (Settings) {
   });
   $changePass.on('submit', function(e) {
     e.preventDefault();
-    reset.setPassword(domain, resetToken);
+    reset.setPassword(getURLParameter('returnURL'), domain, resetToken, Settings);
   });
   if (resetToken) {
     $resetForm.hide();

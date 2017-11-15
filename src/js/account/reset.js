@@ -21,7 +21,7 @@ module.exports.requestResetPassword = function (domain) {
   }
 };
 
-module.exports.setPassword = function (domain, token) {
+module.exports.setPassword = function (returnURL, domain, token, Settings) {
   var setPass = $('#setPass');
   var username = setPass.find('input[name=username]').val();
   var pass = setPass.find('input[name=password]').val();
@@ -35,7 +35,12 @@ module.exports.setPassword = function (domain, token) {
         $('#loginUsernameOrEmail').val(username);
         $('#loginPassword').val(pass);
         $('#resetContainer').hide();
-        $('#loginContainer').show();
+        if (Settings.isResetPasswordStandalone()) {
+          var redirect = returnURL || Settings.info.api.replace('{username}', username);
+          window.location.replace(redirect);
+        } else {
+          $('#loginContainer').show();
+        }
       })
       .fail(function () {
         $('#error').text('Username unknown').show();
