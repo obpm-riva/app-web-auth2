@@ -21,6 +21,31 @@ var SettingsConstructor = function (page) {
   this.utils.toggleMainView('hide');
 };
 
+
+SettingsConstructor.prototype.setGoal = function (goal) {
+  const goals = ['access', 'register', 'signinhub', 'resetPassword'];
+  if (goals.indexOf(goal) < 0) {
+    throw new Error('goal must be one of ' + JSON.stringify(goals) + ', instead of \`' + goal + '\`');
+  }
+  this.goal = goal;
+};
+
+SettingsConstructor.prototype.isAccess = function () {
+  return this.goal === 'access';
+};
+
+SettingsConstructor.prototype.isRegisterStandalone = function () {
+  return this.goal === 'register';
+};
+
+SettingsConstructor.prototype.isSigninhub = function () {
+  return this.goal === 'signinhub';
+};
+
+SettingsConstructor.prototype.isResetPasswordStandalone = function () {
+  return this.goal === 'resetPassword';
+};
+
 SettingsConstructor.prototype.addParams = function (params) {
   this.params = params;
 };

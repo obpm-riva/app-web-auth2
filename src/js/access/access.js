@@ -187,7 +187,7 @@ function manageRegistrationView (Settings) {
   
   $('#registerForm').on('submit', function(e) {
     e.preventDefault();
-    register.requestRegisterUser(reg, appId, lang);
+    register.requestRegisterUser(reg, appId, lang, Settings);
   });
   $('#alreadyUser').click(function() {
     $('#registerContainer').hide();

@@ -1,6 +1,6 @@
 var $ = require('jquery');
 
-module.exports.requestRegisterUser = function (reg, appID, lang) {
+module.exports.requestRegisterUser = function (reg, appID, lang, Settings) {
   var registerForm = $('#registerForm');
   var username = registerForm.find('input[name=username]').val();
   var email = registerForm.find('input[name=email]').val();
@@ -30,7 +30,12 @@ module.exports.requestRegisterUser = function (reg, appID, lang) {
         $('#loginUsernameOrEmail').val(username);
         $('#loginPassword').val(pass);
         $('#registerContainer').hide();
-        $('#loginContainer').show();
+
+        if (Settings.isRegisterStandalone()) {
+          // ouvrir username.domain
+        } else {
+          $('#loginContainer').show();
+        }
       })
       .fail(function (xhr) {
         $('#error').text(xhr.responseJSON.message).show();

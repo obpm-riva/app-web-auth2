@@ -19,6 +19,8 @@ var methods = {};
 methods.buildSettings = function (page, callback) {
   let settings = new Settings('login');
 
+  settings.setGoal(page);
+
   async.series([
     function loadTranslate(stepDone) { // To remove when possible
       Locale.translate('login', function (err, strs) {
