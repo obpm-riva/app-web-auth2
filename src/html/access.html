@@ -20,6 +20,17 @@
 <div class="wrapper">
   <img class="logo" src="./assets/main-logo.png"/>
 
+  <!-- Errors & Information -->
+  <div id="blockContainer">
+    <div id="infoBlock" class="alert alert-info">
+      <p id='infoMessage'></p>
+    </div>
+
+    <div id="alertBlock" class="alert alert-danger">
+      <p id='alertMessage'></p>
+    </div>
+  </div>
+
   <!-- Login View -->
   <div id="loginContainer">
     <h1 id="loginFormTitle">Sign in</h1>
@@ -27,12 +38,12 @@
     <form id="loginForm" action="">
       <div class="form-group">
         <label id="loginUsernameLabel">Username or e-mail</label>
-        <input class="form-control" type="text" id="loginUsernameOrEmail" name="loginUsernameOrEmail" autocorrect="off" autocapitalize="off"/>
+        <input class="form-control" type="text" id="loginUsernameOrEmail" name="loginUsernameOrEmail" autocorrect="off" autocapitalize="off" required/>
       </div>
 
       <div class="form-group">
         <label id="loginPasswordLabel">Password</label>
-        <input class="form-control" type="password" id="loginPassword" name="loginPassword" />
+        <input class="form-control" type="password" id="loginPassword" name="loginPassword" required/>
       </div>
 
       <button type="submit" id="signInButton" name="signInButton" class="btn btn-primary btn-block">Sign in</button>
@@ -68,17 +79,6 @@
     </div>
   </div>
 
-  <!-- Errors & Information -->
-  <div id="blockContainer">
-    <div id="infoBlock" class="alert alert-info">
-      <p id='infoMessage'></p>
-    </div>
-
-    <div id="alertBlock" class="alert alert-danger">
-      <p id='alertMessage'></p>
-    </div>
-  </div>
-
   <!-- Loader View -->
   <div id="loaderContainer">
     <h4 id="loaderState"></h4>
@@ -87,7 +87,7 @@
   
   <!-- Register View -->
   <div id="registerContainer">
-    <div id="error" class="alert alert-danger" style="display: none;"></div>
+    <div id="registerError" class="alert alert-danger" style="display: none;"></div>
 
     <form role="form" id="registerForm">
         <h1>Register a new user</h1>
@@ -133,7 +133,7 @@
   
   <!-- Reset Password View -->
   <div id="resetContainer">
-    <div id="error" class="alert alert-danger" style="display: none;"></div>
+    <div id="passwordError" class="alert alert-danger" style="display: none;"></div>
 
     <form role="form" id="setPass">
         <h1>Set a new password</h1>

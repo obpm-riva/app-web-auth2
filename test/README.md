@@ -34,6 +34,7 @@
 
 ### Standalone pages
 
-19. In a new window, open [https://l.rec.la:4443/pryv.li/register.html](https://l.rec.la:4443/pryv.li/register.html) (if necessary, change the domain from `pryv.li` to the one you are working on), enter valid credentials and click on "Create". This should lead you to the URL defined in the `api` property of [https://reg.pryv.li/service/infos](https://reg.pryv.li/service/infos) (same here about the domain).
-20. In a new window, open [https://l.rec.la:4443/pryv.li/signinhub.html](https://l.rec.la:4443/pryv.li/signinhub.html), enter a valid username and verify that it leads you to [https://{username}.pryv.li/#/SignIn](https://{username}.pryv.li/#/SignIn).
-21. In a new window, open [https://l.rec.la:4443/pryv.li/reset-password.html](https://l.rec.la:4443/pryv.li/reset-password.html), enter a username and verify that you receive an email.
+19. In a new window, open [https://l.rec.la:4443/obpm-dev.io/register.html](https://l.rec.la:4443/obpm-dev.io/register.html) (if necessary, change the domain from `obpm-dev.io` to the one you are working on), enter valid credentials and click on "Create". This should lead you to the URL defined in the `api` property of [https://reg.obpm-dev.io/service/infos](https://reg.obpm-dev.io/service/infos) (same here about the domain).
+20. In a new window, open [https://l.rec.la:4443/obpm-dev.io/signinhub.html](https://l.rec.la:4443/obpm-dev.io/signinhub.html), enter a valid username and verify that it leads you to [https://{username}.obpm-dev.io/#/SignIn](https://{username}.obpm-dev.io/#/SignIn).
+21. In a new window, open [https://l.rec.la:4443/obpm-dev.io/reset-password.html](https://l.rec.la:4443/obpm-dev.io/reset-password.html), enter a username and verify that you received an email.
+

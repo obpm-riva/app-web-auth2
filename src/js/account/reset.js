@@ -9,19 +9,19 @@ module.exports.requestResetPassword = function (domain) {
       '/account/request-password-reset', {appId: 'static-web'})
       .done(function () {
         resetForm.get(0).reset();
-        $('#error').hide().empty();
+        $('#passwordError').hide().empty();
         resetForm.hide();
         $('#requestSent').show();
         resetForm.find('input[type=submit]').prop('disabled', false);
       })
       .fail(function () {
-        $('#error').text('Username unknown').show();
+        $('#passwordError').text('Username unknown').show();
         resetForm.find('input[type=submit]').prop('disabled', false);
       });
   }
 };
 
-module.exports.setPassword = function (domain, token) {
+module.exports.setPassword = function (returnURL, domain, token, Settings) {
   var setPass = $('#setPass');
   var username = setPass.find('input[name=username]').val();
   var pass = setPass.find('input[name=password]').val();
@@ -35,10 +35,15 @@ module.exports.setPassword = function (domain, token) {
         $('#loginUsernameOrEmail').val(username);
         $('#loginPassword').val(pass);
         $('#resetContainer').hide();
-        $('#loginContainer').show();
+        if (Settings.isResetPasswordStandalone()) {
+          var redirect = returnURL || Settings.getApiURL(username);
+          window.location.replace(redirect);
+        } else {
+          $('#loginContainer').show();
+        }
       })
       .fail(function () {
-        $('#error').text('Username unknown').show();
+        $('#passwordError').text('Username unknown').show();
         setPass.find('input[type=submit]').prop('disabled', false);
       });
   }

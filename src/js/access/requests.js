@@ -81,10 +81,8 @@ requests.getUidIfEmail = function (Settings, credentials, callback) {
  * @param callback    {Function}
  */
 requests.authenticateWithCredentials = function (Settings, credentials, callback) {
-  Settings.updateApiURL(credentials.uid);
-
   request
-    .post(Settings.info.api + 'auth/login')
+    .post(Settings.getApiURL(credentials.uid) + 'auth/login')
     .send({ username: credentials.uid,
       password: credentials.password,
       appId: Settings.access.requestingAppId })
@@ -105,7 +103,7 @@ requests.checkAppAccess = function (Settings, callback) {
   Settings.utils.printInfo(Settings.strs.checkingAppAccess);
 
   request
-    .post(Settings.info.api + 'accesses/check-app')
+    .post(Settings.getApiURL(Settings.auth.username)+ 'accesses/check-app')
     .send({ requestingAppId: Settings.access.requestingAppId,
       requestedPermissions: Settings.access.requestedPermissions })
     .set({ 'Authorization': Settings.auth.token })
@@ -133,7 +131,7 @@ requests.createAccess = function (Settings, callback) {
     .replace('{appId}', Settings.access.requestingAppId));
 
   request
-    .post(Settings.info.api + 'accesses?auth=' + Settings.auth.token)
+    .post(Settings.getApiURL(Settings.auth.username) + 'accesses?auth=' + Settings.auth.token)
     .send({
       type: 'app',
       name: Settings.access.requestingAppId,

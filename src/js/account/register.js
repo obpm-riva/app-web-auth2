@@ -10,9 +10,9 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
   var reg = Settings.info.register;
 
   if(pass !== rePass) {
-    $('#error').text('Password confirmation failed!').show();
+    $('#registerError').text('Password confirmation failed!').show();
   } else {
-    $('#error').hide().empty();
+    $('#registerError').hide().empty();
     registerForm.find('input[type=submit]').prop('disabled', true);
     $.post(reg + '/user',
       {
@@ -32,14 +32,14 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
         $('#registerContainer').hide();
 
         if (Settings.isRegisterStandalone()) {
-          var redirect = returnURL || Settings.info.api.replace('{username}', username);
+          var redirect = returnURL || Settings.getApiURL(username);
           window.location.replace(redirect);
         } else {
           $('#loginContainer').show();
         }
       })
       .fail(function (xhr) {
-        $('#error').text(xhr.responseJSON.message).show();
+        $('#registerError').text(xhr.responseJSON.message).show();
         $('#registerForm').find('input[type=submit]').prop('disabled', false);
       });
   }
@@ -51,7 +51,7 @@ module.exports.retrieveHostings = function (reg) {
   registerForm.find('input[type=submit]').prop('disabled', true);
   $.get(reg +'/hostings')
     .done(function (data) {
-      $('#error').hide().empty();
+      $('#registerError').hide().empty();
       registerForm.find('input[type=submit]').prop('disabled', false);
       $.each(data, function (i, optgroups) {
         $.each(optgroups, function (groupId, group) {
@@ -76,6 +76,6 @@ module.exports.retrieveHostings = function (reg) {
 
     })
     .fail(function (xhr) {
-      $('#error').text('Unable to retrieve hostings: ' + xhr.responseJSON.message).show();
+      $('#registerError').text('Unable to retrieve hostings: ' + xhr.responseJSON.message).show();
     });
 };

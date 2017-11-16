@@ -4,19 +4,25 @@ Pryv.io web pages for user registration, authentication & password reset.
 
 These web pages are the "popup frame" that opens during the authentication process [http://api.pryv.com/reference/#authentication](http://api.pryv.com/reference/#authentication)
 
-The App flow:
+### The App flow:
 
-1. Frame (access.html) is open by the web-app or mobile app.
-2. It proposes to login or register (register flow see bellow) 
-3. Login is called by [`POST /auth/login`](https://api.pryv.com/reference-full/#login-user) => result *personal token*
-4. The *personal token* is used to call [`POST /accesses/check-app`](https://api.pryv.com/reference-full/#check-app-authorization) => receive either a token if a `matchingAccess` already exists or the required modification. If there is a matching access, the process is over and the frame closes. 
-5. The frame displays a list of modification from the result of the previous `check-app` call and asks the user for consent.
-6. If the consent is given the process ends.
+1. The page (access.html) is opened by the web-app or mobile app by querying the `url` field you receive in reponse to the [Auth request](https://api.pryv.com/reference/#auth-request).
+2. It proposes to login, register and reset your password (for register & reset password flows see below) 
+3. Upon clicking on "Sign in" a [`POST /auth/login`](https://api.pryv.com/reference-full/#login-user) call is made => The result is a *personal token* (in case the credentials are correct).
+4. The *personal token* is used to call [`POST /accesses/check-app`](https://api.pryv.com/reference-full/#check-app-authorization) => The result is either a token if a `matchingAccess` already exists or the required modification. If there is a matching access, the process is over and the frame closes (jump to 6.). 
+5. The frame displays a list of modifications from the result of the previous `check-app` call and asks the user for consent.
+6. The Response to this consent will be given as reponse to the polling URL provided as reponse to the [Auth Request](https://api.pryv.com/reference/#auth-request) in 1. If accepted, it will contain the *app access token*, otherwise the reason of the failure/refusal.
 
-Registration:
+### Registration:
  
-1. Is a "side" frame where the use can create an account. 
-1. When done the result is equivalent to a `LOGIN`
+1. Is a "side" frame where the user can create an account. 
+2. When the account creation is complete, you are brought to the "Sign in" frame
+
+### Password reset:
+
+1. It asks to provide a username. When entered, a [POST /account/request-password-reset](https://api.pryv.com/reference-full/#request-password-reset) call is made.
+2. If the username is correct and a mailing service is active for your pryv.io platform, you should receive a link on the e-mail address associated to the provided username.
+3. This link will lead to the standalone `reset-password.html` page with the resetToken as query parameter, which will display the input fields where you can provide the username and new password.
 
 ## Extra API documentation
 
