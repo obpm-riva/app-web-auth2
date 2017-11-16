@@ -193,7 +193,6 @@ function manageRegistrationView (Settings) {
   $('#alreadyUser').click(function() {
     $('#registerContainer').hide();
     $('#loginContainer').show();
-    $('#blockContainer').show();
   });
   if(getURLParameter('standaloneRegister')) {
     $('#registerContainer').show();
@@ -232,7 +231,6 @@ function managePasswordResetView (Settings) {
   $('#goToLogin').click(function() {
     $('#resetContainer').hide();
     $('#loginContainer').show();
-    $('#blockContainer').show();
   });
   if(getURLParameter('standaloneReset')) {
     $('#resetContainer').show();
