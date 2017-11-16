@@ -214,7 +214,6 @@ function parseUrlParams(settings, callback) {
  * @param message    {Object | String}
  */
 function endPopUp(err, settings, stateTitle, message) {
-
   if (err) {
     settings.utils.loaderView(settings.strs.genericError, err);
   }

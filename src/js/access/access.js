@@ -95,9 +95,15 @@ function manageLoginView (Settings) {
   
   $loginForm.submit(function () {
     if (!Settings.logIn) {
-      Settings.logIn = true;
       methods.loginToPryv(Settings, function (err, Settings) {
-        if (err) { return Settings.utils.printError(err); }
+        if (err) { 
+          // Avoid this with a preliminary check in reg?
+          if(err.toString().indexOf('Request has been terminated') !== -1) {
+            return Settings.utils.printError('Unknown username');
+          }
+          return Settings.utils.printError(err);
+        }
+        Settings.logIn = true;
         managePostLogin(Settings);
       });
     }
@@ -110,11 +116,13 @@ function manageLoginView (Settings) {
 
   $registerButton.click(function() {
     $('#loginContainer').hide();
+    $('#blockContainer').hide();
     $('#registerContainer').show();
   });
 
   $resetButton.click(function() {
     $('#loginContainer').hide();
+    $('#blockContainer').hide();
     $('#resetContainer').show();
   });
 }
@@ -190,6 +198,7 @@ function manageRegistrationView (Settings) {
     $('#registerContainer').show();
     $('#loginContainer').hide();
     $('#resetContainer').hide();
+    $('#alreadyUser').hide();
   }
 }
 
@@ -208,7 +217,7 @@ function managePasswordResetView (Settings) {
   });
   $changePass.on('submit', function(e) {
     e.preventDefault();
-    reset.setPassword(domain, resetToken);
+    reset.setPassword(getURLParameter('returnURL'), domain, resetToken, Settings);
   });
   if (resetToken) {
     $resetForm.hide();
@@ -227,6 +236,7 @@ function managePasswordResetView (Settings) {
     $('#resetContainer').show();
     $('#loginContainer').hide();
     $('#registerContainer').hide();
+    $('#goToLogin').hide();
   }
 }
 
