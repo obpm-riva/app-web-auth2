@@ -20,6 +20,17 @@
 <div class="wrapper">
   <img class="logo" src="./assets/main-logo.png"/>
 
+  <!-- Errors & Information -->
+  <div id="blockContainer">
+    <div id="infoBlock" class="alert alert-info">
+      <p id='infoMessage'></p>
+    </div>
+
+    <div id="alertBlock" class="alert alert-danger">
+      <p id='alertMessage'></p>
+    </div>
+  </div>
+
   <!-- Login View -->
   <div id="loginContainer">
     <h1 id="loginFormTitle">Sign in</h1>
@@ -65,17 +76,6 @@
     <div id="buttonWrapper">
       <button type="submit" id="permissionsReject" class="btn btn-danger btn-lg">Reject</button>
       <button type="submit" id="permissionsAccept" class="btn btn-success btn-lg">Accept</button>
-    </div>
-  </div>
-
-  <!-- Errors & Information -->
-  <div id="blockContainer">
-    <div id="infoBlock" class="alert alert-info">
-      <p id='infoMessage'></p>
-    </div>
-
-    <div id="alertBlock" class="alert alert-danger">
-      <p id='alertMessage'></p>
     </div>
   </div>
 
