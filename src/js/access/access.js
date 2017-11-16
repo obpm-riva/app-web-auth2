@@ -97,7 +97,13 @@ function manageLoginView (Settings) {
     if (!Settings.logIn) {
       Settings.logIn = true;
       methods.loginToPryv(Settings, function (err, Settings) {
-        if (err) { return Settings.utils.printError(err); }
+        if (err) { 
+          // Avoid this with a preliminary check in reg?
+          if(err.toString().indexOf('Request has been terminated') !== -1) {
+            return Settings.utils.printError('Unknown username');
+          }
+          return Settings.utils.printError(err);
+        }
         managePostLogin(Settings);
       });
     }
