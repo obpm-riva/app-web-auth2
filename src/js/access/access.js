@@ -101,9 +101,9 @@ function manageLoginView (Settings) {
           if(err.toString().indexOf('Request has been terminated') !== -1) {
             return Settings.utils.printError('Unknown username');
           }
-          Settings.logIn = true;
           return Settings.utils.printError(err);
         }
+        Settings.logIn = true;
         managePostLogin(Settings);
       });
     }
