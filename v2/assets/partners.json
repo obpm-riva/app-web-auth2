@@ -1,0 +1,28 @@
+﻿{
+   "Partners":[
+      {
+         "Name":"CSEM",
+         "LogoUrl":"https://sw.obpm-dev.io/access/assets/pimgpsh-fullsize-distr.png",
+         "Campaigns":[
+            {
+               "Name":"campaign",
+               "Code":"csem"
+            },
+            {
+               "Name":"campaign2",
+               "Code":"csem2"
+            }
+         ]
+      },
+      {
+         "Name":"Altran",
+         "LogoUrl":"",
+         "Campaigns":[
+            {
+               "Name":"MAIN",
+               "Code":"alt"
+            }
+         ]
+      }
+   ]
+}
