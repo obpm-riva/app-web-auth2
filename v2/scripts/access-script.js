@@ -48242,7 +48242,13 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
         }
       })
       .fail(function (xhr) {
-        $('#registerError').text(xhr.responseJSON.message).show();
+        var message;
+        if(xhr.responseJSON.errors && xhr.responseJSON.errors.length > 0) {
+          message = xhr.responseJSON.errors[0].message;
+        } else {
+          message = xhr.responseJSON.message;
+        }
+        $('#registerError').text(message).show();
         $('#registerForm').find('input[type=submit]').prop('disabled', false);
       });
   }
