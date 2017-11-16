@@ -131,7 +131,7 @@ requests.createAccess = function (Settings, callback) {
     .replace('{appId}', Settings.access.requestingAppId));
 
   request
-    .post(Settings.info.api + 'accesses?auth=' + Settings.auth.token)
+    .post(Settings.getApiURL(Settings.auth.username) + 'accesses?auth=' + Settings.auth.token)
     .send({
       type: 'app',
       name: Settings.access.requestingAppId,
