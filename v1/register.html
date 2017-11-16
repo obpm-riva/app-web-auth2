@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <title>Pryv — Registration</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700,400italic|Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="https://pryv.github.io/app-web/styles/vendor.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/access/v1/media/styles/access.css"/>
+</head>
+<body>
+<div id="simple-page-wrapper">
+    <img class="logo" src="/access/v1/media/images/logo-minimal.png"/>
+
+    <!-- Registration Form Wrapper -->
+    <div id="registration-content-wrapper" class="registrationContainer">
+        <div id="registration-content">
+            Loading..
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <span id="register-form-toggle" class="btn btn-default btn-sm form-toggle" data-mode="register">* Signin to an existing account</span>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/access/v1/bootstrap.min.js"></script>
+<script type="text/javascript" src="/access/v1/media/scripts/registration-controller.js"></script>
+<script type="text/javascript" src="/access/v1/pryv-util.js"></script>
+
+<script type="text/javascript">
+  function registrationLoaded() {
+
+    var apiDomain = Pryv.Utility.apiDomain();
+    var browserDomain = Pryv.Utility.browserDomain();
+    var registerUrl = 'https://reg.' + apiDomain;
+
+    RegistrationController.init(registerUrl, 'pryv-register-standalone',function(error,result) {
+      if (error) {
+        console.log('register.html: registration error '+error);
+        alert('Ouups... ' + error);
+      }
+      console.log('register.html: registration callback '+result);
+      window.location = 'https://' + result.username + '.' + browserDomain + '/#/SignIn';
+    });
+
+  }
+
+  Pryv.Utility.domReady(
+    function () {
+      Pryv.Utility.loadURLContentInElementId(
+        '/access/v1/media/elements/registration-content.html',
+        'registration-content-wrapper',
+        registrationLoaded
+      );
+    }
+  );
+</script>
+</body>
+</html>

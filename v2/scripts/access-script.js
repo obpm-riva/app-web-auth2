@@ -47535,6 +47535,11 @@ var methods = require('./methods');
 var register = require('../account/register');
 var reset = require('../account/reset');
 
+const ACCESS_PAGE = 'access', 
+      REGISTER_PAGE = 'register',
+      SIGNIN_PAGE = 'signinhub',
+      RESET_PASSWORD_PAGE = 'resetPassword';
+
 /**
  * Initialize login form
  */
@@ -47543,8 +47548,19 @@ $(window).ready(function () {
   $loginForm.submit(function () { return false; });
   $('#registerContainer').hide();
   $('#resetContainer').hide();
+
+  let page = '';
+  if(getURLParameter('standaloneRegister')) {
+    page = REGISTER_PAGE;
+  } else if (getURLParameter('standaloneReset')) {
+    page = RESET_PASSWORD_PAGE;
+  } else if (getURLParameter('standaloneSigninhub')) {
+    page = SIGNIN_PAGE;
+  } else {
+    page = ACCESS_PAGE;
+  }
   
-  methods.buildSettings(function (err, Settings) {
+  methods.buildSettings(page, function (err, Settings) {
     if (err) {
       return methods.manageState(Settings, 'ERROR', err);
     }
@@ -47605,7 +47621,7 @@ function manageLoginView (Settings) {
   var $loginForm = $('#loginForm');
   var $registerButton = $('#loginFormRegister');
   var $resetButton = $('#loginFormReset');
-
+  
   $loginForm.submit(function () {
     if (!Settings.logIn) {
       Settings.logIn = true;
@@ -47681,7 +47697,6 @@ function managePermissionsView (Settings, callback) {
  * Manages user registration
  */
 function manageRegistrationView (Settings) {
-  var reg = Settings.info.register;
   var appId = getURLParameter('requestingAppId');
   var lang = getURLParameter('lang');
   
@@ -47690,15 +47705,21 @@ function manageRegistrationView (Settings) {
   terms.attr('href', Settings.info.terms);
   support.attr('href', Settings.info.support);
   
-  register.retrieveHostings(reg);
+  register.retrieveHostings(Settings.info.register);
+  
   $('#registerForm').on('submit', function(e) {
     e.preventDefault();
-    register.requestRegisterUser(reg, appId, lang);
+    register.requestRegisterUser(getURLParameter('returnURL'), appId, lang, Settings);
   });
   $('#alreadyUser').click(function() {
     $('#registerContainer').hide();
     $('#loginContainer').show();
   });
+  if(getURLParameter('standaloneRegister')) {
+    $('#registerContainer').show();
+    $('#loginContainer').hide();
+    $('#resetContainer').hide();
+  }
 }
 
 /**
@@ -47721,6 +47742,8 @@ function managePasswordResetView (Settings) {
   if (resetToken) {
     $resetForm.hide();
     $changePass.show();
+    $('#loginContainer').hide();
+    $('#resetContainer').show();
   } else {
     $resetForm.show();
     $changePass.hide();
@@ -47729,6 +47752,11 @@ function managePasswordResetView (Settings) {
     $('#resetContainer').hide();
     $('#loginContainer').show();
   });
+  if(getURLParameter('standaloneReset')) {
+    $('#resetContainer').show();
+    $('#loginContainer').hide();
+    $('#registerContainer').hide();
+  }
 }
 
 function getURLParameter (name) {
@@ -47754,49 +47782,58 @@ var methods = {};
  * adds translated messages, URL parameters, service info and access info
  * @param callback {Function}
  */
-methods.buildSettings = function (callback) {
-  var settings = new Settings('login');
+methods.buildSettings = function (page, callback) {
+  let settings = new Settings('login');
 
-  Locale.translate('login', function (err, strs) {
-    if (err) {
-      return callback(err, settings);
-    }
-    settings.addStrs(strs);
-    settings.utils.genericError = settings.strs.genericError;
+  settings.setGoal(page);
 
-    // TODO change the parameters given by the Pryv Button in Lib-Javascript to fit this format
-    // Settings.addParams({
-    //   poll: pryv.utility.urls.parseClientURL().parseQuery().poll,
-    //   lang: pryv.utility.urls.parseClientURL().parseQuery().lang,
-    //   serviceInfo: pryv.utility.urls.parseClientURL().parseQuery().serviceInfo
-    //   returnURL: pryv.utility.urls.parseClientURL().parseQuery().returnURL
-    // });
+  async.series([
+    function loadTranslate(stepDone) { // To remove when possible
+      Locale.translate('login', function (err, strs) {
+        if (err) {
+          return stepDone(err, settings);
+        }
+        settings.addStrs(strs);
+        settings.utils.genericError = settings.strs.genericError;
+        stepDone();
+      });
+    },
+    function fetchSettings(stepDone) {
+      // TODO change the parameters given by the Pryv Button in Lib-Javascript to fit this format
+      // Settings.addParams({
+      //   poll: pryv.utility.urls.parseClientURL().parseQuery().poll,
+      //   lang: pryv.utility.urls.parseClientURL().parseQuery().lang,
+      //   serviceInfo: pryv.utility.urls.parseClientURL().parseQuery().serviceInfo
+      //   returnURL: pryv.utility.urls.parseClientURL().parseQuery().returnURL
+      // });
 
-    // TODO delete this var when the Pryv Button has been updated                      <-------- !
-    // From here ------------
-    var serviceInfo = Settings.retrieveServiceInfo();
-    settings.addParams({
-      poll: 'null',
-      serviceInfo: serviceInfo,
-      key: pryv.utility.urls.parseClientURL().parseQuery().key,
-      lang: pryv.utility.urls.parseClientURL().parseQuery().lang,
-      returnURL: pryv.utility.urls.parseClientURL().parseQuery().returnURL
-    });
-    // To here --------------
+      // TODO delete this var when the Pryv Button has been updated                      <-------- !
+      // From here ------------
+      let serviceInfo = Settings.computeServiceInfoURL();
+      settings.addParams({
+        poll: 'null',
+        serviceInfo: serviceInfo,
+        key: pryv.utility.urls.parseClientURL().parseQuery().key,
+        lang: pryv.utility.urls.parseClientURL().parseQuery().lang || 'en',
+        returnURL: pryv.utility.urls.parseClientURL().parseQuery().returnURL
+      });
+      // To here --------------
 
-    async.waterfall([
-      function (stepDone) {
-        stepDone(null, settings);
-      },
-      parseUrlParams,
-      requests.getServiceInfo,
-      requests.getAccessInfoFromRegister
-    ], function (err, settings) {
-      if (err) {
-        return callback(err, settings);
+      async.applyEach([
+          parseUrlParams,
+          requests.getServiceInfo
+        ],
+        settings,
+        stepDone);
+    },
+    function fetchPollingUrlIfNeeded(stepDone) {
+      if (page === 'access') { // do only if accessed from Auth request
+        return requests.getPollingUrl(settings, stepDone);
       }
-      callback(null, settings);
-    });
+      stepDone();
+    }
+  ], function (err) {
+    callback(err, settings);
   });
 };
 
@@ -47986,7 +48023,9 @@ requests.getServiceInfo = function (Settings, callback) {
   request
     .get(Settings.params.serviceInfo)
     .end(function (err, res) {
-      if (err) { return callback(err, Settings); }
+      if (err) {
+        return callback(err, Settings);
+      }
       Settings.addInfo(res.body);
       callback(null, Settings);
     });
@@ -47998,7 +48037,7 @@ requests.getServiceInfo = function (Settings, callback) {
  * @param Settings {Object}
  * @param callback {Object}
  */
-requests.getAccessInfoFromRegister = function (Settings, callback) {
+requests.getPollingUrl = function (Settings, callback) {
   Settings.utils.printInfo(Settings.strs.loadingSettings);
 
   // TODO delete this var when the Pryv Button has been updated                  <-------- !
@@ -48135,13 +48174,14 @@ module.exports = requests;
 },{"superagent":85}],102:[function(require,module,exports){
 var $ = require('jquery');
 
-module.exports.requestRegisterUser = function (reg, appID, lang) {
+module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings) {
   var registerForm = $('#registerForm');
   var username = registerForm.find('input[name=username]').val();
   var email = registerForm.find('input[name=email]').val();
   var pass = registerForm.find('input[name=pass]').val();
   var rePass = registerForm.find('input[name=rePass]').val();
   var hosting = $('#hosting').val();
+  var reg = Settings.info.register;
 
   if(pass !== rePass) {
     $('#error').text('Password confirmation failed!').show();
@@ -48164,7 +48204,13 @@ module.exports.requestRegisterUser = function (reg, appID, lang) {
         $('#loginUsernameOrEmail').val(username);
         $('#loginPassword').val(pass);
         $('#registerContainer').hide();
-        $('#loginContainer').show();
+
+        if (Settings.isRegisterStandalone()) {
+          var redirect = returnURL || Settings.info.api.replace('{username}', username);
+          window.location.replace(redirect);
+        } else {
+          $('#loginContainer').show();
+        }
       })
       .fail(function (xhr) {
         $('#error').text(xhr.responseJSON.message).show();
@@ -48257,9 +48303,9 @@ module.exports.setPassword = function (domain, token) {
 },{"jquery":22}],104:[function(require,module,exports){
 /* global module, require */
 
-var $ = require('jquery'),
-  pryv = require('pryv'),
-  i18n = require('i18next-client');
+var $ = require('jquery');
+var pryv = require('pryv');
+var i18n = require('i18next-client');
 
 var Locale = {};
 
@@ -48273,11 +48319,6 @@ var Locale = {};
 Locale.translate = function (page, callback) {
   var lang = 'en';
 
-  if (page === 'login') {
-    lang = pryv.utility.urls.parseClientURL().parseQuery().lang;
-    if (!lang) { return callback('Missing lang parameter in URL'); }
-  }
-
   var options = {
     lng: lang,
     fallbackLng : 'en',
@@ -48288,52 +48329,52 @@ Locale.translate = function (page, callback) {
     .init(options, function (err, t) {
       if (err) { return callback(err); }
       switch (page) {
-        case 'login':
-          updateLoginHTML(t);
-          callback(null, {
-            /* Errors */
-            missingPoll: t('missing-poll'),
-            missingLang: t('missing-lang'),
-            genericError: t('generic-error'),
-            missingPassword: t('missing-password'),
-            missingUsername: t('missing-username'),
-            missingServiceInfo: t('missing-service-info'),
-            missingUsernameAndPassword: t('missing-username-and-password'),
+      case 'login':
+        updateLoginHTML(t);
+        callback(null, {
+          /* Errors */
+          missingPoll: t('missing-poll'),
+          missingLang: t('missing-lang'),
+          genericError: t('generic-error'),
+          missingPassword: t('missing-password'),
+          missingUsername: t('missing-username'),
+          missingServiceInfo: t('missing-service-info'),
+          missingUsernameAndPassword: t('missing-username-and-password'),
 
-            /* States */
-            uidWithMail: t('uid-with-mail'),
-            accessCleaned: t('access-cleaned'),
-            accessGranted: t('access-granted'),
-            accessRefused: t('access-refused'),
-            accessCanceled: t('access-canceled'),
-            loginWithEmail: t('login-with-e-mail'),
-            loginWithUsername: t('login-with-username'),
+          /* States */
+          uidWithMail: t('uid-with-mail'),
+          accessCleaned: t('access-cleaned'),
+          accessGranted: t('access-granted'),
+          accessRefused: t('access-refused'),
+          accessCanceled: t('access-canceled'),
+          loginWithEmail: t('login-with-e-mail'),
+          loginWithUsername: t('login-with-username'),
 
-            /* Permissions */
-            permissionsAll: t('permissions-all'),
-            permissionsCreate: t('permissions-create'),
-            permissionsUpdate: t('permissions-update'),
-            permissionsRequestedBy: t('permissions-requested-by'),
+          /* Permissions */
+          permissionsAll: t('permissions-all'),
+          permissionsCreate: t('permissions-create'),
+          permissionsUpdate: t('permissions-update'),
+          permissionsRequestedBy: t('permissions-requested-by'),
 
-            /* Ongoing processes */
-            closing: t('closing'),
-            sendingState: t('sending-state'),
-            deletingAccess: t('deleting-access'),
-            creatingStream: t('creating-stream'),
-            creatingAccess: t('creating-access'),
-            updatingAccess: t('updating-access'),
-            loadingSettings: t('loading-settings'),
-            fetchingStreams: t('fetching-streams'),
-            fetchingAccesses: t('fetching-accesses'),
-            loadingPermissions: t('loading-permissions'),
-            checkingAppAccess: t('checking-app-access'),
-            loadingServiceInfo: t('loading-service-info')
-          });
-          break;
-        case 'register':
-          break;
-        case 'reset-password':
-          break;
+          /* Ongoing processes */
+          closing: t('closing'),
+          sendingState: t('sending-state'),
+          deletingAccess: t('deleting-access'),
+          creatingStream: t('creating-stream'),
+          creatingAccess: t('creating-access'),
+          updatingAccess: t('updating-access'),
+          loadingSettings: t('loading-settings'),
+          fetchingStreams: t('fetching-streams'),
+          fetchingAccesses: t('fetching-accesses'),
+          loadingPermissions: t('loading-permissions'),
+          checkingAppAccess: t('checking-app-access'),
+          loadingServiceInfo: t('loading-service-info')
+        });
+        break;
+      case 'register':
+        break;
+      case 'reset-password':
+        break;
       }
     });
 };
@@ -48345,15 +48386,15 @@ module.exports = Locale;
  * @param t {Function}
  */
 function updateLoginHTML(t) {
-  var $loginFormTitle = $('#loginFormTitle'),
-    $loginUsernameLabel = $('#loginUsernameLabel'),
-    $loginPasswordLabel = $('#loginPasswordLabel'),
-    $permissionsAccept = $('#permissionsAccept'),
-    $permissionsReject = $('#permissionsReject'),
-    $permissionsTitle = $('#permissionsTitle'),
-    $loginFormToggle = $('#loginFormToggle'),
-    $signInButton = $('#signInButton'),
-    $cancelButton = $('#cancelButton');
+  var $loginFormTitle = $('#loginFormTitle');
+  var $loginUsernameLabel = $('#loginUsernameLabel');
+  var $loginPasswordLabel = $('#loginPasswordLabel');
+  var $permissionsAccept = $('#permissionsAccept');
+  var $permissionsReject = $('#permissionsReject');
+  var $permissionsTitle = $('#permissionsTitle');
+  var $loginFormToggle = $('#loginFormToggle');
+  var $signInButton = $('#signInButton');
+  var $cancelButton = $('#cancelButton');
 
   $loginUsernameLabel.text(t('login-username-label'));
   $loginPasswordLabel.text(t('login-password-label'));
@@ -48389,6 +48430,31 @@ var SettingsConstructor = function (page) {
   this.utils.toggleMainView('hide');
 };
 
+
+SettingsConstructor.prototype.setGoal = function (goal) {
+  const goals = ['access', 'register', 'signinhub', 'resetPassword'];
+  if (goals.indexOf(goal) < 0) {
+    throw new Error('goal must be one of ' + JSON.stringify(goals) + ', instead of \`' + goal + '\`');
+  }
+  this.goal = goal;
+};
+
+SettingsConstructor.prototype.isAccess = function () {
+  return this.goal === 'access';
+};
+
+SettingsConstructor.prototype.isRegisterStandalone = function () {
+  return this.goal === 'register';
+};
+
+SettingsConstructor.prototype.isSigninhub = function () {
+  return this.goal === 'signinhub';
+};
+
+SettingsConstructor.prototype.isResetPasswordStandalone = function () {
+  return this.goal === 'resetPassword';
+};
+
 SettingsConstructor.prototype.addParams = function (params) {
   this.params = params;
 };
@@ -48422,7 +48488,16 @@ SettingsConstructor.prototype.updateApiURL = function (username) {
   this.info.api = this.info.api.replace('{username}', username);
 };
 
-SettingsConstructor.retrieveServiceInfo = function() {
+/**
+ * Returns the service infos URL by: by retrieving the domain from:
+ * 1) Looking for it in the query parameters
+ * 2) Building it from the hostname found in the hostname (Production)
+ * 3) If it is `rec.la`, fetches the domain from the root level path (Development)
+ *
+ * @returns {String}
+ */
+SettingsConstructor.computeServiceInfoURL = function() {
+
   var serviceInfo = pryv.utility.urls.parseClientURL().parseQuery().serviceInfo;
   if(serviceInfo) {
     console.log('Service info from url param:');
@@ -48430,14 +48505,17 @@ SettingsConstructor.retrieveServiceInfo = function() {
     serviceInfo = window.pryvServiceInfo;
     console.log('Service info from window var:');
   } else {
-      var domain = document.location.hostname.substr(document.location.hostname.indexOf('.') + 1);
-      if(domain === 'rec.la') {
-        domain = pryv.utility.urls.parseClientURL().parseQuery().domain;
-        console.log('Service info from url param (domain), rec.la dev mode:');
-      } else {
-        console.log('Service info from hostname:');
-      }
-      serviceInfo = 'https://reg.' + domain + '/service/infos';
+    var domain = document.location.hostname.substr(document.location.hostname.indexOf('.') + 1);
+    if(domain === 'rec.la') {
+      domain = pryv.utility.urls.parseClientURL().path.split('/')[1];
+      console.log('Service info built from 1st path object (domain), rec.la dev mode:');
+    } else if (domain === 'github.io') {
+      domain = pryv.utility.urls.parseClientURL().path.split('/')[2];
+      console.log('Service info built from 2nd path object (domain), direct access from gh pages:');
+    } else {
+      console.log('Service info from hostname:');
+    }
+    serviceInfo = 'https://reg.' + domain + '/service/infos';
   }
   console.log(serviceInfo);
   return serviceInfo;
@@ -48464,17 +48542,17 @@ var UtilityConstructor = function (page) {
   this.url = formatURL($(location).attr('href'));
 
   switch(page) {
-    case 'login':
-      this.mainView = {
-        $loginContainer: $('#loginContainer'),
-        $loginFormRegister:  $('#loginFormRegister'),
-        $loginFormReset: $('#loginFormReset')
-      };
-      break;
-    case 'register':
-      break;
-    case 'reset-password':
-      break;
+  case 'login':
+    this.mainView = {
+      $loginContainer: $('#loginContainer'),
+      $loginFormRegister:  $('#loginFormRegister'),
+      $loginFormReset: $('#loginFormReset')
+    };
+    break;
+  case 'register':
+    break;
+  case 'reset-password':
+    break;
   }
 };
 
@@ -48487,12 +48565,12 @@ UtilityConstructor.prototype.toggleMainView = function (state) {
   for (var key in this.mainView) {
     if (this.mainView.hasOwnProperty(key)) {
       switch(state) {
-        case 'show':
-          this.mainView[key].fadeIn(1000, 'linear');
-          break;
-        case 'hide':
-          this.mainView[key].hide();
-          break;
+      case 'show':
+        this.mainView[key].fadeIn(1000, 'linear');
+        break;
+      case 'hide':
+        this.mainView[key].hide();
+        break;
       }
     }
   }
@@ -48533,28 +48611,28 @@ UtilityConstructor.prototype.printError = function (error) {
  */
 UtilityConstructor.prototype.blockState = function (state, block) {
   switch(block) {
-    case 'info':
-      switch (state) {
-        case 'show':
-          this.$alertBlock.hide();
-          this.$infoBlock.show();
-          break;
-        case 'hide':
-          this.$infoBlock.hide();
-          break;
-      }
+  case 'info':
+    switch (state) {
+    case 'show':
+      this.$alertBlock.hide();
+      this.$infoBlock.show();
       break;
-    case 'alert':
-      switch (state) {
-        case 'show':
-          this.$infoBlock.hide();
-          this.$alertBlock.show();
-          break;
-        case 'hide':
-          this.$alertBlock.hide();
-          break;
-      }
+    case 'hide':
+      this.$infoBlock.hide();
       break;
+    }
+    break;
+  case 'alert':
+    switch (state) {
+    case 'show':
+      this.$infoBlock.hide();
+      this.$alertBlock.show();
+      break;
+    case 'hide':
+      this.$alertBlock.hide();
+      break;
+    }
+    break;
   }
 };
 
@@ -48566,10 +48644,10 @@ UtilityConstructor.prototype.blockState = function (state, block) {
  * @param message {String | Object}
  */
 UtilityConstructor.prototype.loaderView = function (state, message) {
-  var $permissionsContainer = $('#permissionsContainer'),
-    $loaderContainer = $('#loaderContainer'),
-    $loaderMessage = $('#loaderMessage'),
-    $loaderState = $('#loaderState');
+  var $permissionsContainer = $('#permissionsContainer');
+  var $loaderContainer = $('#loaderContainer');
+  var $loaderMessage = $('#loaderMessage');
+  var $loaderState = $('#loaderState');
 
   this.toggleMainView('hide');
   this.$blockContainer.hide();
@@ -48588,14 +48666,20 @@ UtilityConstructor.prototype.loaderView = function (state, message) {
  * @param Settings {Object}
  */
 UtilityConstructor.prototype.permissionsView = function (Settings) {
-  var $permissionsContainer = $('#permissionsContainer'),
-    $permissionsRequestedBy = $('#permissionsRequestedBy');
+  var $permissionsContainer = $('#permissionsContainer');
+  var $permissionsRequestedBy = $('#permissionsRequestedBy');
 
   this.toggleMainView('hide');
   this.$blockContainer.hide();
   $permissionsContainer.fadeIn(1000, 'linear');
   $permissionsRequestedBy.html(Settings.strs.permissionsRequestedBy
     .replace('{appId}', Settings.access.requestingAppId));
+  
+  var apps = Settings.info.apps;
+  var appId = Settings.access.requestingAppId;
+  if(apps && apps[appId] && apps[appId].icon) {
+    $('#iconApp').attr('src', apps[appId].icon);
+  }
 };
 
 /**
@@ -48612,8 +48696,8 @@ UtilityConstructor.prototype.addPermission = function (Settings, data) {
     html = Settings.strs.permissionsAll;
   } else {
     html = data.name ? Settings.strs.permissionsUpdate
-        .replace('{name}', data.name)
-        .replace('{level}', data.level)
+      .replace('{name}', data.name)
+      .replace('{level}', data.level)
       : Settings.strs.permissionsCreate
         .replace('{name}', data.defaultName)
         .replace('{level}', data.level);
@@ -48628,8 +48712,8 @@ UtilityConstructor.prototype.addPermission = function (Settings, data) {
  * @param state {Boolean}
  */
 UtilityConstructor.prototype.permissionsState = function (state) {
-  var $permissionsAccept = $('#permissionsAccept'),
-    $permissionsReject = $('#permissionsReject');
+  var $permissionsAccept = $('#permissionsAccept');
+  var $permissionsReject = $('#permissionsReject');
 
   $permissionsAccept.prop('disabled', state);
   $permissionsReject.prop('disabled', state);
@@ -48655,8 +48739,8 @@ function formatURL (url) {
  * @returns       {String}
  */
 function formatMessage ($elem, message){
-  var width = $elem.innerWidth() - ($elem.outerWidth() - $elem.innerWidth()),
-    newMessage = '';
+  var width = $elem.innerWidth() - ($elem.outerWidth() - $elem.innerWidth());
+  var newMessage = '';
 
   for (var i = 0; i < message.length; i++) {
     if (i > 0 && i % width === 0) {
@@ -48709,7 +48793,7 @@ function searchKeyInObject (obj, query, res) {
  */
 String.prototype.htmlTag = function (tag, className) {
   if (className) {
-    return '<' + tag + ' class=\"' + className + '\">' + this + '</' + tag + '>';
+    return '<' + tag + ' class="' + className + '">' + this + '</' + tag + '>';
   } else {
     return '<' + tag + '>' + this + '</' + tag + '>';
   }

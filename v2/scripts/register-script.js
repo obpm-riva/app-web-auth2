@@ -10256,13 +10256,14 @@ return jQuery;
 },{}],2:[function(require,module,exports){
 var $ = require('jquery');
 
-module.exports.requestRegisterUser = function (reg, appID, lang) {
+module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings) {
   var registerForm = $('#registerForm');
   var username = registerForm.find('input[name=username]').val();
   var email = registerForm.find('input[name=email]').val();
   var pass = registerForm.find('input[name=pass]').val();
   var rePass = registerForm.find('input[name=rePass]').val();
   var hosting = $('#hosting').val();
+  var reg = Settings.info.register;
 
   if(pass !== rePass) {
     $('#error').text('Password confirmation failed!').show();
@@ -10285,7 +10286,13 @@ module.exports.requestRegisterUser = function (reg, appID, lang) {
         $('#loginUsernameOrEmail').val(username);
         $('#loginPassword').val(pass);
         $('#registerContainer').hide();
-        $('#loginContainer').show();
+
+        if (Settings.isRegisterStandalone()) {
+          var redirect = returnURL || Settings.info.api.replace('{username}', username);
+          window.location.replace(redirect);
+        } else {
+          $('#loginContainer').show();
+        }
       })
       .fail(function (xhr) {
         $('#error').text(xhr.responseJSON.message).show();
