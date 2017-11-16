@@ -36,7 +36,7 @@ module.exports.setPassword = function (returnURL, domain, token, Settings) {
         $('#loginPassword').val(pass);
         $('#resetContainer').hide();
         if (Settings.isResetPasswordStandalone()) {
-          var redirect = returnURL || Settings.info.api.replace('{username}', username);
+          var redirect = returnURL || Settings.getApiURL(username);
           window.location.replace(redirect);
         } else {
           $('#loginContainer').show();

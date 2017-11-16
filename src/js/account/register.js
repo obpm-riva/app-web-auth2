@@ -32,7 +32,7 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
         $('#registerContainer').hide();
 
         if (Settings.isRegisterStandalone()) {
-          var redirect = returnURL || Settings.info.api.replace('{username}', username);
+          var redirect = returnURL || Settings.getApiURL(username);
           window.location.replace(redirect);
         } else {
           $('#loginContainer').show();

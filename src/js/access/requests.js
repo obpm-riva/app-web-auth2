@@ -81,10 +81,8 @@ requests.getUidIfEmail = function (Settings, credentials, callback) {
  * @param callback    {Function}
  */
 requests.authenticateWithCredentials = function (Settings, credentials, callback) {
-  Settings.updateApiURL(credentials.uid);
-
   request
-    .post(Settings.info.api + 'auth/login')
+    .post(Settings.getApiURL(credentials.uid) + 'auth/login')
     .send({ username: credentials.uid,
       password: credentials.password,
       appId: Settings.access.requestingAppId })
