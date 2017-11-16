@@ -95,13 +95,13 @@ function manageLoginView (Settings) {
   
   $loginForm.submit(function () {
     if (!Settings.logIn) {
-      Settings.logIn = true;
       methods.loginToPryv(Settings, function (err, Settings) {
         if (err) { 
           // Avoid this with a preliminary check in reg?
           if(err.toString().indexOf('Request has been terminated') !== -1) {
             return Settings.utils.printError('Unknown username');
           }
+          Settings.logIn = true;
           return Settings.utils.printError(err);
         }
         managePostLogin(Settings);
