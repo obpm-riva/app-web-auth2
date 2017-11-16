@@ -26,6 +26,14 @@
 ### Error display
 
 14. Start the auth process again by clicking the red button, accept to sign out then click on it again when it shows "Sign in". 
-15. Enter wrong credentials and verify that an error message is displayed.
-16. Click on "Create an account" and fill the credentials with an already used email address, click on "Create" and verify that the appropriate error message is shown.
-17. change to an unused e-mail address, but choose an already used username, click on "Create" and verify that the appropriate error message is shown.
+15. Enter an existing username with a wrong password and verify that an error message is displayed.
+16. Enter a non existing username with a bogus password and verify that a correct error message is displayed.
+17. Click on "Create an account" and fill the credentials with an already used email address, click on "Create" and verify that the appropriate error message is shown.
+18. Change to an unused e-mail address, but choose an already used username, click on "Create" and verify that the appropriate error message is shown.
+19. Go back to the "Sign in" page, then click on "Forgot password", enter an unexisting username and verify that the appropriate error message is shown.
+
+### Standalone pages
+
+19. In a new window, open [https://l.rec.la:4443/pryv.li/register.html](https://l.rec.la:4443/pryv.li/register.html) (if necessary, change the domain from `pryv.li` to the one you are working on), enter valid credentials and click on "Create". This should lead you to the URL defined in the `api` property of [https://reg.pryv.li/service/infos](https://reg.pryv.li/service/infos) (same here about the domain).
+20. In a new window, open [https://l.rec.la:4443/pryv.li/signinhub.html](https://l.rec.la:4443/pryv.li/signinhub.html), enter a valid username and verify that it leads you to [https://{username}.pryv.li/#/SignIn](https://{username}.pryv.li/#/SignIn).
+21. In a new window, open [https://l.rec.la:4443/pryv.li/reset-password.html](https://l.rec.la:4443/pryv.li/reset-password.html), enter a username and verify that you receive an email.
