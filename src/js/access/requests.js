@@ -103,7 +103,7 @@ requests.checkAppAccess = function (Settings, callback) {
   Settings.utils.printInfo(Settings.strs.checkingAppAccess);
 
   request
-    .post(Settings.info.api + 'accesses/check-app')
+    .post(Settings.getApiURL(Settings.auth.username)+ 'accesses/check-app')
     .send({ requestingAppId: Settings.access.requestingAppId,
       requestedPermissions: Settings.access.requestedPermissions })
     .set({ 'Authorization': Settings.auth.token })
