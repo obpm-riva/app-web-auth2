@@ -233,7 +233,7 @@ function endPopUp(err, settings, stateTitle, message) {
         '&prYvlang=' + settings.params.lang +
         '&prYvkey=' + settings.params.key;
       if(settings.oauth) {
-        href += '&oauthState=' + settings.oauth;
+        href += '&state=' + settings.oauth;
       }
       location.href = href;
     } else {
