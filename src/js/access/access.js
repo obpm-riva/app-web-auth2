@@ -35,6 +35,13 @@ $(window).ready(function () {
     if (err) {
       return methods.manageState(Settings, 'ERROR', err);
     }
+    
+    // Oauth for IFTTT
+    var oauthState = getURLParameter('oauthState');
+    if (oauthState) {
+      Settings.oauth = oauthState;
+    }
+    
     loadInfo(Settings);
     manageStatus(Settings);
     managePasswordResetView(Settings);

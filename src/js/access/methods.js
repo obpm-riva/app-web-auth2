@@ -170,6 +170,9 @@ methods.manageState = function (settings, status, message) {
         return methods.manageState(settings, 'ERROR', err);
       }
       data.state.token = settings.appToken;
+      if(settings.oauth) {
+        data.state.oauthState = settings.oauth;
+      }
       requests.sendState(settings, data, message, endPopUp);
     });
   } else {
@@ -224,11 +227,15 @@ function endPopUp(err, settings, stateTitle, message) {
   setTimeout(function () {
     if (settings.params.returnURL &&
       settings.params.returnURL !== 'false') {
-      location.href = settings.params.returnURL +
+      var href = settings.params.returnURL +
         '?prYvstatus=ACCEPTED&prYvusername=' + settings.auth.username +
         '&prYvtoken=' + settings.appToken +
         '&prYvlang=' + settings.params.lang +
         '&prYvkey=' + settings.params.key;
+      if(settings.oauth) {
+        href += '&' + settings.oauth;
+      }
+      location.href = href;
     } else {
       window.close();
     }
