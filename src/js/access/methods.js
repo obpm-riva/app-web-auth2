@@ -227,13 +227,14 @@ function endPopUp(err, settings, stateTitle, message) {
   setTimeout(function () {
     if (settings.params.returnURL &&
       settings.params.returnURL !== 'false') {
-      var href = settings.params.returnURL +
-        '?prYvstatus=ACCEPTED&prYvusername=' + settings.auth.username +
-        '&prYvtoken=' + settings.appToken +
-        '&prYvlang=' + settings.params.lang +
-        '&prYvkey=' + settings.params.key;
+      var href = settings.params.returnURL;
       if(settings.oauth) {
         href += '&state=' + settings.oauth;
+      } else {
+        href += '&prYvstatus=ACCEPTED&prYvusername=' + settings.auth.username +
+          '&prYvtoken=' + settings.appToken +
+          '&prYvlang=' + settings.params.lang +
+          '&prYvkey=' + settings.params.key;
       }
       location.href = href;
     } else {
