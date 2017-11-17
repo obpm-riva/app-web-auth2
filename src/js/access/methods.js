@@ -229,7 +229,8 @@ function endPopUp(err, settings, stateTitle, message) {
       settings.params.returnURL !== 'false') {
       var href = settings.params.returnURL;
       if(settings.oauth) {
-        href += '?state=' + settings.oauth;
+        href += '?state=' + settings.oauth +
+            '&code=' + settings.params.key;
       } else {
         href += '?prYvstatus=ACCEPTED&prYvusername=' + settings.auth.username +
           '&prYvtoken=' + settings.appToken +
