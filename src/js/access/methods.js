@@ -92,7 +92,7 @@ methods.loginToPryv = function (settings, callback) {
     password: $password.val(),
     usernameOrEmail: $usernameOrEmail.val().trim().toLowerCase()
   };
-  cookie.set('credentials', credentials, {expires: 1, path: settings.utils.url});
+  cookie.set('usernameOrEmail', credentials.usernameOrEmail, {expires: 1, path: settings.utils.url});
   async.waterfall([
     function (stepDone) {
       stepDone(null, settings, credentials);
@@ -170,6 +170,9 @@ methods.manageState = function (settings, status, message) {
         return methods.manageState(settings, 'ERROR', err);
       }
       data.state.token = settings.appToken;
+      if(settings.oauth) {
+        data.state.oauthState = settings.oauth;
+      }
       requests.sendState(settings, data, message, endPopUp);
     });
   } else {
@@ -224,11 +227,17 @@ function endPopUp(err, settings, stateTitle, message) {
   setTimeout(function () {
     if (settings.params.returnURL &&
       settings.params.returnURL !== 'false') {
-      location.href = settings.params.returnURL +
-        '?prYvstatus=ACCEPTED&prYvusername=' + settings.auth.username +
-        '&prYvtoken=' + settings.appToken +
-        '&prYvlang=' + settings.params.lang +
-        '&prYvkey=' + settings.params.key;
+      var href = settings.params.returnURL;
+      if(settings.oauth) {
+        href += 'state=' + settings.oauth +
+            '&code=' + settings.params.key;
+      } else {
+        href += '?prYvstatus=ACCEPTED&prYvusername=' + settings.auth.username +
+          '&prYvtoken=' + settings.appToken +
+          '&prYvlang=' + settings.params.lang +
+          '&prYvkey=' + settings.params.key;
+      }
+      location.href = href;
     } else {
       window.close();
     }

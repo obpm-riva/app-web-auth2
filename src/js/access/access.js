@@ -35,6 +35,13 @@ $(window).ready(function () {
     if (err) {
       return methods.manageState(Settings, 'ERROR', err);
     }
+    
+    // Oauth for IFTTT
+    var oauthState = getURLParameter('oauthState');
+    if (oauthState) {
+      Settings.oauth = oauthState;
+    }
+    
     loadInfo(Settings);
     manageStatus(Settings);
     managePasswordResetView(Settings);
@@ -43,19 +50,17 @@ $(window).ready(function () {
 });
 
 /**
- * Gets credential in cookies, updates username/e-mail and password fields,
+ * Gets username in cookies, updates username/e-mail field,
  * changes the page title with serviceInfo.name
  * @param Settings {Object}
  */
 function loadInfo (Settings) {
   var $usernameField = $('#loginUsernameOrEmail');
-  var $passwordField = $('#loginPassword');
   var $pageTitle = $('title');
-
-  if (cookie.get('credentials')) {
-    var credentials = JSON.parse(cookie.get('credentials'));
-    $usernameField.val(credentials.usernameOrEmail);
-    $passwordField.val(credentials.password);
+  
+  var usernameOrEmail = cookie.get('usernameOrEmail');
+  if (usernameOrEmail) {
+    $usernameField.val(usernameOrEmail);
   }
   $pageTitle.text(Settings.info.name);
 }
