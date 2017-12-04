@@ -37363,6 +37363,7 @@ var pryv = require('pryv');
 var SettingsConstructor = function (page) {
   this.utils = new UtilityConstructor(page);
   this.appToken = '';
+  this.oauth = '';
   this.params = {};
   this.access = {};
   this.check = {};
