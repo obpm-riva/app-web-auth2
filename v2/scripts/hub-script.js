@@ -37363,6 +37363,7 @@ var pryv = require('pryv');
 var SettingsConstructor = function (page) {
   this.utils = new UtilityConstructor(page);
   this.appToken = '';
+  this.oauth = '';
   this.params = {};
   this.access = {};
   this.check = {};
@@ -37424,12 +37425,12 @@ SettingsConstructor.prototype.addStrs = function (strs) {
 };
 
 /**
- * adds the username to the Settings object
+ * get the api URL
  * replaces the '{username}' in the api URL from serviceInfo by given username
  * @param username  {String}
  */
-SettingsConstructor.prototype.updateApiURL = function (username) {
-  this.info.api = this.info.api.replace('{username}', username);
+SettingsConstructor.prototype.getApiURL = function (username) {
+  return this.info.api.replace('{username}', username);
 };
 
 /**
