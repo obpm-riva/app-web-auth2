@@ -20,7 +20,7 @@ $(window).ready(function () {
   $('#registerContainer').hide();
   $('#resetContainer').hide();
 
-  let page = '';
+  var page = '';
   if(getURLParameter('standaloneRegister')) {
     page = REGISTER_PAGE;
   } else if (getURLParameter('standaloneReset')) {
