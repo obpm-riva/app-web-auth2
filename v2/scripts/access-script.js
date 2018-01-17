@@ -47571,7 +47571,7 @@ $(window).ready(function () {
   $('#registerContainer').hide();
   $('#resetContainer').hide();
 
-  let page = '';
+  var page = '';
   if(getURLParameter('standaloneRegister')) {
     page = REGISTER_PAGE;
   } else if (getURLParameter('standaloneReset')) {
@@ -47820,7 +47820,7 @@ var methods = {};
  * @param callback {Function}
  */
 methods.buildSettings = function (page, callback) {
-  let settings = new Settings('login');
+  var settings = new Settings('login');
 
   settings.setGoal(page);
 
@@ -47846,7 +47846,7 @@ methods.buildSettings = function (page, callback) {
 
       // TODO delete this var when the Pryv Button has been updated                      <-------- !
       // From here ------------
-      let serviceInfo = Settings.computeServiceInfoURL();
+      var serviceInfo = Settings.computeServiceInfoURL();
       settings.addParams({
         poll: 'null',
         serviceInfo: serviceInfo,
