@@ -44,7 +44,7 @@ module.exports={
       "permissions-accept": "Accept",
       "login-form-toggle": "Create an account",
       "login-form-register": "Sign in",
-      "login-username-label": "Username or e-mail",
+      "login-username-label": "userID or e-mail",
       "login-password-label": "Password"
     }
   },
@@ -47741,7 +47741,8 @@ function manageRegistrationView (Settings) {
   support.attr('href', Settings.info.support);
   
   register.retrieveHostings(Settings.info.register);
-  
+  $('#registerForm').find('input[name=username]').val(generateUsername());
+
   $('#registerForm').on('submit', function(e) {
     e.preventDefault();
     register.requestRegisterUser(getURLParameter('returnURL'), appId, lang, Settings);
@@ -47799,6 +47800,16 @@ function managePasswordResetView (Settings) {
 function getURLParameter (name) {
   return decodeURIComponent((new RegExp(name + '=' + '(.+?)(&|$)')
     .exec(location.search)||['',''])[1]);
+}
+
+function generateUsername() {
+  var username = '';
+  var dictionnary = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 6; i++) {
+    username += dictionnary.charAt(Math.floor(Math.random() * dictionnary.length));
+  }
+  return username
 }
 },{"../account/register":102,"../account/reset":103,"./methods":100,"jquery":22,"js-cookie":23}],100:[function(require,module,exports){
 /* global module, require */
@@ -48226,6 +48237,10 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
   var hosting = $('#hosting').val();
   var reg = Settings.info.register;
 
+  if (! email) {
+    email = username + '@obpm-dev.io';
+  }
+
   if(pass !== rePass) {
     $('#registerError').text('Password confirmation failed!').show();
   } else {
@@ -48320,7 +48335,7 @@ module.exports.requestResetPassword = function (domain) {
         resetForm.find('input[type=submit]').prop('disabled', false);
       })
       .fail(function () {
-        $('#passwordError').text('Username unknown').show();
+        $('#passwordError').text('Unknown userID').show();
         resetForm.find('input[type=submit]').prop('disabled', false);
       });
   }
@@ -48348,7 +48363,7 @@ module.exports.setPassword = function (returnURL, domain, token, Settings) {
         }
       })
       .fail(function () {
-        $('#passwordError').text('Username unknown').show();
+        $('#passwordError').text('Unknown userID').show();
         setPass.find('input[type=submit]').prop('disabled', false);
       });
   }

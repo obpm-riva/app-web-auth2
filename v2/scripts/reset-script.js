@@ -10271,7 +10271,7 @@ module.exports.requestResetPassword = function (domain) {
         resetForm.find('input[type=submit]').prop('disabled', false);
       })
       .fail(function () {
-        $('#passwordError').text('Username unknown').show();
+        $('#passwordError').text('Unknown userID').show();
         resetForm.find('input[type=submit]').prop('disabled', false);
       });
   }
@@ -10299,7 +10299,7 @@ module.exports.setPassword = function (returnURL, domain, token, Settings) {
         }
       })
       .fail(function () {
-        $('#passwordError').text('Username unknown').show();
+        $('#passwordError').text('Unknown userID').show();
         setPass.find('input[type=submit]').prop('disabled', false);
       });
   }
