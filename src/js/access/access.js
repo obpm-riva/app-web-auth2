@@ -201,6 +201,7 @@ function manageRegistrationView (Settings) {
   });
   if(getURLParameter('standaloneRegister')) {
     $('#registerContainer').show();
+    $('#registerForm').find('input[name=username]').val(generateUsername());
     $('#loginContainer').hide();
     $('#resetContainer').hide();
     $('#alreadyUser').hide();
@@ -248,4 +249,14 @@ function managePasswordResetView (Settings) {
 function getURLParameter (name) {
   return decodeURIComponent((new RegExp(name + '=' + '(.+?)(&|$)')
     .exec(location.search)||['',''])[1]);
+}
+
+function generateUsername() {
+  var username = '';
+  var dictionnary = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 6; i++) {
+    username += dictionnary.charAt(Math.floor(Math.random() * dictionnary.length));
+  }
+  return username
 }
