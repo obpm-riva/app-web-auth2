@@ -190,7 +190,8 @@ function manageRegistrationView (Settings) {
   support.attr('href', Settings.info.support);
   
   register.retrieveHostings(Settings.info.register);
-  
+  $('#registerForm').find('input[name=username]').val(generateUsername());
+
   $('#registerForm').on('submit', function(e) {
     e.preventDefault();
     register.requestRegisterUser(getURLParameter('returnURL'), appId, lang, Settings);
@@ -201,7 +202,6 @@ function manageRegistrationView (Settings) {
   });
   if(getURLParameter('standaloneRegister')) {
     $('#registerContainer').show();
-    $('#registerForm').find('input[name=username]').val(generateUsername());
     $('#loginContainer').hide();
     $('#resetContainer').hide();
     $('#alreadyUser').hide();
