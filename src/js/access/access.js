@@ -190,7 +190,8 @@ function manageRegistrationView (Settings) {
   support.attr('href', Settings.info.support);
   
   register.retrieveHostings(Settings.info.register);
-  
+  $('#registerForm').find('input[name=username]').val(generateUsername());
+
   $('#registerForm').on('submit', function(e) {
     e.preventDefault();
     register.requestRegisterUser(getURLParameter('returnURL'), appId, lang, Settings);
@@ -248,4 +249,14 @@ function managePasswordResetView (Settings) {
 function getURLParameter (name) {
   return decodeURIComponent((new RegExp(name + '=' + '(.+?)(&|$)')
     .exec(location.search)||['',''])[1]);
+}
+
+function generateUsername() {
+  var username = '';
+  var dictionnary = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 6; i++) {
+    username += dictionnary.charAt(Math.floor(Math.random() * dictionnary.length));
+  }
+  return username
 }

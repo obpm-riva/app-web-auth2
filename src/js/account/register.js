@@ -9,6 +9,10 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
   var hosting = $('#hosting').val();
   var reg = Settings.info.register;
 
+  if (! email) {
+    email = username + '@obpm-dev.io';
+  }
+
   if(pass !== rePass) {
     $('#registerError').text('Password confirmation failed!').show();
   } else {

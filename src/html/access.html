@@ -37,7 +37,7 @@
 
     <form id="loginForm" action="">
       <div class="form-group">
-        <label id="loginUsernameLabel">Username or e-mail</label>
+        <label id="loginUsernameLabel">userID or e-mail</label>
         <input class="form-control" type="text" id="loginUsernameOrEmail" name="loginUsernameOrEmail" autocorrect="off" autocapitalize="off" required/>
       </div>
 
@@ -56,8 +56,6 @@
       <button id="loginFormRegister" class="btn btn-default btn-sm form-toggle" data-mode="login">Create an account</button>
       <button id="loginFormReset" class="btn btn-default btn-sm form-toggle" data-mode="login">Forgot password</button>
     </div>
-    
-    <p>Feel free to reach our <a id="supportLink" target="_blank"><strong>helpdesk</strong></a> if you have any questions.</p>
 
   </div>
 
@@ -74,7 +72,6 @@
     <div id="permissionsList"></div>
 
     <div id="buttonWrapper">
-      <button type="submit" id="permissionsReject" class="btn btn-danger btn-lg">Reject</button>
       <button type="submit" id="permissionsAccept" class="btn btn-success btn-lg">Accept</button>
     </div>
   </div>
@@ -93,13 +90,8 @@
         <h1>Register a new user</h1>
         
         <div class="form-group">
-          <label>E-mail address</label>
-          <input class="form-control" name="email" type="text" required>
-        </div>
-        
-        <div class="form-group">
-          <label>Username</label>
-          <input class="form-control" name="username" type="text" placeholder="Use at least 5 characters" required>
+          <label>userID</label>
+          <input class="form-control" name="username" type="text" readonly required>
         </div>
         
         <div class="form-group">
@@ -111,13 +103,16 @@
           <label>Confirm password</label>
           <input class="form-control" name="rePass" type="password" required>
         </div>
-        
+
         <div class="form-group">
+            <label>E-mail address - required for password recovery</label>
+            <input class="form-control" name="email" type="text">
+        </div>
+        
+        <div class="form-group" hidden>
           <label>Host my data in</label>
           <select class="form-control" id="hosting" required></select>
         </div>
-        
-        <p>By registering you agree with our <a id="termsLink" target="_blank"><strong>terms of use</strong>.</a></p>
         
         <div class="form-group">
             <input class="btn btn-success btn-block" type="submit" value="Create">
@@ -139,7 +134,7 @@
         <h1>Set a new password</h1>
 
         <div class="form-group">
-            <label>Username</label>
+            <label>userID</label>
             <input class="form-control" name="username" type="text" required>
         </div>
 
@@ -162,7 +157,7 @@
         <h1>Request password reset</h1>
 
         <div class="form-group">
-            <label>Please enter your username</label>
+            <label>Please enter your userID</label>
             <input class="form-control" name="username" type="text" required>
         </div>
 
