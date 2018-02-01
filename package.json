@@ -15,7 +15,7 @@
     "i18next-client": "^1.11.4",
     "jquery": "^3.2.1",
     "js-cookie": "^2.2.0",
-    "pryv": "1.0.3",
+    "pryv": "1.0.4",
     "superagent": "^3.8.1"
   },
   "devDependencies": {
