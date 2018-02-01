@@ -55,6 +55,28 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
   }
 };
 
+/**
+ * Check if username is already used.
+ *  If not used, it returns the username,
+ *  otherwise, returns false.
+ *
+ * @param username
+ * @param params
+ * @param params.register
+ * @param callback
+ */
+module.exports.checkUsername = function (username, params, callback) {
+  $.get(params.reg + '/' + username + '/check_username')
+    .done(function (data) {
+      console.log('got data', data);
+      if (! data.reserved) {
+        callback(null, username);
+      } else {
+        callback(null, false);
+      }
+    });
+};
+
 module.exports.retrieveHostings = function (reg) {
   var registerForm = $('#registerForm');
   var hostings = $('#hosting');

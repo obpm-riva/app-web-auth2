@@ -5,6 +5,7 @@ var cookie = require('js-cookie');
 var methods = require('./methods');
 var register = require('../account/register');
 var reset = require('../account/reset');
+var pryv = require('pryv');
 
 const ACCESS_PAGE = 'access', 
       REGISTER_PAGE = 'register',
@@ -178,6 +179,41 @@ function managePermissionsView (Settings, callback) {
 }
 
 /**
+ * Sets a randomly generated username, but makes a request to find
+ *
+ * @param field
+ * @param register
+ */
+function generateValidUsername(field, registerUrl) {
+  var username = generateUsername();
+
+  // set the username upfront. Optimistic approach.
+  field.val(username);
+
+  register.checkUsername(username, {reg: registerUrl}, function (err, username) {
+    if (err) {
+      console.log('Error while verifying username validity', err);
+
+      return;
+    }
+
+    if (! username) {
+      generateValidUsername(field, registerUrl);
+    }
+  });
+
+  function generateUsername() {
+    var username = '';
+    var dictionnary = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 6; i++) {
+      username += dictionnary.charAt(Math.floor(Math.random() * dictionnary.length));
+    }
+    return username
+  }
+}
+
+/**
  * Manages user registration
  */
 function manageRegistrationView (Settings) {
@@ -190,7 +226,11 @@ function manageRegistrationView (Settings) {
   support.attr('href', Settings.info.support);
   
   register.retrieveHostings(Settings.info.register);
-  $('#registerForm').find('input[name=username]').val(generateUsername());
+
+
+
+  generateValidUsername($('#registerForm').find('input[name=username]'), Settings.info.register);
+  //.val();
 
   $('#registerForm').on('submit', function(e) {
     e.preventDefault();
@@ -249,14 +289,4 @@ function managePasswordResetView (Settings) {
 function getURLParameter (name) {
   return decodeURIComponent((new RegExp(name + '=' + '(.+?)(&|$)')
     .exec(location.search)||['',''])[1]);
-}
-
-function generateUsername() {
-  var username = '';
-  var dictionnary = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-  for (var i = 0; i < 6; i++) {
-    username += dictionnary.charAt(Math.floor(Math.random() * dictionnary.length));
-  }
-  return username
 }
