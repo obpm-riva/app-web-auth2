@@ -1,23 +1,54 @@
 var $ = require('jquery');
-
+var async = require('async');
+var request = require('superagent');
+/**
+ * Make reset password request. Takes the username or email from the username form.
+ *
+ * @param domain
+ */
 module.exports.requestResetPassword = function (domain) {
   var resetForm = $('#resetForm');
   var username = resetForm.find('input[name=username]').val();
   if (username && username.length > 0) {
+
     resetForm.find('input[type=submit]').prop('disabled', true);
-    $.post('https://' + username + '.' + domain +
-      '/account/request-password-reset', {appId: 'static-web'})
-      .done(function () {
-        resetForm.get(0).reset();
-        $('#passwordError').hide().empty();
-        resetForm.hide();
-        $('#requestSent').show();
-        resetForm.find('input[type=submit]').prop('disabled', false);
-      })
-      .fail(function () {
-        $('#passwordError').text('Username unknown').show();
-        resetForm.find('input[type=submit]').prop('disabled', false);
-      });
+
+    async.series([
+      function retrieveUsernameIfEmail (stepDone) {
+        if (username.search('@') > 0) {
+          request.get('https://reg.' + domain + '/' + username + '/uid')
+            .end(function (err, res) {
+              if (res.body.id === 'UNKNOWN_EMAIL') {
+                $('#passwordError').text(res.body.message).show();
+                resetForm.find('input[type=submit]').prop('disabled', false);
+                return stepDone(err);
+              }
+              username = res.body.uid;
+              stepDone();
+            });
+        } else {
+          stepDone();
+        }
+      },
+      function requestPasswordReset (stepDone) {
+        request.post('https://' + username + '.' + domain +
+          '/account/request-password-reset', {appId: 'static-web'})
+          .end(function (err) {
+            if (err) {
+              // if username is unknown - this returns a 404 as the DNS can't resolve
+              $('#passwordError').text('Username unknown: ' + username).show();
+              resetForm.find('input[type=submit]').prop('disabled', false);
+              return stepDone(err);
+            }
+            resetForm.get(0).reset();
+            $('#passwordError').hide().empty();
+            resetForm.hide();
+            $('#requestSent').show();
+            resetForm.find('input[type=submit]').prop('disabled', false);
+            return stepDone();
+          })
+      }
+    ]);
   }
 };
 
