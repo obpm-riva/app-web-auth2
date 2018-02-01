@@ -193,7 +193,13 @@ function manageRegistrationView (Settings) {
   
   $('#registerForm').on('submit', function(e) {
     e.preventDefault();
-    register.requestRegisterUser(getURLParameter('returnURL'), appId, lang, Settings);
+    register.requestRegisterUser(getURLParameter('returnURL'), appId, lang, Settings, function (err, settings) {
+      // login was done
+      if (err) {
+        console.log('got err', err)
+      }
+      managePostLogin(settings);
+    });
   });
   $('#alreadyUser').click(function() {
     $('#registerContainer').hide();
