@@ -65,23 +65,47 @@ module.exports.setPassword = function (returnURL, domain, token, Settings) {
 
   if (username && username.length > 0) {
     setPass.find('input[type=submit]').prop('disabled', true);
-    $.post('https://' + username + '.' + domain + '/account/reset-password',
-      {newPassword: pass, appId: 'static-web', resetToken : token})
-      .done(function () {
-        setPass.get(0).reset();
-        $('#loginUsernameOrEmail').val(username);
-        $('#loginPassword').val(pass);
-        $('#resetContainer').hide();
-        if (Settings.isResetPasswordStandalone()) {
-          var redirect = returnURL || Settings.getApiURL(username);
-          window.location.replace(redirect);
+
+    async.series([
+      function retrieveUsernameIfEmail (stepDone) {
+        if (username.search('@') > 0) {
+          request.get('https://reg.' + domain + '/' + username + '/uid')
+            .end(function (err, res) {
+              if (res.body.id === 'UNKNOWN_EMAIL') {
+                $('#passwordError').text(res.body.message).show();
+                setPass.find('input[type=submit]').prop('disabled', false);
+                return stepDone(err);
+              }
+              username = res.body.uid;
+              stepDone();
+            });
         } else {
-          $('#loginContainer').show();
+          stepDone();
         }
-      })
-      .fail(function () {
-        $('#passwordError').text('Username unknown').show();
-        setPass.find('input[type=submit]').prop('disabled', false);
-      });
+      },
+      function resetPassword (stepDone) {
+        request.post('https://' + username + '.' + domain + '/account/reset-password')
+          .send({newPassword: pass, appId: 'static-web', resetToken : token})
+          .end(function (err) {
+            if (err) {
+              // if username is unknown - this returns a 404 as the DNS can't resolve
+              $('#passwordError').text('Username unknown: ' + username).show();
+              setPass.find('input[type=submit]').prop('disabled', false);
+              return stepDone(err);
+            }
+            setPass.get(0).reset();
+            $('#loginUsernameOrEmail').val(username);
+            $('#loginPassword').val(pass);
+            $('#resetContainer').hide();
+            if (Settings.isResetPasswordStandalone()) {
+              var redirect = returnURL || Settings.getApiURL(username);
+              window.location.replace(redirect);
+            } else {
+              $('#loginContainer').show();
+            }
+            stepDone();
+          })
+      }
+    ]);
   }
 };
