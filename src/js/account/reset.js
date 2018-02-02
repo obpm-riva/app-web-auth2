@@ -19,7 +19,7 @@ module.exports.requestResetPassword = function (domain) {
           request.get('https://reg.' + domain + '/' + username + '/uid')
             .end(function (err, res) {
               if (res.body.id === 'UNKNOWN_EMAIL') {
-                $('#passwordError').text(res.body.message).show();
+                $('#passwordError').text(res.body.message + ': ' + username).show();
                 resetForm.find('input[type=submit]').prop('disabled', false);
                 return stepDone(err);
               }
@@ -72,7 +72,7 @@ module.exports.setPassword = function (returnURL, domain, token, Settings) {
           request.get('https://reg.' + domain + '/' + username + '/uid')
             .end(function (err, res) {
               if (res.body.id === 'UNKNOWN_EMAIL') {
-                $('#passwordError').text(res.body.message).show();
+                $('#passwordError').text(res.body.message + ': ' + username).show();
                 setPass.find('input[type=submit]').prop('disabled', false);
                 return stepDone(err);
               }
