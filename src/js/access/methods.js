@@ -85,7 +85,6 @@ methods.loginToPryvFromParams = function (params, callback) {
     usernameOrEmail: params.usernameOrEmail,
     password: params.password
   };
-  cookie.set('credentials', credentials, {expires: 1, path: params.settings.utils.url});
   async.waterfall([
     function (stepDone) {
       stepDone(null, params.settings, credentials);
@@ -119,7 +118,6 @@ methods.loginToPryv = function (settings, callback) {
     password: $password.val(),
     usernameOrEmail: $usernameOrEmail.val().trim().toLowerCase()
   };
-  cookie.set('usernameOrEmail', credentials.usernameOrEmail, {expires: 1, path: settings.utils.url});
   async.waterfall([
     function (stepDone) {
       stepDone(null, settings, credentials);
