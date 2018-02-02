@@ -11,7 +11,7 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings,
   var reg = Settings.info.register;
 
   if(pass !== rePass) {
-    $('#registerError').text('Password confirmation failed!').show();
+    $('#registerError').text('Password does not match the confirm password.').show();
   } else {
     $('#registerError').hide().empty();
     registerForm.find('input[type=submit]').prop('disabled', true);

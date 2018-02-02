@@ -57,7 +57,13 @@ module.exports.setPassword = function (returnURL, domain, token, Settings) {
   var username = setPass.find('input[name=username]').val();
   var pass = setPass.find('input[name=password]').val();
   var rePass = setPass.find('input[name=rePassword]').val();
-  if (username && username.length > 0 && pass && pass === rePass) {
+
+  if (pass && rePass && !(pass === rePass)) {
+    $('#passwordError').text('Password does not match the confirm password.').show();
+    return setPass.find('input[type=submit]').prop('disabled', false);
+  }
+
+  if (username && username.length > 0) {
     setPass.find('input[type=submit]').prop('disabled', true);
     $.post('https://' + username + '.' + domain + '/account/reset-password',
       {newPassword: pass, appId: 'static-web', resetToken : token})
