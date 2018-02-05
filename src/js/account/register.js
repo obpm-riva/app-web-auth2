@@ -1,6 +1,7 @@
 var $ = require('jquery');
+var methods = require('../access/methods');
 
-module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings) {
+module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings, loginCallback) {
   var registerForm = $('#registerForm');
   var username = registerForm.find('input[name=username]').val();
   var email = registerForm.find('input[name=email]').val();
@@ -14,7 +15,7 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
   }
 
   if(pass !== rePass) {
-    $('#registerError').text('Password confirmation failed!').show();
+    $('#registerError').text('Password does not match the confirm password.').show();
   } else {
     $('#registerError').hide().empty();
     registerForm.find('input[type=submit]').prop('disabled', true);
@@ -39,7 +40,24 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
           var redirect = returnURL || Settings.getApiURL(username);
           window.location.replace(redirect);
         } else {
-          $('#loginContainer').show();
+          // Do Login if not standalone
+          methods.loginToPryvFromParams({
+            usernameOrEmail: username,
+            password: pass,
+            settings: Settings
+          }, function (err, Settings) {
+            if (err) {
+              // Avoid this with a preliminary check in reg?
+              if(err.toString().indexOf('Request has been terminated') !== -1) {
+                Settings.utils.printError('Unknown username');
+              } else {
+                Settings.utils.printError(err);
+              }
+              loginCallback(err, Settings);
+            }
+            Settings.logIn = true;
+            loginCallback(null, Settings);
+          });
         }
       })
       .fail(function (xhr) {

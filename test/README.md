@@ -11,26 +11,25 @@
 ### User creation, sign in & permissions
 
 5. Complete the form with new test user information and click on "Create".
-6. Check that you are back in the login view with the username and password fields filled with your just created test user credentials.
-7. Click on "Sign in" and check that the requested permissions are shown.
-8. Accept the permissions and check that the popup closes and that the "Username" and "Access Token" fields are filled once back in app-web-access.
+6. You should be on the Permissions view, check that the requested permissions are shown.
+7. Accept the permissions and check that the popup closes and that the "Username" and "Access Token" fields are filled once back in app-web-access.
 
 ### Password reset
 
-9. Start the auth process again by clicking the red button, accept to sign out then click on it again when it shows "Sign in". In the popup, click on "Forgot password", enter your test username and click on "Send request".
-10. Check that a confirmation message is shown and that you received the reset password email. In this email, copy the 'resetToken' url parameter at the end of the reset link.
-11. Go back to reset password page (showing the confirmation message) and append the 'resetToken' parameter at the end of the current url (with a &).
-12. Press enter and check the 'Set a new password' view is shown. Complete the form with your username, a new password and click on 'Save'.
-13. Check that you are back in the Sign in view and that you can sign in with your new password.
+8. Start the auth process again by clicking the red button, accept to sign out then click on it again when it shows "Sign in". In the popup, click on "Forgot password", enter your test username and click on "Send request".
+9. Check that a confirmation message is shown and that you received the reset password email. In this email, copy the 'resetToken' url parameter at the end of the reset link.
+10. Go back to reset password page (showing the confirmation message) and append the 'resetToken' parameter at the end of the current url (with a &).
+11. Press enter and check the 'Set a new password' view is shown. Complete the form with your username, a new password and click on 'Save'.
+12. Check that you are back in the Sign in view and that you can sign in with your new password.
 
 ### Error display
 
-14. Start the auth process again by clicking the red button, accept to sign out then click on it again when it shows "Sign in". 
-15. Enter an existing username with a wrong password and verify that an error message is displayed.
-16. Enter a non existing username with a bogus password and verify that a correct error message is displayed.
-17. Click on "Create an account" and fill the credentials with an already used email address, click on "Create" and verify that the appropriate error message is shown.
-18. Change to an unused e-mail address, but choose an already used username, click on "Create" and verify that the appropriate error message is shown.
-19. Go back to the "Sign in" page, then click on "Forgot password", enter an unexisting username and verify that the appropriate error message is shown.
+13. Start the auth process again by clicking the red button, accept to sign out then click on it again when it shows "Sign in". 
+14. Enter an existing username with a wrong password and verify that an error message is displayed.
+15. Enter a non existing username with a bogus password and verify that a correct error message is displayed.
+16. Click on "Create an account" and fill the credentials with an already used email address, click on "Create" and verify that the appropriate error message is shown.
+17. Change to an unused e-mail address, but choose an already used username, click on "Create" and verify that the appropriate error message is shown.
+18. Go back to the "Sign in" page, then click on "Forgot password", enter an unexisting username and verify that the appropriate error message is shown.
 
 ### Standalone pages
 
