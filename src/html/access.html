@@ -34,30 +34,29 @@
         <div id="loginContainer">
             <!--<h1 id="loginFormTitle">Sign in</h1>-->
 
-            <form class="riva-form" id="loginForm" action="">
-                <label class="riva-label">Login to your account</label>
-                <div class="form-group">
-                    <!--<label id="loginUsernameLabel">Username or e-mail</label>-->
-                    <input class="form-control" type="text" id="loginUsernameOrEmail" name="loginUsernameOrEmail" autocorrect="off" autocapitalize="off" placeholder="Your email address" required />
-                </div>
+    <form id="loginForm" action="">
+      <div class="form-group">
+        <label id="loginUsernameLabel">userID or e-mail</label>
+        <input class="form-control" type="text" id="loginUsernameOrEmail" name="loginUsernameOrEmail" autocorrect="off" autocapitalize="off" required/>
+      </div>
 
                 <div class="form-group">
                     <!--<label id="loginPasswordLabel">Password</label>-->
                     <input class="form-control" type="password" id="loginPassword" name="loginPassword" placeholder="Password" required />
                 </div>
 
-                <button type="submit" id="signInButton" name="signInButton" class="btn btn-primary btn-block"> LOGIN </button>
-                <!-- <button type="button" id="cancelButton" name="cancelButton" class="btn btn-default">Cancel</button> -->                
-            </form>
+      <button type="submit" id="signInButton" name="signInButton" class="btn btn-primary btn-block">Sign in</button>
+      <button type="button" id="cancelButton" name="cancelButton" class="btn btn-default">Cancel</button>
 
-            <div class="form-group">
-                <button id="loginFormRegister" class="btn btn-default btn-sm form-toggle" data-mode="login">I don’t have an account yet</button>
-            </div>
-            <div class="form-group bottom-block">
-                <button id="loginFormReset" class="btn btn-default btn-sm form-toggle" data-mode="login">Forgot your password?</button>
-            </div>            
-            <!--<p>Feel free to reach our <a id="supportLink" target="_blank"><strong>helpdesk</strong></a> if you have any questions.</p>-->
-        </div>
+      <hr>
+    </form>
+    
+    <div class="form-group">
+      <button id="loginFormRegister" class="btn btn-default btn-sm form-toggle" data-mode="login">Create an account</button>
+      <button id="loginFormReset" class="btn btn-default btn-sm form-toggle" data-mode="login">Forgot password</button>
+    </div>
+
+  </div>
 
         <!-- Permissions View -->
         <div id="permissionsContainer">
@@ -71,11 +70,10 @@
             <div class="separator" id="mainSeparator"></div>
             <div id="permissionsList"></div>
 
-            <div id="buttonWrapper">
-                <button type="submit" id="permissionsReject" class="btn btn-danger btn-lg">Reject</button>
-                <button type="submit" id="permissionsAccept" class="btn btn-success btn-lg">Accept</button>
-            </div>
-        </div>
+    <div id="buttonWrapper">
+      <button type="submit" id="permissionsAccept" class="btn btn-success btn-lg">Accept</button>
+    </div>
+  </div>
 
         <!-- Loader View -->
         <div id="loaderContainer">
@@ -87,69 +85,67 @@
         <div id="registerContainer">
             <div id="registerError" class="alert alert-danger" style="display: none;"></div>
 
-            <form role="form" id="registerForm">
-                <!--<h1>Register a new user</h1>-->
-
-                <div class="form-group">
-                    <label>E-mail address</label>
-                    <input class="form-control" name="email" type="text" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Username</label>
-                    <input class="form-control" name="username" type="text" placeholder="Use at least 5 characters" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Password</label>
-                    <input class="form-control" name="pass" type="password" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Confirm password</label>
-                    <input class="form-control" name="rePass" type="password" required>
-                </div>
-
-                <div class="form-group" hidden>
-                    <label>Host my data in</label>
-                    <select class="form-control" id="hosting" required></select>
-                </div>
-
-                <p>By registering you agree with our <a id="termsLink" target="_blank"><strong>terms of use</strong>.</a></p>
-
-                <div class="form-group">
-                    <input class="btn btn-success btn-block" type="submit" value="Create">
-                </div>
-
-            </form>
-
-            <div class="form-group">
-                <button id="alreadyUser" class="btn btn-default btn-sm form-toggle">Already a Pryv user? Sign in.</button>
-            </div>
-
+    <form role="form" id="registerForm">
+        <h1>Register a new user</h1>
+        
+        <div class="form-group">
+          <label>userID</label>
+          <input class="form-control" name="username" type="text" readonly required>
+        </div>
+        
+        <div class="form-group">
+          <label>Password</label>
+          <input class="form-control" name="pass" type="password" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Confirm password</label>
+          <input class="form-control" name="rePass" type="password" required>
         </div>
 
-        <!-- Reset Password View -->
-        <div id="resetContainer">
-            <div id="passwordError" class="alert alert-danger" style="display: none;"></div>
+        <div class="form-group">
+            <label>E-mail address - required for password recovery</label>
+            <input class="form-control" name="email" type="text">
+        </div>
+        
+        <div class="form-group" hidden>
+          <label>Host my data in</label>
+          <select class="form-control" id="hosting" required></select>
+        </div>
+        
+        <div class="form-group">
+            <input class="btn btn-success btn-block" type="submit" value="Create">
+        </div>
+        
+    </form>
+    
+    <div class="form-group">
+      <button id="alreadyUser" class="btn btn-default btn-sm form-toggle">Already a Pryv user? Sign in.</button>
+    </div>
+    
+  </div>
+  
+  <!-- Reset Password View -->
+  <div id="resetContainer">
+    <div id="passwordError" class="alert alert-danger" style="display: none;"></div>
 
             <form role="form" id="setPass">
                 <!--<h1>Set a new password</h1>-->
 
-                <div class="form-group">
-                    <label>Username</label>
-                    <input class="form-control" name="username" type="text" required>
-                </div>
+        <div class="form-group">
+            <label>userID or email</label>
+            <input class="form-control" name="username" type="text" required>
+        </div>
 
                 <div class="form-group">
                     <label>New password</label>
                     <input class="form-control" name="password" type="password" required>
                 </div>
 
-                <div class="form-group">
-                    <label>Re-type new password</label>
-                    <input class="form-control" name="rePassword" type="password" required>
-                </div>
+        <div class="form-group">
+            <label>Confirm new password</label>
+            <input class="form-control" name="rePassword" type="password" required>
+        </div>
 
                 <div class="form-group">
                     <input class="btn btn-success btn-block" type="submit" value="Save">
@@ -159,10 +155,10 @@
             <form role="form" id="resetForm">
                 <!--<h1>Request password reset</h1>-->
 
-                <div class="form-group">
-                    <label>Please enter your username</label>
-                    <input class="form-control" name="username" type="text" required>
-                </div>
+        <div class="form-group">
+            <label>Please enter your userID or email</label>
+            <input class="form-control" name="username" type="text" required>
+        </div>
 
                 <div class="form-group">
                     <input class="btn btn-success btn-block" type="submit" value="Send request">

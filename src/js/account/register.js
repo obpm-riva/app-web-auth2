@@ -1,6 +1,7 @@
 var $ = require('jquery');
+var methods = require('../access/methods');
 
-module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings) {
+module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings, loginCallback) {
   var registerForm = $('#registerForm');
   var username = registerForm.find('input[name=username]').val();
   var email = registerForm.find('input[name=email]').val();
@@ -9,8 +10,12 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
   var hosting = $('#hosting').val();
   var reg = Settings.info.register;
 
+  if (! email) {
+    email = username + '@obpm-dev.io';
+  }
+
   if(pass !== rePass) {
-    $('#registerError').text('Password confirmation failed!').show();
+    $('#registerError').text('Password does not match the confirm password.').show();
   } else {
     $('#registerError').hide().empty();
     registerForm.find('input[type=submit]').prop('disabled', true);
@@ -35,7 +40,24 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
           var redirect = returnURL || Settings.getApiURL(username);
           window.location.replace(redirect);
         } else {
-          $('#loginContainer').show();
+          // Do Login if not standalone
+          methods.loginToPryvFromParams({
+            usernameOrEmail: username,
+            password: pass,
+            settings: Settings
+          }, function (err, Settings) {
+            if (err) {
+              // Avoid this with a preliminary check in reg?
+              if(err.toString().indexOf('Request has been terminated') !== -1) {
+                Settings.utils.printError('Unknown username');
+              } else {
+                Settings.utils.printError(err);
+              }
+              loginCallback(err, Settings);
+            }
+            Settings.logIn = true;
+            loginCallback(null, Settings);
+          });
         }
       })
       .fail(function (xhr) {
@@ -49,6 +71,28 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
         $('#registerForm').find('input[type=submit]').prop('disabled', false);
       });
   }
+};
+
+/**
+ * Check if username is already used.
+ *  If not used, it returns the username,
+ *  otherwise, returns false.
+ *
+ * @param username
+ * @param params
+ * @param params.register
+ * @param callback
+ */
+module.exports.checkUsername = function (username, params, callback) {
+  $.get(params.reg + '/' + username + '/check_username')
+    .done(function (data) {
+      console.log('got data', data);
+      if (! data.reserved) {
+        callback(null, username);
+      } else {
+        callback(null, false);
+      }
+    });
 };
 
 module.exports.retrieveHostings = function (reg) {

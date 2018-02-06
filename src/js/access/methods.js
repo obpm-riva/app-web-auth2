@@ -72,6 +72,32 @@ methods.buildSettings = function (page, callback) {
 };
 
 /**
+ * Login using the params provided to the method.
+ *
+ * @param params
+ * @param params.usernameOrEmail
+ * @param params.password
+ * @param params.settings
+ * @param callback
+ */
+methods.loginToPryvFromParams = function (params, callback) {
+  var credentials = {
+    usernameOrEmail: params.usernameOrEmail,
+    password: params.password
+  };
+  async.waterfall([
+    function (stepDone) {
+      stepDone(null, params.settings, credentials);
+    },
+    requests.getUidIfEmail,
+    requests.authenticateWithCredentials,
+    requests.checkAppAccess
+  ], function (err, settings) {
+    callback(err, settings);
+  });
+};
+
+/**
  * Login using the content of the username/e-mail and password fields,
  * sets credentials in cookies for 1 days
  * @param Settings {Object}
@@ -92,7 +118,6 @@ methods.loginToPryv = function (settings, callback) {
     password: $password.val(),
     usernameOrEmail: $usernameOrEmail.val().trim().toLowerCase()
   };
-  cookie.set('usernameOrEmail', credentials.usernameOrEmail, {expires: 1, path: settings.utils.url});
   async.waterfall([
     function (stepDone) {
       stepDone(null, settings, credentials);
