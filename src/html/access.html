@@ -1,191 +1,191 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
-  <title>Pryv — Sign in</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <title>Pryv — Sign in</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="icon" href="./assets/page-logo.png?v=2">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400">
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
 
-  <link rel="icon" href="./assets/page-logo.png?v=2">
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400">
-  <link rel="stylesheet" type="text/css" href="./css/style.css"/>
-
-  <script type="text/javascript" src="./scripts/access-script.js"></script>
+    <script type="text/javascript" src="./scripts/access-script.js"></script>
 </head>
-<body>
-<div class="wrapper">
-  <img class="logo" src="./assets/main-logo.png"/>
+<body style="min-height: 100%;">
+    <div class="wrapper">
+        <!-- <img class="logo" src="./assets/main-logo.png"/> -->
+        <!-- Errors & Information -->
+        <div id="blockContainer">
+            <div id="infoBlock" class="alert alert-info">
+                <p id='infoMessage'></p>
+            </div>
 
-  <!-- Errors & Information -->
-  <div id="blockContainer">
-    <div id="infoBlock" class="alert alert-info">
-      <p id='infoMessage'></p>
-    </div>
-
-    <div id="alertBlock" class="alert alert-danger">
-      <p id='alertMessage'></p>
-    </div>
-  </div>
-
-  <!-- Login View -->
-  <div id="loginContainer">
-    <h1 id="loginFormTitle">Sign in</h1>
-
-    <form id="loginForm" action="">
-      <div class="form-group">
-        <label id="loginUsernameLabel">Username or e-mail</label>
-        <input class="form-control" type="text" id="loginUsernameOrEmail" name="loginUsernameOrEmail" autocorrect="off" autocapitalize="off" required/>
-      </div>
-
-      <div class="form-group">
-        <label id="loginPasswordLabel">Password</label>
-        <input class="form-control" type="password" id="loginPassword" name="loginPassword" required/>
-      </div>
-
-      <button type="submit" id="signInButton" name="signInButton" class="btn btn-primary btn-block">Sign in</button>
-      <button type="button" id="cancelButton" name="cancelButton" class="btn btn-default">Cancel</button>
-
-      <hr>
-    </form>
-    
-    <div class="form-group">
-      <button id="loginFormRegister" class="btn btn-default btn-sm form-toggle" data-mode="login">Create an account</button>
-      <button id="loginFormReset" class="btn btn-default btn-sm form-toggle" data-mode="login">Forgot password</button>
-    </div>
-    
-    <p>Feel free to reach our <a id="supportLink" target="_blank"><strong>helpdesk</strong></a> if you have any questions.</p>
-
-  </div>
-
-  <!-- Permissions View -->
-  <div id="permissionsContainer">
-    <h1 id="permissionsTitle">Permissions</h1>
-
-    <img id="iconApp" src="./assets/app-icon.png">
-    <img id="iconArrow" src="./assets/arrow-icon.png">
-    <img id="iconAppPryv" src="./assets/pryv-icon.png">
-
-    <p id="permissionsRequestedBy"></p>
-    <div class="separator" id="mainSeparator"></div>
-    <div id="permissionsList"></div>
-
-    <div id="buttonWrapper">
-      <button type="submit" id="permissionsReject" class="btn btn-danger btn-lg">Reject</button>
-      <button type="submit" id="permissionsAccept" class="btn btn-success btn-lg">Accept</button>
-    </div>
-  </div>
-
-  <!-- Loader View -->
-  <div id="loaderContainer">
-    <h4 id="loaderState"></h4>
-    <p id="loaderMessage"></p>
-  </div>
-  
-  <!-- Register View -->
-  <div id="registerContainer">
-    <div id="registerError" class="alert alert-danger" style="display: none;"></div>
-
-    <form role="form" id="registerForm">
-        <h1>Register a new user</h1>
-        
-        <div class="form-group">
-          <label>E-mail address</label>
-          <input class="form-control" name="email" type="text" required>
-        </div>
-        
-        <div class="form-group">
-          <label>Username</label>
-          <input class="form-control" name="username" type="text" placeholder="Use at least 5 characters" required>
-        </div>
-        
-        <div class="form-group">
-          <label>Password</label>
-          <input class="form-control" name="pass" type="password" required>
-        </div>
-        
-        <div class="form-group">
-          <label>Confirm password</label>
-          <input class="form-control" name="rePass" type="password" required>
-        </div>
-        
-        <div class="form-group">
-          <label>Host my data in</label>
-          <select class="form-control" id="hosting" required></select>
-        </div>
-        
-        <p>By registering you agree with our <a id="termsLink" target="_blank"><strong>terms of use</strong>.</a></p>
-        
-        <div class="form-group">
-            <input class="btn btn-success btn-block" type="submit" value="Create">
-        </div>
-        
-    </form>
-    
-    <div class="form-group">
-      <button id="alreadyUser" class="btn btn-default btn-sm form-toggle">Already a Pryv user? Sign in.</button>
-    </div>
-    
-  </div>
-  
-  <!-- Reset Password View -->
-  <div id="resetContainer">
-    <div id="passwordError" class="alert alert-danger" style="display: none;"></div>
-
-    <form role="form" id="setPass">
-        <h1>Set a new password</h1>
-
-        <div class="form-group">
-            <label>Username</label>
-            <input class="form-control" name="username" type="text" required>
+            <div id="alertBlock" class="alert alert-danger">
+                <p id='alertMessage'></p>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label>New password</label>
-            <input class="form-control" name="password" type="password" required>
+        <!-- Login View -->
+        <div id="loginContainer">
+            <!--<h1 id="loginFormTitle">Sign in</h1>-->
+
+            <form class="riva-form" id="loginForm" action="">
+                <label class="riva-label">Login to your account</label>
+                <div class="form-group">
+                    <!--<label id="loginUsernameLabel">Username or e-mail</label>-->
+                    <input class="form-control" type="text" id="loginUsernameOrEmail" name="loginUsernameOrEmail" autocorrect="off" autocapitalize="off" placeholder="Your email address" required />
+                </div>
+
+                <div class="form-group">
+                    <!--<label id="loginPasswordLabel">Password</label>-->
+                    <input class="form-control" type="password" id="loginPassword" name="loginPassword" placeholder="Password" required />
+                </div>
+
+                <button type="submit" id="signInButton" name="signInButton" class="btn btn-primary btn-block"> LOGIN </button>
+                <!-- <button type="button" id="cancelButton" name="cancelButton" class="btn btn-default">Cancel</button> -->                
+            </form>
+
+            <div class="form-group">
+                <button id="loginFormRegister" class="btn btn-default btn-sm form-toggle" data-mode="login">I don’t have an account yet</button>
+            </div>
+            <div class="form-group bottom-block">
+                <button id="loginFormReset" class="btn btn-default btn-sm form-toggle" data-mode="login">Forgot your password?</button>
+            </div>            
+            <!--<p>Feel free to reach our <a id="supportLink" target="_blank"><strong>helpdesk</strong></a> if you have any questions.</p>-->
         </div>
 
-        <div class="form-group">
-            <label>Re-type new password</label>
-            <input class="form-control" name="rePassword" type="password" required>
+        <!-- Permissions View -->
+        <div id="permissionsContainer">
+            <h1 id="permissionsTitle">Permissions</h1>
+
+            <img id="iconApp" src="./assets/app-icon.png">
+            <img id="iconArrow" src="./assets/arrow-icon.png">
+            <img id="iconAppPryv" src="./assets/pryv-icon.png">
+
+            <p id="permissionsRequestedBy"></p>
+            <div class="separator" id="mainSeparator"></div>
+            <div id="permissionsList"></div>
+
+            <div id="buttonWrapper">
+                <button type="submit" id="permissionsReject" class="btn btn-danger btn-lg">Reject</button>
+                <button type="submit" id="permissionsAccept" class="btn btn-success btn-lg">Accept</button>
+            </div>
         </div>
 
-        <div class="form-group">
-            <input class="btn btn-success btn-block" type="submit" value="Save">
-        </div>
-    </form>
-
-    <form role="form" id="resetForm">
-        <h1>Request password reset</h1>
-
-        <div class="form-group">
-            <label>Please enter your username</label>
-            <input class="form-control" name="username" type="text" required>
+        <!-- Loader View -->
+        <div id="loaderContainer">
+            <h4 id="loaderState"></h4>
+            <p id="loaderMessage"></p>
         </div>
 
-        <div class="form-group">
-            <input class="btn btn-success btn-block" type="submit" value="Send request">
+        <!-- Register View -->
+        <div id="registerContainer">
+            <div id="registerError" class="alert alert-danger" style="display: none;"></div>
+
+            <form role="form" id="registerForm">
+                <!--<h1>Register a new user</h1>-->
+
+                <div class="form-group">
+                    <label>E-mail address</label>
+                    <input class="form-control" name="email" type="text" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <input class="form-control" name="username" type="text" placeholder="Use at least 5 characters" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input class="form-control" name="pass" type="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm password</label>
+                    <input class="form-control" name="rePass" type="password" required>
+                </div>
+
+                <div class="form-group" hidden>
+                    <label>Host my data in</label>
+                    <select class="form-control" id="hosting" required></select>
+                </div>
+
+                <p>By registering you agree with our <a id="termsLink" target="_blank"><strong>terms of use</strong>.</a></p>
+
+                <div class="form-group">
+                    <input class="btn btn-success btn-block" type="submit" value="Create">
+                </div>
+
+            </form>
+
+            <div class="form-group">
+                <button id="alreadyUser" class="btn btn-default btn-sm form-toggle">Already a Pryv user? Sign in.</button>
+            </div>
+
         </div>
-    </form>
 
-    <div id="requestSent" class="panel panel-default" style="display: none;">
-        <div class="panel-body">
-            <div class="resend-password-wrapper" style="color: #000;">
-                <h3>We've sent password reset instructions to your e-mail address</h3>
+        <!-- Reset Password View -->
+        <div id="resetContainer">
+            <div id="passwordError" class="alert alert-danger" style="display: none;"></div>
 
-                <p>If you don't receive a message within a few minutes, you may want to have a
-                    look in your junk mail.</p>
+            <form role="form" id="setPass">
+                <!--<h1>Set a new password</h1>-->
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <input class="form-control" name="username" type="text" required>
+                </div>
+
+                <div class="form-group">
+                    <label>New password</label>
+                    <input class="form-control" name="password" type="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Re-type new password</label>
+                    <input class="form-control" name="rePassword" type="password" required>
+                </div>
+
+                <div class="form-group">
+                    <input class="btn btn-success btn-block" type="submit" value="Save">
+                </div>
+            </form>
+
+            <form role="form" id="resetForm">
+                <!--<h1>Request password reset</h1>-->
+
+                <div class="form-group">
+                    <label>Please enter your username</label>
+                    <input class="form-control" name="username" type="text" required>
+                </div>
+
+                <div class="form-group">
+                    <input class="btn btn-success btn-block" type="submit" value="Send request">
+                </div>
+            </form>
+
+            <div id="requestSent" class="panel panel-default" style="display: none;">
+                <div class="panel-body">
+                    <div class="resend-password-wrapper" style="color: #000;">
+                        <h3>We've sent password reset instructions to your e-mail address</h3>
+
+                        <p>
+                            If you don't receive a message within a few minutes, you may want to have a
+                            look in your junk mail.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button id="goToLogin" class="btn btn-default btn-sm form-toggle">Go back to Sign in.</button>
             </div>
         </div>
     </div>
-    
-    <div class="form-group">
-      <button id="goToLogin" class="btn btn-default btn-sm form-toggle">Go back to Sign in.</button>
-    </div>
-  </div>
-</div>
 </body>
 </html>

@@ -1,152 +1,238 @@
 body {
-  font-size: 14px;
-  font-weight: 300;
-  min-width: 200px;
-  background-color: #eef0f2;
-  font-family: 'Roboto',  sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    min-width: 200px;
+    max-width: none !important;
+    background-color: #f6f9fe;
+    min-height: 100%;
+    font-family: 'Poppins', serif;
 }
 
 label {
-  font-weight: 200;
+    font-weight: 400;
+}
+
+.riva-label {
+    font-size: 16pt;
+    line-height: 22px;
+    letter-spacing: 0.5px;
+    text-align: left;
+    font-weight: 500;
+    color: #00030e;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-top: 10px;
 }
 
 .wrapper {
-  margin: 0 auto;
-  padding: 30px 10px;
-  max-width: 480px;
-  text-align: center;
+    margin: 40px 0 0 0;
+    padding: 0;
+    height: 100%;
+    text-align: center;
 }
 
-.wrapper h1 {
-  margin-bottom:30px;
-  letter-spacing: 1px;
-  font-weight: inherit;
-}
+    .wrapper > div {
+        width: 100%;
+        max-width: none !important;
+        height: 100%;
+    }
 
-.wrapper img {
-  max-width: 480px;
-}
+    .wrapper h1 {
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+        font-weight: inherit;
+    }
+
+    .wrapper img {
+        max-width: 480px;
+    }
 
 .logo {
-  margin-bottom:10px;
+    margin-bottom: 10px;
 }
 
 
 /* ----- Login / Reset Password ----- */
+
+.riva-form {
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+    .riva-form .form-control {
+        margin: 0;
+        width: 100%;
+        font-size: 16pt;
+        border-radius: 0;
+        max-width: none;
+        text-align: left;
+        height: 58px;
+        background-color: #ffffff;
+        padding: 15px 20px 15px 20px;
+        border-width: 0 0 1px 0;
+    }
+
 .form-group, .btn-block, #infoBlock, #alertBlock {
-  max-width: 420px;
-  margin-left: auto;
-  margin-right: auto;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.form-group {
+    margin: 0;
+    width: 100%;
+    max-width: none;
 }
 
 .form-control {
-  text-align: center;
+    text-align: center;
 }
 
 #signInButton, #cancelLoginButton {
-  margin-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.riva-form button[type=submit] {
+    margin-top: 40px;
+    position: center;
+    background-color: #1d7eee;
+    color: white;
+    width: 350px;
+    height: 50px;
+    border-radius: 50px;
+    font-size: 20pt;
+    font-weight: 600;
+    border: none;
+}
+
+#loginFormRegister {
+    border: none;
+    background-color: transparent;
+    color: #1d7ded;
+    margin: 10px;
+    letter-spacing: 0.6px;
+    font-size: 18pt;
+    line-height: 22px;
+}
+
+#loginFormReset {
+    border: none;
+    background-color: transparent;
+    color: #1d7ded;
+    margin: 10px;
+    font-size: 14pt;
+    letter-spacing: 0.4px;
+    line-height: 22px;
+}
+
+.bottom-block {
+    margin: 150px 30px 0 0;
+    text-align: center;
 }
 
 /* ----- Permissions ----- */
 .permissionElem {
-  margin: 0px;
-  padding-bottom: 5px;
+    margin: 0px;
+    padding-bottom: 5px;
 }
 
-.permissionElem b {
-  margin: auto 2px;
-}
+    .permissionElem b {
+        margin: auto 2px;
+    }
 
 .separator {
-  overflow:hidden; height:20px;
-}
-.separator:after {
-  content: '';
-  display: block;
-  margin: -25px auto 0;
-  width: 75%;
-  height: 23px;
-  border-radius: 125px / 12px;
+    overflow: hidden;
+    height: 20px;
 }
 
+    .separator:after {
+        content: '';
+        display: block;
+        margin: -25px auto 0;
+        width: 75%;
+        height: 23px;
+        border-radius: 125px / 12px;
+    }
+
 #mainSeparator:after {
-  width: 100%;
-  height: 25px;
+    width: 100%;
+    height: 25px;
 }
 
 #permissionsContainer {
-  display: none;
-  font-size: 15px;
+    display: none;
+    font-size: 15px;
 }
 
-#permissionsContainer img {
-  max-width: 56px;
-  max-height: 56px;
-}
+    #permissionsContainer img {
+        max-width: 56px;
+        max-height: 56px;
+    }
 
 #permissionsRequestedBy {
-  font-size: 18px;
-  margin: 10px auto;
+    font-size: 18px;
+    margin: 10px auto;
 }
 
-#permissionsRequestedBy b {
-  margin: auto 5px;
-}
+    #permissionsRequestedBy b {
+        margin: auto 5px;
+    }
 
 
 /* ----- Others ----- */
 #infoBlock, #alertBlock, #loaderContainer {
-  display:none;
-  margin-top: 10px;
+    display: none;
+    margin-top: 10px;
 }
 
 @media (max-width: 767px) {
-  /*.blockAccordion{*/
+    /*.blockAccordion{*/
     /*margin: 0 -30px;*/
-  /*}*/
-  #buttonWrapper {
-    text-align: center;
-    margin-bottom: 15px;
-  }
+    /*}*/
+    #buttonWrapper {
+        text-align: center;
+        margin-bottom: 15px;
+    }
 }
 
 /*#simple-page-wrapper select > optgroup, #simple-page-wrapper select > option {*/
-  /*text-align: left;*/
-  /*padding: 0 10px;*/
+/*text-align: left;*/
+/*padding: 0 10px;*/
 /*}*/
 
 /*#simple-page-wrapper select > optgroup option {*/
-  /*margin: 0 -10px; !* ie. compensate optgroup padding *!*/
+/*margin: 0 -10px; !* ie. compensate optgroup padding *!*/
 /*}*/
 
 /*#validation-form-wrapper {*/
-  /*margin-right: 0 !important;*/
+/*margin-right: 0 !important;*/
 /*}*/
 
 /*.btn_register{*/
-  /*margin-top: 0px;*/
-  /*background-color: rgba(0, 0, 0, 0);*/
-  /*border: 2px solid;*/
+/*margin-top: 0px;*/
+/*background-color: rgba(0, 0, 0, 0);*/
+/*border: 2px solid;*/
 /*}*/
 
 /*.signinhubContainer {*/
-  /*margin-bottom:35px;*/
+/*margin-bottom:35px;*/
 /*}*/
 
 
 
 /*.has-error span {*/
-  /*color: #FF423F;*/
+/*color: #FF423F;*/
 /*}*/
 
 /*.has-error .control-label, .has-error .help-block {*/
-  /*color: #FF423F;*/
+/*color: #FF423F;*/
 /*}*/
 
 /*.has-success .control-label, .has-success .help-block {*/
-  /*color: #20DD23;*/
+/*color: #20DD23;*/
 /*}*/
 
 /*#invitationtoken-form-container {*/
-  /*display:none;*/
+/*display:none;*/
 /*}*/
