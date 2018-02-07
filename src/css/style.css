@@ -1,5 +1,5 @@
 body {
-    font-size: 14px;
+    font-size: 14pt;
     font-weight: 300;
     min-width: 200px;
     max-width: none !important;
@@ -10,7 +10,17 @@ body {
 
 label {
     font-weight: 400;
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 14pt;
 }
+
+.alert {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+
 
 .riva-label {
     font-size: 16pt;
@@ -38,9 +48,14 @@ label {
     }
 
     .wrapper h1 {
-        margin-bottom: 30px;
-        letter-spacing: 1px;
-        font-weight: inherit;
+        font-size: 16pt;
+        font-weight: 600;
+        margin-left: 20px;
+        margin-bottom: 15px;
+        letter-spacing: 0.5px;
+        
+        text-align: left;
+        color: #00030e
     }
 
     .wrapper img {
@@ -61,6 +76,7 @@ label {
     width: 100%;
 }
 
+
     .riva-form .form-control {
         margin: 0;
         width: 100%;
@@ -68,17 +84,39 @@ label {
         border-radius: 0;
         max-width: none;
         text-align: left;
-        height: 58px;
-        background-color: #ffffff;
+        height: 65px;
+        background-color: #ffffff !important;
         padding: 15px 20px 15px 20px;
-        border-width: 0 0 1px 0;
+        border-color: #d4e2f3;
+        border-width: 0 0 2px 0;
+        border-collapse: collapse;
     }
+
+label.label-big {
+    font-size: 16pt;
+    font-weight: 500;
+}
+
+.riva-form .form-control:read-only:focus,
+.riva-form .form-control:read-only:hover,
+.riva-form .form-control:read-only {
+    color: #586d8f;
+    font-weight: 800;
+    /*background-color: #f1f1f1 !important;*/
+    border: 2px solid #d4e2f3 !important;
+    border-left: none !important;
+    border-right: none !important;
+    
+    cursor: pointer !important;
+    box-shadow: none !important;
+}
 
 .form-group, .btn-block, #infoBlock, #alertBlock {
     max-width: 420px;
     margin-left: auto;
     margin-right: auto;
 }
+
 .form-group {
     margin: 0;
     width: 100%;
@@ -90,23 +128,25 @@ label {
 }
 
 #signInButton, #cancelLoginButton {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
+.riva-form input[type=submit] ,
 .riva-form button[type=submit] {
     margin-top: 40px;
     position: center;
     background-color: #1d7eee;
     color: white;
     width: 350px;
-    height: 50px;
-    border-radius: 50px;
+    height: 55px;
+    border-radius: 55px;
     font-size: 20pt;
-    font-weight: 600;
+    font-weight: 800;
     border: none;
+    letter-spacing: 1.1px;
 }
 
-#loginFormRegister {
+#loginFormRegister, #alreadyUser, #goToLogin {
     border: none;
     background-color: transparent;
     color: #1d7ded;
@@ -183,7 +223,7 @@ label {
 /* ----- Others ----- */
 #infoBlock, #alertBlock, #loaderContainer {
     display: none;
-    margin-top: 10px;
+    margin-top: 10px;    
 }
 
 @media (max-width: 767px) {
