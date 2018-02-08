@@ -137,8 +137,8 @@ label.label-big {
 
 .riva-form input[type=submit],
 .riva-form button[type=submit] {
-    margin-top: 30px;
-    padding: 50px;
+    margin-top: 20px;
+    padding: 10px 50px;
     min-width: 100px;
     max-width: 270px;
     position: static;   
@@ -156,8 +156,8 @@ label.label-big {
     border: none;
     background-color: transparent;
     color: #1d7ded;
-    margin: 20px auto;    
-    font-size: 12px;
+    margin: 20px auto 10px auto;    
+    font-size: 16px;
     line-height: 22px;
 }
 
