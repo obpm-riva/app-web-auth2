@@ -38,7 +38,7 @@ module.exports={
 
 
       "cancel-button": "Cancel",
-      "sign-in-button": "Sign in",
+      "sign-in-button": "LOGIN",
       "permissions-title": "Permissions",
       "permissions-reject": "Reject",
       "permissions-accept": "Accept",
@@ -47785,7 +47785,13 @@ function manageRegistrationView (Settings) {
 
   $('#registerForm').on('submit', function(e) {
     e.preventDefault();
-    register.requestRegisterUser(getURLParameter('returnURL'), appId, lang, Settings);
+    register.requestRegisterUser(getURLParameter('returnURL'), appId, lang, Settings, function (err, settings) {
+      // login was done
+      if (err) {
+        console.log('got err', err)
+      }
+      managePostLogin(settings);
+    });
   });
   $('#alreadyUser').click(function() {
     $('#registerContainer').hide();
@@ -47917,6 +47923,32 @@ methods.buildSettings = function (page, callback) {
 };
 
 /**
+ * Login using the params provided to the method.
+ *
+ * @param params
+ * @param params.usernameOrEmail
+ * @param params.password
+ * @param params.settings
+ * @param callback
+ */
+methods.loginToPryvFromParams = function (params, callback) {
+  var credentials = {
+    usernameOrEmail: params.usernameOrEmail,
+    password: params.password
+  };
+  async.waterfall([
+    function (stepDone) {
+      stepDone(null, params.settings, credentials);
+    },
+    requests.getUidIfEmail,
+    requests.authenticateWithCredentials,
+    requests.checkAppAccess
+  ], function (err, settings) {
+    callback(err, settings);
+  });
+};
+
+/**
  * Login using the content of the username/e-mail and password fields,
  * sets credentials in cookies for 1 days
  * @param Settings {Object}
@@ -47937,7 +47969,6 @@ methods.loginToPryv = function (settings, callback) {
     password: $password.val(),
     usernameOrEmail: $usernameOrEmail.val().trim().toLowerCase()
   };
-  cookie.set('usernameOrEmail', credentials.usernameOrEmail, {expires: 1, path: settings.utils.url});
   async.waterfall([
     function (stepDone) {
       stepDone(null, settings, credentials);
@@ -48258,8 +48289,9 @@ requests.sendState = function (Settings, data, message, callback) {
 module.exports = requests;
 },{"superagent":85}],102:[function(require,module,exports){
 var $ = require('jquery');
+var methods = require('../access/methods');
 
-module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings) {
+module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings, loginCallback) {
   var registerForm = $('#registerForm');
   var username = registerForm.find('input[name=username]').val();
   var email = registerForm.find('input[name=email]').val();
@@ -48273,7 +48305,7 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
   }
 
   if(pass !== rePass) {
-    $('#registerError').text('Password confirmation failed!').show();
+    $('#registerError').text('Password does not match the confirm password.').show();
   } else {
     $('#registerError').hide().empty();
     registerForm.find('input[type=submit]').prop('disabled', true);
@@ -48298,7 +48330,24 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings)
           var redirect = returnURL || Settings.getApiURL(username);
           window.location.replace(redirect);
         } else {
-          $('#loginContainer').show();
+          // Do Login if not standalone
+          methods.loginToPryvFromParams({
+            usernameOrEmail: username,
+            password: pass,
+            settings: Settings
+          }, function (err, Settings) {
+            if (err) {
+              // Avoid this with a preliminary check in reg?
+              if(err.toString().indexOf('Request has been terminated') !== -1) {
+                Settings.utils.printError('Unknown username');
+              } else {
+                Settings.utils.printError(err);
+              }
+              loginCallback(err, Settings);
+            }
+            Settings.logIn = true;
+            loginCallback(null, Settings);
+          });
         }
       })
       .fail(function (xhr) {
@@ -48370,27 +48419,58 @@ module.exports.retrieveHostings = function (reg) {
       $('#registerError').text('Unable to retrieve hostings: ' + xhr.responseJSON.message).show();
     });
 };
-},{"jquery":22}],103:[function(require,module,exports){
+},{"../access/methods":100,"jquery":22}],103:[function(require,module,exports){
 var $ = require('jquery');
-
+var async = require('async');
+var request = require('superagent');
+/**
+ * Make reset password request. Takes the username or email from the username form.
+ *
+ * @param domain
+ */
 module.exports.requestResetPassword = function (domain) {
   var resetForm = $('#resetForm');
   var username = resetForm.find('input[name=username]').val();
   if (username && username.length > 0) {
+
     resetForm.find('input[type=submit]').prop('disabled', true);
-    $.post('https://' + username + '.' + domain +
-      '/account/request-password-reset', {appId: 'static-web'})
-      .done(function () {
-        resetForm.get(0).reset();
-        $('#passwordError').hide().empty();
-        resetForm.hide();
-        $('#requestSent').show();
-        resetForm.find('input[type=submit]').prop('disabled', false);
-      })
-      .fail(function () {
-        $('#passwordError').text('Unknown userID').show();
-        resetForm.find('input[type=submit]').prop('disabled', false);
-      });
+
+    async.series([
+      function retrieveUsernameIfEmail (stepDone) {
+        if (username.search('@') > 0) {
+          request.get('https://reg.' + domain + '/' + username + '/uid')
+            .end(function (err, res) {
+              if (res.body.id === 'UNKNOWN_EMAIL') {
+                $('#passwordError').text(res.body.message + ': ' + username).show();
+                resetForm.find('input[type=submit]').prop('disabled', false);
+                return stepDone(err);
+              }
+              username = res.body.uid;
+              stepDone();
+            });
+        } else {
+          stepDone();
+        }
+      },
+      function requestPasswordReset (stepDone) {
+        request.post('https://' + username + '.' + domain +
+          '/account/request-password-reset', {appId: 'static-web'})
+          .end(function (err) {
+            if (err) {
+              // if username is unknown - this returns a 404 as the DNS can't resolve
+              $('#passwordError').text('Username unknown: ' + username).show();
+              resetForm.find('input[type=submit]').prop('disabled', false);
+              return stepDone(err);
+            }
+            resetForm.get(0).reset();
+            $('#passwordError').hide().empty();
+            resetForm.hide();
+            $('#requestSent').show();
+            resetForm.find('input[type=submit]').prop('disabled', false);
+            return stepDone();
+          })
+      }
+    ]);
   }
 };
 
@@ -48399,30 +48479,60 @@ module.exports.setPassword = function (returnURL, domain, token, Settings) {
   var username = setPass.find('input[name=username]').val();
   var pass = setPass.find('input[name=password]').val();
   var rePass = setPass.find('input[name=rePassword]').val();
-  if (username && username.length > 0 && pass && pass === rePass) {
+
+  if (pass && rePass && !(pass === rePass)) {
+    $('#passwordError').text('Password does not match the confirm password.').show();
+    return setPass.find('input[type=submit]').prop('disabled', false);
+  }
+
+  if (username && username.length > 0) {
     setPass.find('input[type=submit]').prop('disabled', true);
-    $.post('https://' + username + '.' + domain + '/account/reset-password',
-      {newPassword: pass, appId: 'static-web', resetToken : token})
-      .done(function () {
-        setPass.get(0).reset();
-        $('#loginUsernameOrEmail').val(username);
-        $('#loginPassword').val(pass);
-        $('#resetContainer').hide();
-        if (Settings.isResetPasswordStandalone()) {
-          var redirect = returnURL || Settings.getApiURL(username);
-          window.location.replace(redirect);
+
+    async.series([
+      function retrieveUsernameIfEmail (stepDone) {
+        if (username.search('@') > 0) {
+          request.get('https://reg.' + domain + '/' + username + '/uid')
+            .end(function (err, res) {
+              if (res.body.id === 'UNKNOWN_EMAIL') {
+                $('#passwordError').text(res.body.message + ': ' + username).show();
+                setPass.find('input[type=submit]').prop('disabled', false);
+                return stepDone(err);
+              }
+              username = res.body.uid;
+              stepDone();
+            });
         } else {
-          $('#loginContainer').show();
+          stepDone();
         }
-      })
-      .fail(function () {
-        $('#passwordError').text('Unknown userID').show();
-        setPass.find('input[type=submit]').prop('disabled', false);
-      });
+      },
+      function resetPassword (stepDone) {
+        request.post('https://' + username + '.' + domain + '/account/reset-password')
+          .send({newPassword: pass, appId: 'static-web', resetToken : token})
+          .end(function (err) {
+            if (err) {
+              // if username is unknown - this returns a 404 as the DNS can't resolve
+              $('#passwordError').text('Username unknown: ' + username).show();
+              setPass.find('input[type=submit]').prop('disabled', false);
+              return stepDone(err);
+            }
+            setPass.get(0).reset();
+            $('#loginUsernameOrEmail').val(username);
+            $('#loginPassword').val(pass);
+            $('#resetContainer').hide();
+            if (Settings.isResetPasswordStandalone()) {
+              var redirect = returnURL || Settings.getApiURL(username);
+              window.location.replace(redirect);
+            } else {
+              $('#loginContainer').show();
+            }
+            stepDone();
+          })
+      }
+    ]);
   }
 };
 
-},{"jquery":22}],104:[function(require,module,exports){
+},{"async":2,"jquery":22,"superagent":85}],104:[function(require,module,exports){
 /* global module, require */
 
 var $ = require('jquery');

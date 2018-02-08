@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "en": {
+  }
+  "displayName": "Riva digital",
+  "description": "Capture and browse pictures, notes, values etc. while on the go",
+  "iconURL": "https://sw.pryv.li/apps/pryv-ios-app/icon512.png",
+  "appURL": "https://itunes.apple.com/us/app/pryv/id826320447",
+  "active": false,
+  "onboarding": false,
+  "category": "Other",
+  "settingsPageURL": ""
+  "extra": "https://sw.obpm-dev.io/access/apps/obpm-riva.json"
+}

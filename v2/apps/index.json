@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "apps:": {
+    "obpm-riva": {
+      "en": {
+        "displayName": "Riva digital",
+        "consent-html": "Placeholder for <b>informed consent</b> statement.<br>This text must be short to fit on a smartphone screen and clearly express the fact that personal data will be processed to extract heart-related information and that this data will be also treated as private.",
+        "iconURL": "https://sw.obpm-dev.io/access/assets/main-logo.png"
+      },
+      "fr": {
+        "displayName": "Riva digital",
+        "consent-html": "FR: Placeholder for <b>informed consent</b> statement.<br>This text must be short to fit on a smartphone screen and clearly express the fact that personal data will be processed to extract heart-related information and that this data will be also treated as private.",
+        "iconURL": "https://sw.obpm-dev.io/access/assets/main-logo.png"
+      },
+      "de": {
+        "displayName": "Riva digital",
+        "consent-html": "DE: Placeholder for <b>informed consent</b> statement.<br>This text must be short to fit on a smartphone screen and clearly express the fact that personal data will be processed to extract heart-related information and that this data will be also treated as private.",
+        "iconURL": "https://sw.obpm-dev.io/access/assets/main-logo.png"
+      },
+      "it": {
+        "displayName": "Riva digital",
+        "consent-html": "IT: Placeholder for <b>informed consent</b> statement.<br>This text must be short to fit on a smartphone screen and clearly express the fact that personal data will be processed to extract heart-related information and that this data will be also treated as private.",
+        "iconURL": "https://sw.obpm-dev.io/access/assets/main-logo.png"
+      }
+    }
+  }
+}
