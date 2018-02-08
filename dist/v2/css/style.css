@@ -140,7 +140,7 @@ label.label-big {
     margin-top: 30px;
     padding: inherit 50px;
     min-width: 100px;
-    max-width: 300px;
+    max-width: 270px;
     position: static;   
     background-color: #1d7eee;
     color: white;    
@@ -157,7 +157,7 @@ label.label-big {
     background-color: transparent;
     color: #1d7ded;
     margin: 20px auto;    
-    font-size: 14px;
+    font-size: 12px;
     line-height: 22px;
 }
 
