@@ -37,7 +37,7 @@
 
 
       "cancel-button": "Cancel",
-      "sign-in-button": "Sign in",
+      "sign-in-button": "LOGIN",
       "permissions-title": "Permissions",
       "permissions-reject": "Reject",
       "permissions-accept": "Accept",

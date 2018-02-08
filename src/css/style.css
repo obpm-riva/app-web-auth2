@@ -1,27 +1,62 @@
 body {
-  font-size: 14px;
-  font-weight: 300;
-  min-width: 200px;
-  background-color: #eef0f2;
-  font-family: 'Roboto',  sans-serif;
+    font-size: 14pt;
+    font-weight: 300;
+    min-width: 200px;
+    max-width: none !important;
+    background-color: #f6f9fe;
+    min-height: 100%;
+    font-family: 'Poppins', serif;
 }
 
 label {
-  font-weight: 200;
+    font-weight: 400;
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 14pt;
+}
+
+.alert {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+
+
+.riva-label {
+    font-size: 16pt;
+    line-height: 22px;
+    letter-spacing: 0.5px;
+    text-align: left;
+    font-weight: 500;
+    color: #00030e;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-top: 10px;
 }
 
 .wrapper {
   margin: 0 auto;
-  padding: 30px 10px;
-  max-width: 480px;
+  padding: 30px 0;
+  /*max-width: 480px;*/
   text-align: center;
 }
 
-.wrapper h1 {
-  margin-bottom:30px;
-  letter-spacing: 1px;
-  font-weight: inherit;
-}
+    .wrapper > div {
+        width: 100%;
+        max-width: none !important;
+        height: 100%;
+    }
+
+    .wrapper h1 {
+        font-size: 16pt;
+        font-weight: 600;
+        margin-left: 20px;
+        margin-bottom: 15px;
+        letter-spacing: 0.5px;
+        
+        text-align: left;
+        color: #00030e
+    }
 
 .wrapper img {
   max-width: 480px;
@@ -33,10 +68,59 @@ label {
 
 
 /* ----- Login / Reset Password ----- */
+
+.riva-form {
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+
+    .riva-form .form-control {
+        margin: 0;
+        width: 100%;
+        font-size: 16pt;
+        border-radius: 0;
+        max-width: none;
+        text-align: left;
+        height: 65px;
+        background-color: #ffffff !important;
+        padding: 15px 20px 15px 20px;
+        border-color: #d4e2f3;
+        border-width: 0 0 2px 0;
+        border-collapse: collapse;
+    }
+
+label.label-big {
+    font-size: 16pt;
+    font-weight: 500;
+}
+
+.riva-form .form-control:read-only:focus,
+.riva-form .form-control:read-only:hover,
+.riva-form .form-control:read-only {
+    color: #586d8f;
+    font-weight: 800;
+    /*background-color: #f1f1f1 !important;*/
+    border: 2px solid #d4e2f3 !important;
+    border-left: none !important;
+    border-right: none !important;
+    
+    cursor: pointer !important;
+    box-shadow: none !important;
+}
+
 .form-group, .btn-block, #infoBlock, #alertBlock {
   max-width: 420px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.form-group {
+    margin: 0;
+    width: 100%;
+    max-width: none;
 }
 
 .form-control {
@@ -44,7 +128,47 @@ label {
 }
 
 #signInButton, #cancelLoginButton {
-  margin-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.riva-form input[type=submit] ,
+.riva-form button[type=submit] {
+    margin-top: 40px;
+    position: center;
+    background-color: #1d7eee;
+    color: white;
+    width: 350px;
+    height: 55px;
+    border-radius: 55px;
+    font-size: 20pt;
+    font-weight: 800;
+    border: none;
+    letter-spacing: 1.1px;
+}
+
+#loginFormRegister, #alreadyUser, #goToLogin {
+    border: none;
+    background-color: transparent;
+    color: #1d7ded;
+    margin: 10px;
+    letter-spacing: 0.6px;
+    font-size: 18pt;
+    line-height: 22px;
+}
+
+#loginFormReset {
+    border: none;
+    background-color: transparent;
+    color: #1d7ded;
+    margin: 10px;
+    font-size: 14pt;
+    letter-spacing: 0.4px;
+    line-height: 22px;
+}
+
+.bottom-block {
+    margin: 150px 30px 0 0;
+    text-align: center;
 }
 
 /* ----- Permissions ----- */
@@ -96,8 +220,8 @@ label {
 
 /* ----- Others ----- */
 #infoBlock, #alertBlock, #loaderContainer {
-  display:none;
-  margin-top: 10px;
+    display: none;
+    margin-top: 10px;    
 }
 
 @media (max-width: 767px) {
