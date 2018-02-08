@@ -10071,7 +10071,7 @@ mime.charsets = {
 
 module.exports = mime;
 
-}).call(this,require('_process'),"/node_modules/form-data/node_modules/mime")
+}).call(this,require('_process'),"/node_modules\\form-data\\node_modules\\mime")
 },{"_process":26,"fs":5,"path":24}],16:[function(require,module,exports){
 var http = require('http')
 var url = require('url')
@@ -24213,7 +24213,7 @@ var _ = require('underscore');
 
 var RW_PROPERTIES =
   ['streamId', 'time', 'duration', 'type', 'content', 'tags', 'description',
-    'clientData', 'state', 'modified', 'trashed'];
+    'clientData', 'state', 'trashed'];
 
 
 var escapeHtml = function (obj) {
@@ -26395,6 +26395,29 @@ ConnectionEvents.prototype.get = function (filter, doneCallback, partialResultCa
 };
 
 /**
+ * Returns a single event provided an id
+ *
+ * @param {String} eventId
+ * @param {Connection~requestCallback} callback
+ */
+ConnectionEvents.prototype.getOne = function (eventId, callback) {
+
+  function extractCallback(err, res) {
+    if (err) {
+      return callback(err);
+    }
+    var event = new Event(this.connection, res.event);
+    callback(null, event);
+  }
+
+  this.connection.request({
+    method: 'GET',
+    path: '/events/' + eventId,
+    callback: extractCallback.bind(this)
+  });
+};
+
+/**
  * @param {Event} event
  * @param {Connection~requestCallback} callback
  */
@@ -26693,11 +26716,15 @@ ConnectionEvents.prototype.getAttachment =
     if (typeof(callback) !== 'function') {
       throw new Error(CC.Errors.CALLBACK_IS_NOT_A_FUNCTION);
     }
+    if (utility.isBrowser()) {
+      return callback(new Error('Function not implemented for browser, only available in NodeJS.'));
+    }
     this.connection.request({
       method: 'GET',
       path: '/events/' + params.eventId + '/' + params.fileId,
       progressCallback: progressCallback,
       parseResult: 'binary',
+
       callback: function (err, result) {
         if (err) {
           return callback(err);
@@ -27237,11 +27264,11 @@ ConnectionStreams.prototype.update = function (streamData, callback) {
   }
 
   _.each(streamData, function (e) {
-    var s = _.pick(e, 'id', 'name', 'parentId', 'singleActivity',
+    var s = _.pick(e, 'name', 'parentId', 'singleActivity',
       'clientData', 'trashed');
     this.connection.request({
       method: 'PUT',
-      path: '/streams/' + s.id,
+      path: '/streams/' + e.id,
       callback: function (error, result) {
         if (!error && result && result.stream) {
 
@@ -34320,30 +34347,34 @@ module.exports = function (pack) {
   }
 
   var req = http.request(httpOptions, function (res) {
-    var bodyarr = [];
-    res.on('data', function (chunk) {
-      bodyarr.push(chunk);
-    });
+    var responseInfo = {
+      code: res.statusCode,
+      headers: res.headers
+    };
 
-    res.on('end', function () {
-      var responseInfo = {
-        code: res.statusCode,
-        headers: res.headers
-      };
-      var data = null;
-      if (parseResult === 'json') {
+    if (parseResult === 'json' || (parseResult === 'binary' &&
+      (res.statusCode < 200 || res.statusCode >= 300))) {
+      // We load the full response body and parse the JSON
+      var bodyarr = [];
+      res.on('data', function (chunk) {
+        bodyarr.push(chunk);
+      });
+
+      res.on('end', function () {
+        var data = null;
         try {
           var response = bodyarr.join('').trim() === '' ? '{}' : bodyarr.join('').trim();
           data = JSON.parse(response);
         } catch (error) {
           return pack.error('request failed to parse JSON in response' +
-          bodyarr.join('') + '\n' + HttpRequestDetails, responseInfo);
+            bodyarr.join('') + '\n' + HttpRequestDetails, responseInfo);
         }
-      } else if (parseResult === 'binary') {
-        data = res;
-      }
-      return pack.success(data, responseInfo);
-    });
+        return pack.success(data, responseInfo);
+      });
+
+    } else { // binary response body without errors, we return a readable stream
+      return pack.success(res, responseInfo);
+    }
   });
 
   var HttpRequestDetails = 'Request: ' + httpOptions.method + ' ' +
