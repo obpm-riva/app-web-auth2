@@ -58,8 +58,7 @@ input.form-control:-moz-placeholder { /* Firefox 4 - 18 */
 
 .wrapper {
     margin: 0;
-    padding: 0 ;   
-    
+    padding: 0;
     text-align: center;
     height: 100%;
     min-height: 150px;
@@ -76,20 +75,19 @@ input.form-control:-moz-placeholder { /* Firefox 4 - 18 */
     .wrapper h1 {
         font-size: 16px;
         font-weight: 600;
-        margin-left: 20px;   
-	    margin-bottom: 15px;        
+        margin-left: 20px;
+        margin-bottom: 15px;
         letter-spacing: 0.5px;
-        
         text-align: left;
         color: #00030e
     }
 
-.wrapper img {
-  max-width: 480px;
-}
+    .wrapper img {
+        max-width: 480px;
+    }
 
 .logo {
-  margin-bottom:10px;
+    margin-bottom: 10px;
 }
 
 
@@ -99,7 +97,7 @@ input.form-control:-moz-placeholder { /* Firefox 4 - 18 */
     text-align: left;
     margin: 0;
     padding: 0;
-    width: 100%;    
+    width: 100%;
 }
 
 
@@ -116,11 +114,10 @@ input.form-control:-moz-placeholder { /* Firefox 4 - 18 */
         border-color: #d4e2f3;
         border-width: 0 0 1px 0;
         border-collapse: collapse;
-
     }
 
 label.label-big {
-    font-size: 16px;    
+    font-size: 16px;
     font-weight: 500;
 }
 
@@ -129,7 +126,7 @@ label.label-sub {
     font-weight: 400;
     color: #586d8f;
     margin-bottom: 0;
-} 
+}
 
 .riva-form .form-control:read-only:focus,
 .riva-form .form-control:read-only:hover,
@@ -145,8 +142,8 @@ label.label-sub {
 }
 
 .form-group, .btn-block, #infoBlock, #alertBlock {
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .form-group {
@@ -155,8 +152,9 @@ label.label-sub {
     max-width: none;
 }
 
-/* Change the white to any color ;) */
-input.riva-form .form-control:-webkit-autofill {
+
+input:-webkit-autofill,
+.riva-form input.form-control:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 0 white inset !important;
 }
 
@@ -166,7 +164,6 @@ input.riva-form .form-control:-webkit-autofill {
 .riva-form .form-control {
     text-align: left;
     box-shadow: none !important;
-
 }
 
 
@@ -181,9 +178,9 @@ input.riva-form .form-control:-webkit-autofill {
     padding: 10px 40px;
     min-width: 100px;
     max-width: 250px;
-    position: static;   
+    position: static;
     background-color: #1d7eee;
-    color: white;    
+    color: white;
     height: 55px;
     border-radius: 55px;
     font-size: 20px;
@@ -196,7 +193,7 @@ input.riva-form .form-control:-webkit-autofill {
     border: none;
     background-color: transparent;
     color: #1d7ded;
-    margin: 10px auto 10px auto;    
+    margin: 10px auto 10px auto;
     font-size: 18px;
     line-height: 25px;
 }
@@ -211,7 +208,7 @@ input.riva-form .form-control:-webkit-autofill {
     line-height: 20px;
 }
 
-.bottom-block {  
+.bottom-block {
     text-align: center;
     display: block;
     position: absolute;
@@ -222,104 +219,106 @@ input.riva-form .form-control:-webkit-autofill {
 
 /* ----- Permissions ----- */
 .permissionElem {
-  margin: 0px;
-  padding-bottom: 5px;
+    margin: 0px;
+    padding-bottom: 5px;
 }
 
-.permissionElem b {
-  margin: auto 2px;
-}
+    .permissionElem b {
+        margin: auto 2px;
+    }
 
 .separator {
-  overflow:hidden; height:20px;
-}
-.separator:after {
-  content: '';
-  display: block;
-  margin: -25px auto 0;
-  width: 75%;
-  height: 23px;
-  border-radius: 125px / 12px;
+    overflow: hidden;
+    height: 20px;
 }
 
+    .separator:after {
+        content: '';
+        display: block;
+        margin: -25px auto 0;
+        width: 75%;
+        height: 23px;
+        border-radius: 125px / 12px;
+    }
+
 #mainSeparator:after {
-  width: 100%;
-  height: 25px;
+    width: 100%;
+    height: 25px;
 }
 
 #permissionsContainer {
-  display: none;
-  font-size: 15px;
+    display: none;
+    font-size: 15px;
 }
 
-#permissionsContainer img {
-  max-width: 56px;
-  max-height: 56px;
-}
+    #permissionsContainer img {
+        max-width: 56px;
+        max-height: 56px;
+    }
 
 #permissionsRequestedBy {
-  font-size: 18px;
-  margin: 10px auto;
+    font-size: 18px;
+    margin: 10px auto;
 }
 
-#permissionsRequestedBy b {
-  margin: auto 5px;
-}
+    #permissionsRequestedBy b {
+        margin: auto 5px;
+    }
 
 
 /* ----- Others ----- */
 #infoBlock, #alertBlock, #loaderContainer {
     display: none;
-    margin-top: 10px;    
+    margin-top: 10px;
 }
 
 @media (max-width: 767px) {
-  /*.blockAccordion{*/
+    /*.blockAccordion{*/
     /*margin: 0 -30px;*/
-  /*}*/
-  #buttonWrapper {
-    text-align: center;
-    margin-bottom: 15px;
-  }
+    /*}*/
+    #buttonWrapper {
+        text-align: center;
+        margin-bottom: 15px;
+    }
 }
 
 /*#simple-page-wrapper select > optgroup, #simple-page-wrapper select > option {*/
-  /*text-align: left;*/
-  /*padding: 0 10px;*/
+/*text-align: left;*/
+/*padding: 0 10px;*/
 /*}*/
 
 /*#simple-page-wrapper select > optgroup option {*/
-  /*margin: 0 -10px; !* ie. compensate optgroup padding *!*/
+/*margin: 0 -10px; !* ie. compensate optgroup padding *!*/
 /*}*/
 
 /*#validation-form-wrapper {*/
-  /*margin-right: 0 !important;*/
+/*margin-right: 0 !important;*/
 /*}*/
 
 /*.btn_register{*/
-  /*margin-top: 0px;*/
-  /*background-color: rgba(0, 0, 0, 0);*/
-  /*border: 2px solid;*/
+/*margin-top: 0px;*/
+/*background-color: rgba(0, 0, 0, 0);*/
+/*border: 2px solid;*/
 /*}*/
 
 /*.signinhubContainer {*/
-  /*margin-bottom:35px;*/
+/*margin-bottom:35px;*/
 /*}*/
 
 
 
 /*.has-error span {*/
-  /*color: #FF423F;*/
+/*color: #FF423F;*/
 /*}*/
 
 /*.has-error .control-label, .has-error .help-block {*/
-  /*color: #FF423F;*/
+/*color: #FF423F;*/
 /*}*/
 
 /*.has-success .control-label, .has-success .help-block {*/
-  /*color: #20DD23;*/
+/*color: #20DD23;*/
 /*}*/
 
 /*#invitationtoken-form-container {*/
-  /*display:none;*/
+/*display:none;*/
 /*}*/
