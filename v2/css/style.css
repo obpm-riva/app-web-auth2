@@ -157,25 +157,25 @@ label.label-big {
     background-color: transparent;
     color: #1d7ded;
     margin: 20px auto 10px auto;    
-    font-size: 16px;
-    line-height: 22px;
+    font-size: 18px;
+    line-height: 25px;
 }
 
 #loginFormReset {
     border: none;
     background-color: transparent;
     color: #1d7ded;
-    margin: 10px;
-    font-size: 12px;
+    margin: 30px 10px;
+    font-size: 14px;
     letter-spacing: 0.4px;
-    line-height: 22px;
+    line-height: 20px;
 }
 
 .bottom-block {  
     text-align: center;
     display: block;
     position: absolute;
-    bottom: 50px;
+    bottom: 0;
     left: auto;
     right: auto;
 }
