@@ -153,10 +153,6 @@ label.label-sub {
 }
 
 
-input:-webkit-autofill,
-.riva-form input.form-control:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 0 white inset !important;
-}
 
 .riva-form .form-control:focus,
 .riva-form .form-control:hover,
