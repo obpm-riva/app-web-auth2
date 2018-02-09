@@ -19,6 +19,24 @@ label {
     letter-spacing: 0.5px;
 }
 
+::-webkit-input-placeholder { /* Chrome */
+    color: #d4e2f3;
+}
+
+:-ms-input-placeholder { /* IE 10+ */
+    color: #d4e2f3;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+    color: #d4e2f3;
+    opacity: 1;
+}
+
+:-moz-placeholder { /* Firefox 4 - 18 */
+    color: #d4e2f3;
+    opacity: 1;
+}
+
 .alert {
     background-color: transparent !important;
     border: none !important;
@@ -98,6 +116,7 @@ label {
         border-color: #d4e2f3;
         border-width: 0 0 1px 0;
         border-collapse: collapse;
+
     }
 
 label.label-big {
