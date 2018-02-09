@@ -106,13 +106,12 @@ label.label-big {
 .riva-form .form-control:read-only:focus,
 .riva-form .form-control:read-only:hover,
 .riva-form .form-control:read-only {
-    color: #586d8f;
-    font-weight: 800;
-    /*background-color: #f1f1f1 !important;*/
-    border: 2px solid #d4e2f3 !important;
+    color: black;
+    font-weight: 400;
+    border: 1px solid #d4e2f3 !important;
     border-left: none !important;
     border-right: none !important;
-    
+    border-top: none !important;
     cursor: pointer !important;
     box-shadow: none !important;
 }
