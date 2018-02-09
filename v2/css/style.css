@@ -103,6 +103,12 @@ label.label-big {
     font-weight: 500;
 }
 
+label.label-sub {
+    font-size: 12px;
+    font-weight: 400;
+    color: #586d8f;
+} 
+
 .riva-form .form-control:read-only:focus,
 .riva-form .form-control:read-only:hover,
 .riva-form .form-control:read-only {
