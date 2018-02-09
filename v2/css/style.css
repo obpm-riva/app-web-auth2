@@ -23,16 +23,16 @@ input.form-control::-webkit-input-placeholder { /* Chrome */
     color: #d4e2f3;
 }
 
-input..form-control:-ms-input-placeholder { /* IE 10+ */
+input.form-control:-ms-input-placeholder { /* IE 10+ */
     color: #d4e2f3;
 }
 
-input..form-control::-moz-placeholder { /* Firefox 19+ */
+input.form-control::-moz-placeholder { /* Firefox 19+ */
     color: #d4e2f3;
     opacity: 1;
 }
 
-input..form-control:-moz-placeholder { /* Firefox 4 - 18 */
+input.form-control:-moz-placeholder { /* Firefox 4 - 18 */
     color: #d4e2f3;
     opacity: 1;
 }
@@ -155,9 +155,15 @@ label.label-sub {
     max-width: none;
 }
 
+.form-control:focus,
+.form-control:hover,
+.form-control:active,
 .form-control {
-  text-align: left;
+    text-align: left;
+    box-shadow: none !important;
 }
+
+
 
 #signInButton, #cancelLoginButton {
     margin-bottom: 10px;
