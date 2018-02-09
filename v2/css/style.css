@@ -108,6 +108,7 @@ label.label-sub {
     font-size: 12px;
     font-weight: 400;
     color: #586d8f;
+    margin-bottom: 0;
 } 
 
 .riva-form .form-control:read-only:focus,
