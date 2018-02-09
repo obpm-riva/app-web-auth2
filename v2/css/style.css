@@ -155,10 +155,10 @@ label.label-sub {
     max-width: none;
 }
 
-.form-control:focus,
-.form-control:hover,
-.form-control:active,
-.form-control {
+.riva-form .form-control:focus,
+.riva-form .form-control:hover,
+.riva-form .form-control:active,
+.riva-form .form-control {
     text-align: left;
     box-shadow: none !important;
 }
