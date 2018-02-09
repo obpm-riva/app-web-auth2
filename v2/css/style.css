@@ -155,12 +155,18 @@ label.label-sub {
     max-width: none;
 }
 
+/* Change the white to any color ;) */
+input.riva-form .form-control:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 0 white inset !important;
+}
+
 .riva-form .form-control:focus,
 .riva-form .form-control:hover,
 .riva-form .form-control:active,
 .riva-form .form-control {
     text-align: left;
     box-shadow: none !important;
+
 }
 
 
