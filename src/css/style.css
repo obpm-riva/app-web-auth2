@@ -108,7 +108,7 @@ input.form-control:-moz-placeholder { /* Firefox 4 - 18 */
         border-radius: 0;
         max-width: none;
         text-align: left;
-        height: 65px;
+        height: 55px;
         background-color: #ffffff !important;
         padding: 15px 20px 15px 20px;
         border-color: #d4e2f3;
@@ -126,6 +126,8 @@ label.label-sub {
     font-weight: 400;
     color: #586d8f;
     margin-bottom: 0;
+    letter-spacing: 0.1px;
+    margin-top: 10px;
 }
 
 .riva-form .form-control:read-only:focus,
@@ -170,8 +172,8 @@ label.label-sub {
 
 .riva-form input[type=submit],
 .riva-form button[type=submit] {
-    margin-top: 40px;
-    padding: 10px 40px;
+    margin-top: 25px;
+    padding: 10px 30px;
     min-width: 100px;
     max-width: 250px;
     position: static;
@@ -189,9 +191,11 @@ label.label-sub {
     border: none;
     background-color: transparent;
     color: #1d7ded;
-    margin: 10px auto 10px auto;
-    font-size: 18px;
+    margin: 5px auto 5px auto;
+    font-size: 17px;
     line-height: 25px;
+    letter-spacing: 0.2px;
+
 }
 
 #loginFormReset {
