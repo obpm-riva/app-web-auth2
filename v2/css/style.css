@@ -127,6 +127,7 @@ label.label-sub {
     color: #586d8f;
     margin-bottom: 0;
     letter-spacing: 0.1px;
+    margin-top: 10px;
 }
 
 .riva-form .form-control:read-only:focus,
