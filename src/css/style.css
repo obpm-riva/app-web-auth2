@@ -130,6 +130,13 @@ label.label-sub {
     margin-top: 10px;
 }
 
+label.label-right {
+    float: right;
+    font-size: 12px;
+    color: #586d8f;
+    margin-right: 15px;
+}
+
 .riva-form .form-control:read-only:focus,
 .riva-form .form-control:read-only:hover,
 .riva-form .form-control:read-only {

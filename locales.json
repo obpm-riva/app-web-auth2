@@ -1,4 +1,4 @@
-{
+﻿{
   "en": {
     "translation": {
       "missing-poll": "Missing poll parameter in URL",
@@ -42,7 +42,7 @@
       "permissions-reject": "Reject",
       "permissions-accept": "Accept",
       "login-form-toggle": "Create an account",
-      "login-form-register": "Sign in",
+      "login-form-register": "CREATE",
       "login-username-label": "userID or e-mail",
       "login-password-label": "Password"
     }
