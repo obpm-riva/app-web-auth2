@@ -164,6 +164,11 @@ label.label-sub {
     box-shadow: none !important;
 }
 
+.button-disabled {
+    background-color: #bbd9fd !important;
+    cursor: not-allowed;
+}
+
 
 
 #signInButton, #cancelLoginButton {

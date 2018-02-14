@@ -47613,6 +47613,10 @@ $(window).ready(function () {
   } else {
     page = ACCESS_PAGE;
   }
+
+  ValidateLoginForm();
+  ValidateRegisterForm();
+  ValidateRestorePasswForm();
   
   methods.buildSettings(page, function (err, Settings) {
     if (err) {
@@ -47633,6 +47637,77 @@ $(window).ready(function () {
 });
 
 /**
+ * Disabled/Enabled styles for submit button 
+ */
+function ValidateLoginForm() {
+    if (($('#loginUsernameOrEmail').val().length != 0) & ($('#loginPassword').val().length != 0)) {
+        $("#signInButton").removeClass("button-disabled");
+    }
+
+    $('#loginUsernameOrEmail').keyup(function () {
+        if (($('#loginUsernameOrEmail').val().length != 0) & ($('#loginPassword').val().length != 0)) {
+            $('#signInButton').removeClass("button-disabled");
+        } else {
+            $('#signInButton').addClass("button-disabled");
+        }
+    })
+
+    $('#loginPassword').keyup(function () {
+        if (($('#loginUsernameOrEmail').val().length != 0) & ($('#loginPassword').val().length != 0)) {
+            $('#signInButton').removeClass("button-disabled");
+        }
+        else {
+            $('#signInButton').addClass("button-disabled");
+        }
+    })
+}
+
+/**
+ * Disabled/Enabled styles for submit button 
+ */
+function ValidateRegisterForm() {
+    if (($('#registerPassword1').val().length != 0) & ($('#registerPassword2').val().length != 0)) {
+        $("#registerSubmitBtn").removeClass("button-disabled");
+    }
+
+    $('#registerPassword1').keyup(function () {
+        if (($('#registerPassword1').val().length != 0) & ($('#registerPassword2').val().length != 0)) {
+            $('#registerSubmitBtn').removeClass("button-disabled");
+        } else {
+            $('#registerSubmitBtn').addClass("button-disabled");
+        }
+    })
+
+    $('#registerPassword2').keyup(function () {
+        if (($('#registerPassword1').val().length != 0) & ($('#registerPassword2').val().length != 0)) {
+            $('#registerSubmitBtn').removeClass("button-disabled");
+        }
+        else {
+            $('#registerSubmitBtn').addClass("button-disabled");
+        }
+    })  
+}
+
+/**
+ * Disabled/Enabled styles for submit button 
+ */
+function ValidateRestorePasswForm() {
+    if (($('#passwResetEmail').val().length != 0) ) {
+        $("#passwResetSubmitBtn").removeClass("button-disabled");
+    }
+
+    $('#passwResetEmail').keyup(function () {
+        if (($('#passwResetEmail').val().length != 0) ) {
+            $('#passwResetSubmitBtn').removeClass("button-disabled");
+        } else {
+            $('#passwResetSubmitBtn').addClass("button-disabled");
+        }
+    })
+
+    
+}
+
+/**
  * Gets username in cookies, updates username/e-mail field,
  * changes the page title with serviceInfo.name
  * @param Settings {Object}
@@ -47646,6 +47721,8 @@ function loadInfo (Settings) {
     $usernameField.val(usernameOrEmail);
   }
   $pageTitle.text(Settings.info.name);
+
+  
 }
 
 /**

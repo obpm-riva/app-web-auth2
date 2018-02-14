@@ -45,7 +45,7 @@
                     <input class="form-control" type="password" id="loginPassword" name="loginPassword" placeholder="Password" required />
                 </div>
                 <div class="form-group">
-                    <button type="submit" id="signInButton" name="signInButton" class="btn btn-primary btn-block">LOGIN</button>
+                    <button type="submit" id="signInButton" name="signInButton" class="btn btn-primary btn-block button-disabled">LOGIN</button>
                     <!--<button type="button" id="cancelButton" name="cancelButton" class="btn btn-default">Cancel</button>-->
                 </div>
 
@@ -86,23 +86,28 @@
         <!-- Register View -->
         <div id="registerContainer">
             <div id="registerError" class="alert alert-danger" style="display: none;"></div>
-           
+            <h1>Register a new user</h1>
             <form role="form" class="riva-form" id="registerForm">
+
+
                 <div class="form-group">
-                    <label>User ID</label>
+                    <label class="label-big">Your UserID:</label>
                     <input class="form-control" name="username" type="text" readonly required>
                 </div>
-               
+                <br />
                 <div class="form-group">
-                    <label>Password</label>
-                    <input class="form-control" placeholder="Create password" name="pass" type="password" required>
-                    <input class="form-control" placeholder="Confirm password" name="rePass" type="password" required>
-                </div>              
-               
+                    <!--<label>Password</label>-->
+                    <input id="registerPassword1" class="form-control" placeholder="Password" name="pass" type="password" required>
+                </div>
+
                 <div class="form-group">
-                    <label>E-mail adress</label>
-                    <input class="form-control" placeholder="Your email address" name="email" type="text">
-                    <label class="label-sub">Email address is required for password recovery</label>
+                    <!--<label>Confirm password</label>-->
+                    <input id="registerPassword2" class="form-control" placeholder="Confirm password" name="rePass" type="password" required>
+                </div>
+                <br />
+                <div class="form-group">
+                    <!--<label>* required for password recovery!</label>-->
+                    <input class="form-control" placeholder="E-mail address" name="email" type="text">
                 </div>
 
                 <div class="form-group" hidden>
@@ -111,13 +116,13 @@
                 </div>
 
                 <div class="form-group">
-                    <input class="btn btn-success btn-block" type="submit" value="CREATE">
+                    <input id="registerSubmitBtn" class="btn btn-success btn-block  button-disabled" type="submit" value="Sign Up">
                 </div>
 
             </form>
 
             <div class="form-group">
-                <button id="alreadyUser" class="btn btn-default btn-sm form-toggle">Already have an account? Sign in. </button>
+                <button id="alreadyUser" class="btn btn-default btn-sm form-toggle">Already have an account?</button>
             </div>
 
         </div>
@@ -150,15 +155,15 @@
             </form>
 
             <form role="form" id="resetForm" class="riva-form">
-                <!--<h1>Request password reset</h1>-->
+                <h1>Request password reset</h1>
 
                 <div class="form-group">
-                    <label class="label-big">Request password reset</label>
-                    <input class="form-control" placeholder="UserID or Email" name="username" type="text" required>
+                    <label class="label-big">Please enter your UserID or Email:</label>
+                    <inpu id="passwResetEmail" class="form-control" placeholder="UserID or Email" name="username" type="text" required>
                 </div>
 
                 <div class="form-group">
-                    <input class="btn btn-success btn-block" type="submit" value="Send request">
+                    <input id="passwResetSubmitBtn" class="btn btn-success btn-block button-disabled" type="submit" value="Send request">
                 </div>
             </form>
 
