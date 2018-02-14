@@ -172,7 +172,7 @@ label.label-sub {
 
 .riva-form input[type=submit],
 .riva-form button[type=submit] {
-    margin-top: 20px;
+    margin-top: 25px;
     padding: 10px 30px;
     min-width: 100px;
     max-width: 250px;
@@ -191,7 +191,7 @@ label.label-sub {
     border: none;
     background-color: transparent;
     color: #1d7ded;
-    margin: 10px auto 10px auto;
+    margin: 5px auto 5px auto;
     font-size: 17px;
     line-height: 25px;
     letter-spacing: 0.2px;
