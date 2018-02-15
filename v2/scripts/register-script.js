@@ -41,7 +41,7 @@ module.exports=﻿{
       "sign-in-button": "LOGIN",
       "permissions-title": "Permissions",
       "permissions-reject": "Reject",
-      "permissions-accept": "Accept",
+      "permissions-accept": "AGREE",
       "login-form-toggle": "Create an account",
       "login-form-register": "CREATE",
       "login-username-label": "userID or e-mail",

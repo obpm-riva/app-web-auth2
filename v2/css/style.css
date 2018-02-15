@@ -82,6 +82,26 @@ input.form-control:-moz-placeholder { /* Firefox 4 - 18 */
         color: #00030e
     }
 
+    .wrapper h2 {
+        font-size: 22px;
+        font-weight: 800;
+        margin-left: 20px;
+        margin-bottom: 15px;
+        letter-spacing: 0.5px;
+        text-align: center;
+        color: #00030e
+    }
+
+    .wrapper h3 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-left: 20px;
+        margin-bottom: 15px;
+        letter-spacing: 0.5px;
+        text-align: center;
+        color: #00030e
+    }
+
     .wrapper img {
         max-width: 480px;
     }
@@ -225,12 +245,37 @@ label.label-right {
 .bottom-block {
     text-align: center;
     display: block;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: auto;
     right: auto;
 }
 
+
+#permissionsContainer .scrollthis {
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin-bottom: 150px;
+}
+
+#permissionsContainer .bottom-block label {
+    letter-spacing: 0.1px;
+    padding: 0;
+    margin: 15px 0;
+}
+
+#permissionsContainer .bottom-block {
+    background-color: white;
+    height: 120px;
+    padding: 5px 0;
+}
+
+#permissionsContainer button {
+    width: 260px;
+    margin-top: 15px;
+}
 /* ----- Permissions ----- */
 .permissionElem {
     margin: 0px;
