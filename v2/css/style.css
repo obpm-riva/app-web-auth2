@@ -232,15 +232,20 @@ label.label-right {
 
 }
 
-#loginFormReset {
-    border: none;
-    background-color: transparent;
-    color: #1d7ded;
-    margin: 30px 10px;
-    font-size: 14px;
-    letter-spacing: 0.4px;
-    line-height: 20px;
+#alreadyUser {
+    font-size: 16px;
+    letter-spacing: 0.1px;
 }
+
+#loginFormReset {
+        border: none;
+        background-color: transparent;
+        color: #1d7ded;
+        margin: 30px 10px;
+        font-size: 14px;
+        letter-spacing: 0.4px;
+        line-height: 20px;
+    }
 
 .bottom-block {
     text-align: center;
