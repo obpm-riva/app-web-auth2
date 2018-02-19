@@ -14,6 +14,8 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings,
     email = username + '@obpm-dev.io';
   }
 
+  email = email.toLowerCase();
+
   if(pass !== rePass) {
     $('#registerError').text('Password does not match the confirm password.').show();
   } else {
