@@ -5,7 +5,7 @@ body {
     max-width: none !important;
     background-color: #f6f9fe;
     height: 100%;
-    min-height: 400px !important;
+    min-height: 600px !important;
     max-height: none;
     font-family: 'Poppins', serif;
 }
@@ -205,7 +205,7 @@ label.label-right {
 }
 
 #loginContainer {
-    min-height: 400px !important;
+    min-height: 600px !important;
 }
 
 .riva-form input[type=submit],
