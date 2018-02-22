@@ -204,6 +204,10 @@ label.label-right {
     margin-bottom: 10px;
 }
 
+#loginContainer {
+    min-height: 400px;
+}
+
 .riva-form input[type=submit],
 .riva-form button[type=submit] {
     margin-top: 25px;
