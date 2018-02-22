@@ -48414,8 +48414,6 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings,
 
   email = email.toLowerCase();
 
-  email = email.toLowerCase();
-
   if(pass !== rePass) {
     $('#registerError').text('Password does not match the confirm password.').show();
   } else {

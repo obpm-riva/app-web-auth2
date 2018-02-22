@@ -254,10 +254,11 @@ label.label-right {
 .bottom-block {
     text-align: center;
     display: block;
-    position: fixed;
+    margin-top: 130px;
+    /*position: fixed;
     bottom: 0;
     left: auto;
-    right: auto;
+    right: auto;*/
 }
 
 
