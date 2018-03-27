@@ -5,7 +5,7 @@ body {
     max-width: none !important;
     background-color: #f6f9fe;
     height: 100%;
-    min-height: 400px;
+    min-height: 400px !important;
     max-height: none;
     font-family: 'Poppins', serif;
 }
@@ -40,6 +40,10 @@ input.form-control:-moz-placeholder { /* Firefox 4 - 18 */
 .alert {
     background-color: transparent !important;
     border: none !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    padding-top: 15px !important;
+    padding-bottom: 10px !important;
 }
 
 
@@ -204,6 +208,10 @@ label.label-right {
     margin-bottom: 10px;
 }
 
+/*#loginContainer {
+    min-height: 600px !important;
+}*/
+
 .riva-form input[type=submit],
 .riva-form button[type=submit] {
     margin-top: 25px;
@@ -250,10 +258,11 @@ label.label-right {
 .bottom-block {
     text-align: center;
     display: block;
-    position: fixed;
+    margin-top: 100px;
+    /*position: fixed;
     bottom: 0;
     left: auto;
-    right: auto;
+    right: auto;*/
 }
 
 
