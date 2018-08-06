@@ -48038,7 +48038,7 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings,
   email = email.toLowerCase();
 
   if(pass !== rePass) {
-    $('#registerError').text('Password does not match the confirm password.').show();
+	$('#registerError').text(jQuery.i18n('passwords_not_match')).show();
   } else {
     $('#registerError').hide().empty();
     registerForm.find('input[type=submit]').prop('disabled', true);
@@ -48072,7 +48072,7 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings,
             if (err) {
               // Avoid this with a preliminary check in reg?
               if(err.toString().indexOf('Request has been terminated') !== -1) {
-                Settings.utils.printError('Unknown username');
+				Settings.utils.printError(jQuery.i18n('unknown_username'));
               } else {
                 Settings.utils.printError(err);
               }
@@ -48090,7 +48090,13 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings,
         } else {
           message = xhr.responseJSON.message;
         }
-        $('#registerError').text(message).show();
+		// case when need to translate for UI
+		if(message==='Invalid email adress'){
+			$('#registerError').text(jQuery.i18n('invalid_email')).show();
+		}else{
+			$('#registerError').text(message).show();
+		}
+		
         $('#registerForm').find('input[type=submit]').prop('disabled', false);
       });
   }
@@ -48255,7 +48261,7 @@ function updateLoginHTML(t) {
   $permissionsReject.text(t('permissions-reject'));
   $permissionsTitle.text(t('permissions-title'));
   $loginFormToggle.text(t('login-form-toggle'));
-  $signInButton.text(t('sign-in-button'));
+  //$signInButton.text(t('sign-in-button'));
   $cancelButton.text(t('cancel-button'));
 }
 },{"./../../../locales.json":1,"i18next-client":17,"jquery":22,"pryv":48}],103:[function(require,module,exports){
@@ -48616,7 +48622,15 @@ function displayMessageKey ($elem, obj, defaultMessage) {
   var res = [];
   searchKeyInObject(obj, 'message', res);
   if (res.length > 0) {
-    $elem.text(formatMessage($elem, res[0]));
+	// Check if need to translate
+	if (res[0] === 'Unknown e-mail'){
+		$elem.text(formatMessage($elem, jQuery.i18n('unknown_email')));
+	}else if(res[0] === 'Invalid email adress'){
+		$elem.text(formatMessage($elem, jQuery.i18n('invalid_email')));
+	}else{
+		$elem.text(formatMessage($elem, res[0]));
+	}
+    
   } else {
     $elem.text(formatMessage($elem, defaultMessage));
   }

@@ -37739,7 +37739,15 @@ function displayMessageKey ($elem, obj, defaultMessage) {
   var res = [];
   searchKeyInObject(obj, 'message', res);
   if (res.length > 0) {
-    $elem.text(formatMessage($elem, res[0]));
+	// Check if need to translate
+	if (res[0] === 'Unknown e-mail'){
+		$elem.text(formatMessage($elem, jQuery.i18n('unknown_email')));
+	}else if(res[0] === 'Invalid email adress'){
+		$elem.text(formatMessage($elem, jQuery.i18n('invalid_email')));
+	}else{
+		$elem.text(formatMessage($elem, res[0]));
+	}
+    
   } else {
     $elem.text(formatMessage($elem, defaultMessage));
   }

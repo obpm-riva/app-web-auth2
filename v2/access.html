@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
@@ -14,7 +14,19 @@
           href="https://fonts.googleapis.com/css?family=Roboto:300,400">
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-    <script type="text/javascript" src="./scripts/access-script.js"></script>
+    
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+	<script src="./scripts/jquery_i18n/jquery.i18n.js"></script>
+	<script src="./scripts/jquery_i18n/jquery.i18n.messagestore.js"></script>
+	<script src="./scripts/jquery_i18n/jquery.i18n.fallbacks.js"></script>
+	<script src="./scripts/jquery_i18n/jquery.i18n.language.js"></script>
+	<script src="./scripts/jquery_i18n/jquery.i18n.parser.js"></script>
+	<script src="./scripts/jquery_i18n/jquery.i18n.emitter.js"></script>
+	<script src="./scripts/jquery_i18n/jquery.i18n.emitter.bidi.js"></script>
+	<script src="./scripts/jquery_i18n/main-jquery_i18n.js"></script>
+	
+	<script type="text/javascript" src="./scripts/access-script.js"></script>
 </head>
 <body style="min-height: 100%;">
     <div class="wrapper">
@@ -32,29 +44,30 @@
 
         <!-- Login View -->
         <div id="loginContainer">
-            <h1>Login to your account.</h1>
+            <!--<h1>Login to your Account!!!</h1>-->
+			<h1 data-i18n="login_to_account"></h1>
 
             <form class="riva-form" id="loginForm" action="">
                 <!--<label class="riva-label">Login to your account</label>-->
                 <div class="form-group">
                     <!--<label id="loginUsernameLabel">userID or e-mail</label>-->
-                    <input class="form-control" type="text" id="loginUsernameOrEmail" name="loginUsernameOrEmail" autocorrect="off" autocapitalize="off" placeholder="Your email address" required />
+                    <input class="form-control" type="text" id="loginUsernameOrEmail" name="loginUsernameOrEmail" autocorrect="off" autocapitalize="off" placeholder="Your email address" required data-i18n="forgot_pass"/>
                 </div>
                 <div class="form-group">
                     <!--<label id="loginPasswordLabel">Password</label>-->
                     <input class="form-control" type="password" id="loginPassword" name="loginPassword" placeholder="Password" required />
                 </div>
                 <div class="form-group">
-                    <button type="submit" id="signInButton" name="signInButton" class="btn btn-primary btn-block button-disabled">LOGIN</button>
+                    <button type="submit" id="signInButton" name="signInButton" class="btn btn-primary btn-block button-disabled" data-i18n="login_button">LOGIN</button>
                     <!--<button type="button" id="cancelButton" name="cancelButton" class="btn btn-default">Cancel</button>-->
                 </div>
 
             </form>
             <div class="form-group">
-                <button id="loginFormRegister" class="btn btn-default btn-sm form-toggle" data-mode="login">I don’t have an account yet</button>
+                <button id="loginFormRegister" class="btn btn-default btn-sm form-toggle" data-mode="login" data-i18n="no_account_yet">I don’t have an account yet</button>
             </div>
             <div class="form-group bottom-block">
-                <button id="loginFormReset" class="btn btn-default btn-sm form-toggle" data-mode="login">Forgot your password?</button>
+                <button id="loginFormReset" class="btn btn-default btn-sm form-toggle" data-mode="login" data-i18n="forgot_pass">Forgot your password?</button>
             </div>
             <!--<p>Feel free to reach our <a id="supportLink" target="_blank"><strong>helpdesk</strong></a> if you have any questions.</p>-->
 
@@ -89,8 +102,8 @@
                 <p>Company reserves the right to change, suspend, or cease the Site with or without notice to you.  You approved that Company will not be held liable to you or any third-party for any change, interruption, or termination of the Site or any part.</p>
             </div>
             <div class="form-group bottom-block">
-                <button type="submit" id="permissionsAccept" class="btn btn-success btn-lg">AGREE</button>
-                <label class="label-sub">By tapping "Agree", I agree the terms and conditions</label>
+                <button type="submit" id="permissionsAccept" class="btn btn-success btn-lg" data-i18n="agree">AGREE</button>
+                <label class="label-sub" data-i18n="i_agree">By tapping "Agree", I agree the terms and conditions</label>
             </div>           
         </div>
 
@@ -105,11 +118,11 @@
             <div id="registerError" class="alert alert-danger" style="display: none;"></div>           
             <form role="form" class="riva-form" id="registerForm">
                 <div class="form-group">
-                    <label>User ID</label>
+                    <label data-i18n="user_id">User ID</label>
                     <input class="form-control" name="username" type="text" readonly required>
                 </div>                
                 <div class="form-group">
-                    <label>Password</label>
+                    <label data-i18n="password">Password</label>
                     <input id="registerPassword1" class="form-control" placeholder="Password" name="pass" type="password" required>
                 </div>
                 <div class="form-group">
@@ -117,14 +130,14 @@
                     <input id="registerPassword2" class="form-control" placeholder="Confirm password" name="rePass" type="password" required>
                 </div>                
                 <div class="form-group">
-                    <label>E-mail adress</label>
-                    <label class="label-right">optional</label>
-                    <input class="form-control" placeholder="E-mail address" name="email" type="text">
-                    <label class="label-sub">Email address is required for password recovery</label>
+                    <label data-i18n="email_address">E-mail adress</label>
+                    <label class="label-right" data-i18n="optional">optional</label>
+                    <input class="form-control" placeholder="E-mail address" name="email" type="text" id="email_address">
+                    <label class="label-sub" data-i18n="email_address_required">Email address is required for password recovery</label>
                 </div>
 
                 <div class="form-group" hidden>
-                    <label>Host my data in</label>
+                    <label data-i18n="host_my_data">Host my data in</label>
                     <select class="form-control" id="hosting" required></select>
                 </div>
 
@@ -135,7 +148,7 @@
             </form>
 
             <div class="form-group">
-                <button id="alreadyUser" class="btn btn-default btn-sm form-toggle">Already have an account? Sign in.</button>
+                <button id="alreadyUser" class="btn btn-default btn-sm form-toggle" data-i18n="Already_have_account">Already have an account? Sign in.</button>
             </div>
 
         </div>
@@ -145,7 +158,7 @@
             <div id="passwordError" class="alert alert-danger" style="display: none;"></div>
 
             <form role="form" id="setPass" class="riva-form">
-                <h1>Set a new password</h1>
+                <h1 data-i18n="set_new_pass">Set a new password</h1>
 
                 <div class="form-group">
                     <!--<label>userID or email</label>-->
@@ -170,7 +183,7 @@
             <form role="form" id="resetForm" class="riva-form">              
 
                 <div class="form-group">
-                    <label >Request password reset</label>
+                    <label data-i18n="request_pass_reset">Request password reset</label>
                     <input id="passwResetEmail" class="form-control" placeholder="UserID or Email" name="username" type="text" required>
                 </div>
 
@@ -182,9 +195,9 @@
             <div id="requestSent" class="panel panel-default" style="display: none;">
                 <div class="panel-body">
                     <div class="resend-password-wrapper" style="color: #000;">
-                        <h3>We've sent password reset instructions to your e-mail address</h3>
+                        <h3 data-i18n="reset_sent">We've sent password reset instructions to your e-mail address</h3>
 
-                        <p>
+                        <p data-i18n="look_in_junk">
                             If you don't receive a message within a few minutes, you may want to have a
                             look in your junk mail.
                         </p>
@@ -193,7 +206,7 @@
             </div>
 
             <div class="form-group">
-                <button id="goToLogin" class="btn btn-default btn-sm form-toggle">Go back to Sign In</button>
+                <button id="goToLogin" class="btn btn-default btn-sm form-toggle" data-i18n="go_back">Go back to Sign In</button>
             </div>
         </div>
     </div>

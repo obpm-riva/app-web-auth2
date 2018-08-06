@@ -47764,7 +47764,7 @@ function manageLoginView (Settings) {
         if (err) { 
           // Avoid this with a preliminary check in reg?
           if(err.toString().indexOf('Request has been terminated') !== -1) {
-            return Settings.utils.printError('Unknown username');
+			return Settings.utils.printError(jQuery.i18n('unknown_username'));
           }
           return Settings.utils.printError(err);
         }
@@ -48415,7 +48415,7 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings,
   email = email.toLowerCase();
 
   if(pass !== rePass) {
-    $('#registerError').text('Password does not match the confirm password.').show();
+	$('#registerError').text(jQuery.i18n('passwords_not_match')).show();
   } else {
     $('#registerError').hide().empty();
     registerForm.find('input[type=submit]').prop('disabled', true);
@@ -48449,7 +48449,7 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings,
             if (err) {
               // Avoid this with a preliminary check in reg?
               if(err.toString().indexOf('Request has been terminated') !== -1) {
-                Settings.utils.printError('Unknown username');
+				Settings.utils.printError(jQuery.i18n('unknown_username'));
               } else {
                 Settings.utils.printError(err);
               }
@@ -48467,7 +48467,13 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings,
         } else {
           message = xhr.responseJSON.message;
         }
-        $('#registerError').text(message).show();
+		// case when need to translate for UI
+		if(message==='Invalid email adress'){
+			$('#registerError').text(jQuery.i18n('invalid_email')).show();
+		}else{
+			$('#registerError').text(message).show();
+		}
+		
         $('#registerForm').find('input[type=submit]').prop('disabled', false);
       });
   }
@@ -48551,7 +48557,8 @@ module.exports.requestResetPassword = function (domain) {
           request.get('https://reg.' + domain + '/' + username + '/uid')
             .end(function (err, res) {
               if (res.body.id === 'UNKNOWN_EMAIL') {
-                $('#passwordError').text(res.body.message + ': ' + username).show();
+                //$('#passwordError').text(res.body.message + ': ' + username).show();
+				$('#passwordError').text(jQuery.i18n('unknown_email') + ': ' + username).show();
                 resetForm.find('input[type=submit]').prop('disabled', false);
                 return stepDone(err);
               }
@@ -48568,7 +48575,8 @@ module.exports.requestResetPassword = function (domain) {
           .end(function (err) {
             if (err) {
               // if username is unknown - this returns a 404 as the DNS can't resolve
-              $('#passwordError').text('Username unknown: ' + username).show();
+			  //$('#passwordError').text('Username unknown: ' + username).show();
+              $('#passwordError').text(jQuery.i18n('username_unknown') + username).show();
               resetForm.find('input[type=submit]').prop('disabled', false);
               return stepDone(err);
             }
@@ -48590,8 +48598,8 @@ module.exports.setPassword = function (returnURL, domain, token, Settings) {
   var pass = setPass.find('input[name=password]').val();
   var rePass = setPass.find('input[name=rePassword]').val();
 
-  if (pass && rePass && !(pass === rePass)) {
-    $('#passwordError').text('Password does not match the confirm password.').show();
+  if (pass && rePass && !(pass === rePass)) {  
+	$('#passwordError').text(jQuery.i18n('passwords_not_match')).show();
     return setPass.find('input[type=submit]').prop('disabled', false);
   }
 
@@ -48604,7 +48612,8 @@ module.exports.setPassword = function (returnURL, domain, token, Settings) {
           request.get('https://reg.' + domain + '/' + username + '/uid')
             .end(function (err, res) {
               if (res.body.id === 'UNKNOWN_EMAIL') {
-                $('#passwordError').text(res.body.message + ': ' + username).show();
+                //$('#passwordError').text(res.body.message + ': ' + username).show();
+				$('#passwordError').text(jQuery.i18n('unknown_email') + ': ' + username).show();
                 setPass.find('input[type=submit]').prop('disabled', false);
                 return stepDone(err);
               }
@@ -48621,7 +48630,7 @@ module.exports.setPassword = function (returnURL, domain, token, Settings) {
           .end(function (err) {
             if (err) {
               // if username is unknown - this returns a 404 as the DNS can't resolve
-              $('#passwordError').text('Username unknown: ' + username).show();
+			  $('#passwordError').text(jQuery.i18n('username_unknown') + username).show();
               setPass.find('input[type=submit]').prop('disabled', false);
               return stepDone(err);
             }
@@ -48745,7 +48754,7 @@ function updateLoginHTML(t) {
   $permissionsReject.text(t('permissions-reject'));
   $permissionsTitle.text(t('permissions-title'));
   $loginFormToggle.text(t('login-form-toggle'));
-  $signInButton.text(t('sign-in-button'));
+  //$signInButton.text(t('sign-in-button'));
   $cancelButton.text(t('cancel-button'));
 }
 },{"./../../../locales.json":1,"i18next-client":17,"jquery":22,"pryv":48}],105:[function(require,module,exports){
@@ -49106,7 +49115,15 @@ function displayMessageKey ($elem, obj, defaultMessage) {
   var res = [];
   searchKeyInObject(obj, 'message', res);
   if (res.length > 0) {
-    $elem.text(formatMessage($elem, res[0]));
+	// Check if need to translate
+	if (res[0] === 'Unknown e-mail'){
+		$elem.text(formatMessage($elem, jQuery.i18n('unknown_email')));
+	}else if(res[0] === 'Invalid email adress'){
+		$elem.text(formatMessage($elem, jQuery.i18n('invalid_email')));
+	}else{
+		$elem.text(formatMessage($elem, res[0]));
+	}
+    
   } else {
     $elem.text(formatMessage($elem, defaultMessage));
   }

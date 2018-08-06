@@ -18089,7 +18089,8 @@ module.exports.requestResetPassword = function (domain) {
           request.get('https://reg.' + domain + '/' + username + '/uid')
             .end(function (err, res) {
               if (res.body.id === 'UNKNOWN_EMAIL') {
-                $('#passwordError').text(res.body.message + ': ' + username).show();
+                //$('#passwordError').text(res.body.message + ': ' + username).show();
+				$('#passwordError').text(jQuery.i18n('unknown_email') + ': ' + username).show();
                 resetForm.find('input[type=submit]').prop('disabled', false);
                 return stepDone(err);
               }
@@ -18106,7 +18107,8 @@ module.exports.requestResetPassword = function (domain) {
           .end(function (err) {
             if (err) {
               // if username is unknown - this returns a 404 as the DNS can't resolve
-              $('#passwordError').text('Username unknown: ' + username).show();
+			  //$('#passwordError').text('Username unknown: ' + username).show();
+              $('#passwordError').text(jQuery.i18n('username_unknown') + username).show();
               resetForm.find('input[type=submit]').prop('disabled', false);
               return stepDone(err);
             }
@@ -18128,8 +18130,8 @@ module.exports.setPassword = function (returnURL, domain, token, Settings) {
   var pass = setPass.find('input[name=password]').val();
   var rePass = setPass.find('input[name=rePassword]').val();
 
-  if (pass && rePass && !(pass === rePass)) {
-    $('#passwordError').text('Password does not match the confirm password.').show();
+  if (pass && rePass && !(pass === rePass)) {  
+	$('#passwordError').text(jQuery.i18n('passwords_not_match')).show();
     return setPass.find('input[type=submit]').prop('disabled', false);
   }
 
@@ -18142,7 +18144,8 @@ module.exports.setPassword = function (returnURL, domain, token, Settings) {
           request.get('https://reg.' + domain + '/' + username + '/uid')
             .end(function (err, res) {
               if (res.body.id === 'UNKNOWN_EMAIL') {
-                $('#passwordError').text(res.body.message + ': ' + username).show();
+                //$('#passwordError').text(res.body.message + ': ' + username).show();
+				$('#passwordError').text(jQuery.i18n('unknown_email') + ': ' + username).show();
                 setPass.find('input[type=submit]').prop('disabled', false);
                 return stepDone(err);
               }
@@ -18159,7 +18162,7 @@ module.exports.setPassword = function (returnURL, domain, token, Settings) {
           .end(function (err) {
             if (err) {
               // if username is unknown - this returns a 404 as the DNS can't resolve
-              $('#passwordError').text('Username unknown: ' + username).show();
+			  $('#passwordError').text(jQuery.i18n('username_unknown') + username).show();
               setPass.find('input[type=submit]').prop('disabled', false);
               return stepDone(err);
             }
