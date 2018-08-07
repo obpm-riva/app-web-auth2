@@ -152,9 +152,9 @@ jQuery(document).ready(function() {
 				//alert('fr');
 				$.i18n().locale = 'fr';
 				break;
-		   case "ge":
+		   case "de":
 				//alert('de');
-				$.i18n().locale = 'ge';
+				$.i18n().locale = 'de';
 				break;
 
 		   default: 
