@@ -58,6 +58,15 @@ jQuery(document).ready(function() {
 			  'host_my_data': 'Host my data in',
 			  'i_agree': 'By tapping "Agree", I agree the terms and conditions',
 			  'agree': 'AGREE',
+			  
+			  'access_granted': 'Access granted for !!!',
+			  "closing": "Closing...!!!",
+			  "invalid_pair": "The given username/password pair is invalid.!!!",
+			  "generic_error": "An error occurred",
+			  "invalid_key": "Invalid access request key",
+			  
+			  
+			   
 
 			  'terms': 'TERMS & CONDITIONS'
 

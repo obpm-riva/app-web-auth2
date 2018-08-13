@@ -47740,7 +47740,7 @@ function manageStatus(Settings) {
   case 'ACCEPTED':
     Settings.addAuth({ username: Settings.access.username,
       token: Settings.access.token });
-    methods.manageState(Settings, 'ACCEPTED', Settings.strs.closing);
+    methods.manageState(Settings, 'ACCEPTED', jQuery.i18n('closing'));
     break;
   case 'ERROR':
     methods.manageState(Settings, 'ERROR', Settings.strs.genericError);
@@ -48110,7 +48110,8 @@ methods.manageState = function (settings, status, message) {
   switch (status) {
   case 'ACCEPTED':
     data = {
-      stateTitle: settings.strs.accessGranted.replace('{username}', settings.auth.username),
+      //stateTitle: settings.strs.accessGranted.replace('{username}', settings.auth.username),
+	  stateTitle: jQuery.i18n('access_granted') + settings.auth.username,
       state: {
         status: status,
         username: settings.auth.username,
@@ -48202,7 +48203,8 @@ function parseUrlParams(settings, callback) {
  */
 function endPopUp(err, settings, stateTitle, message) {
   if (err) {
-    settings.utils.loaderView(settings.strs.genericError, err);
+    //settings.utils.loaderView(settings.strs.genericError, err);
+	settings.utils.loaderView(jQuery.i18n('generic_error'), err);
   }
   else {
     settings.utils.loaderView(stateTitle, message);
@@ -49120,6 +49122,10 @@ function displayMessageKey ($elem, obj, defaultMessage) {
 		$elem.text(formatMessage($elem, jQuery.i18n('unknown_email')));
 	}else if(res[0] === 'Invalid email adress'){
 		$elem.text(formatMessage($elem, jQuery.i18n('invalid_email')));
+	}else if(res[0] === 'The given username/password pair is invalid.'){
+		$elem.text(formatMessage($elem, jQuery.i18n('invalid_pair')));
+	}else if(res[0] === 'Invalid access request key'){
+		$elem.text(formatMessage($elem, jQuery.i18n('invalid_key')));
 	}else{
 		$elem.text(formatMessage($elem, res[0]));
 	}

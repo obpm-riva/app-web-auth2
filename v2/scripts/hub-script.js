@@ -37744,6 +37744,10 @@ function displayMessageKey ($elem, obj, defaultMessage) {
 		$elem.text(formatMessage($elem, jQuery.i18n('unknown_email')));
 	}else if(res[0] === 'Invalid email adress'){
 		$elem.text(formatMessage($elem, jQuery.i18n('invalid_email')));
+	}else if(res[0] === 'The given username/password pair is invalid.'){
+		$elem.text(formatMessage($elem, jQuery.i18n('invalid_pair')));
+	}else if(res[0] === 'Invalid access request key'){
+		$elem.text(formatMessage($elem, jQuery.i18n('invalid_key')));
 	}else{
 		$elem.text(formatMessage($elem, res[0]));
 	}
