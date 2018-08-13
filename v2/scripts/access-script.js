@@ -47798,7 +47798,7 @@ function manageLoginView (Settings) {
  */
 function managePostLogin (Settings) {
   if (Settings.check.accessExists || !Settings.check.checkedPermissions) {
-    methods.manageState(Settings, 'ACCEPTED', Settings.strs.closing);
+    methods.manageState(Settings, 'ACCEPTED', jQuery.i18n('closing'));
   } else {
     Settings.utils.permissionsState(false);
 
