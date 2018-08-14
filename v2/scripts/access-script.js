@@ -47810,7 +47810,7 @@ function managePostLogin (Settings) {
       $permissionsAccept.click(function () {
         methods.manageAcceptedState(Settings, function (err) {
           if (err) { methods.manageState(Settings, 'ERROR', err); }
-          else { methods.manageState(Settings, 'ACCEPTED', Settings.strs.closing); }
+          else { methods.manageState(Settings, 'ACCEPTED', jQuery.i18n('closing')); }
         });
       });
       $permissionsReject.click(function () {

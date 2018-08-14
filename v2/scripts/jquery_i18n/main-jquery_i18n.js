@@ -59,9 +59,9 @@ jQuery(document).ready(function() {
 			  'i_agree': 'By tapping "Agree", I agree the terms and conditions',
 			  'agree': 'AGREE',
 			  
-			  'access_granted': 'Access granted for !!!',
-			  "closing": "Closing...!!!",
-			  "invalid_pair": "The given username/password pair is invalid.!!!",
+			  'access_granted': 'Access granted for ',
+			  "closing": "Closing...",
+			  "invalid_pair": "The given username/password pair is invalid.",
 			  "generic_error": "An error occurred",
 			  "invalid_key": "Invalid access request key",
 			  
@@ -106,10 +106,15 @@ jQuery(document).ready(function() {
 			  
 			  'set_new_pass': 'Neues Passwort eingeben',
 			  'host_my_data': 'Host my data in!!!',
-			  'i_agree': 'By tapping "Agree", I agree the terms and conditions!!!',
+			  'i_agree': 'Mit "ANNEHMEN" stimme ich den AGB zu',
 			  'agree': 'ANNEHMEN',
+			  
+			  'access_granted': 'Zugriff gewährt für ',
+			  "closing": "Schliessen...",
+			  "invalid_pair": "Benutzername und/oder Passwort sind ungültig",
+			  "generic_error": "Es ist ein Fehler aufgetreten",
+			  "invalid_key": "Ungültiger Zugriffsanforderungsschlüssel"
 
-			  'terms': 'AGB'
 			},
 			'fr': {
 			  'login_to_account': 'Connectez-vous à votre compte',
@@ -142,13 +147,17 @@ jQuery(document).ready(function() {
 			  
 			  'new_pass': 'Nouveau mot de passe',
 			  'confirm_new_pass': 'Confirmer mot de passe',
-			  
+			   
 			  'set_new_pass': 'Définez un nouveau mot de passe',
 			  'host_my_data': 'Host my data in!!!',
-			  'i_agree': 'By tapping "Agree", I agree the terms and conditions!!!',
+			  'i_agree': 'Avec "ACCEPTER" j\'accepte les termes et conditions',
 			  'agree': 'ACCEPTER',
-
-			  'terms': 'TERMES ET CONDITIONS'
+			  
+			  'access_granted': 'Accès accordé pour ',
+			  "closing": "Fermer...",
+			  "invalid_pair": "Le nom d'utilisateur et / ou le mot de passe sont invalides",
+			  "generic_error": "Une erreur est survenue",
+			  "invalid_key": "Clé de demande d'accès non valide"
 			}
 		});
 		
