@@ -134,7 +134,7 @@ jQuery(document).ready(function() {
 			  
 			  'request_pass_reset': 'Réinitialiser le mot de passe',
 			  'id_or_mail': 'ID Utilisateur ou email',
-			  'send_request': 'Envoyer la demande',
+			  'send_request': 'Envoyer',
 			  'go_back': 'Revenez à la connexion',
 			  'reset_sent': 'Nous avons envoyé des instructions de réinitialisation de mot de passe à votre adresse e-mail',
 			  'look_in_junk': 'Si vous ne recevez pas de message dans les minutes qui suivent, vous pouvez regarder dans votre fichier spam',
