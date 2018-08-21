@@ -48259,7 +48259,7 @@ function updateLoginHTML(t) {
   $loginUsernameLabel.text(t('login-username-label'));
   $loginPasswordLabel.text(t('login-password-label'));
   $loginFormTitle.text(t('login-form-register'));
-  $permissionsAccept.text(t('permissions-accept'));
+  //$permissionsAccept.text(t('permissions-accept'));
   $permissionsReject.text(t('permissions-reject'));
   $permissionsTitle.text(t('permissions-title'));
   $loginFormToggle.text(t('login-form-toggle'));
