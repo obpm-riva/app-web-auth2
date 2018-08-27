@@ -124,7 +124,7 @@ jQuery(document).ready(function() {
 			  'your_email': 'Votre adresse email',
 			  'password': 'Mot de passe',
 			  
-			  'user_id': 'Utilisateur ID',
+			  'user_id': 'ID Utilisateur',
 			  'Confirm_pass': 'Confirmer mot de passe',
 			  'email_address': 'Adresse email',
 			  'email_address_required': 'L\'adresse email est requise pour la récupération du mot de passe',
