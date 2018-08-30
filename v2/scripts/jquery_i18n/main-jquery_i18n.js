@@ -43,7 +43,7 @@ jQuery(document).ready(function() {
 			  'send_request': 'Send request',
 			  'go_back': 'Go back to Sign In',
 			  'reset_sent': 'We\'ve sent password reset instructions to your e-mail address',
-			  'look_in_junk': 'If you don\'t receive a message within a few minutes, you may want to have a look in your junk mail.',
+			  'look_in_junk': 'If you don\'t receive a message within a few minutes, you may want to have a look in your spam mail.',
 			  
 			  'unknown_username': 'Unknown username',
 			  'passwords_not_match': 'Password does not match the confirm password.',
