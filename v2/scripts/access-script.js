@@ -48411,7 +48411,7 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings,
   var reg = Settings.info.register;
 
   if (! email) {
-    email = username + '@obpm-dev.io';
+    email = username + '@obpmprod.ch';
   }
 
   email = email.toLowerCase();
