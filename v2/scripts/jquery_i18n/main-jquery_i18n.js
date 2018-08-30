@@ -61,7 +61,7 @@ jQuery(document).ready(function() {
 			  
 			  'access_granted': 'Access granted for ',
 			  "closing": "Closing...",
-			  "invalid_pair": "The given username/password pair is invalid.",
+			  "invalid_pair": "Username and/or password are invalid",
 			  "generic_error": "An error occurred",
 			  "invalid_key": "Invalid access request key",
 			  
@@ -137,13 +137,13 @@ jQuery(document).ready(function() {
 			  'send_request': 'Envoyer',
 			  'go_back': 'Revenez à la connexion',
 			  'reset_sent': 'Nous avons envoyé des instructions de réinitialisation de mot de passe à votre adresse e-mail',
-			  'look_in_junk': 'Si vous ne recevez pas de message dans les minutes qui suivent, vous pouvez regarder dans votre fichier spam',
+			  'look_in_junk': 'Si vous ne recevez pas de message dans les minutes qui suivent, vous pouvez regarder dans votre fichier spam.',
 			  
 			  'unknown_username': 'Utilisateur inconnu',
 			  'passwords_not_match': 'Le mot de passe ne correspond pas au mot de passe de confirmation.',
 			  'username_unknown': 'Utilisateur inconnu: ', 
 			  'unknown_email': 'Email inconnu',
-			  'invalid_email': 'Adresse email invalide',
+			  'invalid_email': 'Email invalide',
 			  
 			  'new_pass': 'Nouveau mot de passe',
 			  'confirm_new_pass': 'Confirmer mot de passe',
@@ -155,7 +155,7 @@ jQuery(document).ready(function() {
 			  
 			  'access_granted': 'Accès accordé pour ',
 			  "closing": "Fermer...",
-			  "invalid_pair": "Le nom d'utilisateur et / ou le mot de passe sont invalides",
+			  "invalid_pair": "Le nom d'utilisateur et/ou le mot de passe sont invalides",
 			  "generic_error": "Une erreur est survenue",
 			  "invalid_key": "Clé de demande d'accès non valide"
 			}
