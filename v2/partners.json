@@ -259,6 +259,16 @@
                "Code":"VIS026"
             }
          ]
+      },
+	  {
+         "Name":"CSEM",
+         "LogoUrl":"",
+         "Campaigns":[
+            {
+               "Name":"CSEM",
+               "Code":"CSEM027"
+            }
+         ]
       }
       
    ]
