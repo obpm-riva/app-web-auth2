@@ -56,7 +56,7 @@
          "Campaigns":[
             {
                "Name":"Galenica",
-               "Code":"CAL006"
+               "Code":"GAL006"
             }
          ]
       },
@@ -66,7 +66,7 @@
          "Campaigns":[
             {
                "Name":"Geliko",
-               "Code":"CEL007"
+               "Code":"GEL007"
             }
          ]
       },
@@ -269,7 +269,56 @@
                "Code":"CSEM027"
             }
          ]
-      }
-      
+      },
+	  {
+         "Name":"cardiomedic",
+         "LogoUrl":"",
+         "Campaigns":[
+            {
+               "Name":"cardiomedic",
+               "Code":"CARD028"
+            }
+         ]
+      },
+	  {
+         "Name":"dacadoo",
+         "LogoUrl":"",
+         "Campaigns":[
+            {
+               "Name":"dacadoo",
+               "Code":"DCD029"
+            }
+         ]
+      },
+	  {
+         "Name":"cyberfish",
+         "LogoUrl":"",
+         "Campaigns":[
+            {
+               "Name":"cyberfish",
+               "Code":"CYF030"
+            }
+         ]
+      },
+	  {
+         "Name":"swissheart",
+         "LogoUrl":"",
+         "Campaigns":[
+            {
+               "Name":"swissheart",
+               "Code":"SWH031"
+            }
+         ]
+      },
+	  {
+         "Name":"medisanté",
+         "LogoUrl":"",
+         "Campaigns":[
+            {
+               "Name":"medisanté",
+               "Code":"MEDS032"
+            }
+         ]
+      }      
    ]
 }
