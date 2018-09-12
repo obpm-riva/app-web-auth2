@@ -1,0 +1,22 @@
+{  
+   "items":[  
+      {  
+         "Title":"À propos de l’hypertension",
+         "ImagePath":"https://www.pritikin.com/wp/wp-content/uploads/2015/11/lower-blood-pressure-naturally-7-tips.jpg",
+         "ShortText":"L’hypertension est diagnostiquée lorsque les lectures effectuées à différentes reprises indiquent constamment une...",
+         "Url":"http://www.euro.who.int/fr/about-us/whd/past-themes-of-world-health-day/world-health-day-2013-focus-on-high-blood-pressure/about-hypertension"
+      },
+      {  
+         "Title":"Tension artérielle",
+         "ImagePath":"https://images.agoramedia.com/everydayhealth/gcms/Things-You-Should-Know-About-High-Blood-Pressure-722x406.jpg",
+         "ShortText":"En Suisse, on estime qu’un adulte sur quatre a une tension artérielle trop élevée, soit quelque 1,5 millions...",
+         "Url":"https://www.swissheart.ch/fr/maladies-cardiaques-avc/facteurs-de-risque/tension-arterielle.html"
+      },
+      {  
+         "Title":"Facteur de santé tension artérielle",
+         "ImagePath":"https://businesstoday.co.ke/wp-content/uploads/2017/10/causes-of-blood-pressure.jpg",
+         "ShortText":"En général, nous ne sentons même pas notre tension artérielle lorsqu’elle est trop élevée.",
+         "Url":"https://www.swissheartcoach.ch/fr/facteurs-de-sante/tension-arterielle/"
+      }
+   ]
+}

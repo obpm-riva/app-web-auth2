@@ -1,0 +1,34 @@
+{  
+   "items":[  
+      {  
+         "Title":"Hypertonie",
+         "ImagePath":"https://www.pritikin.com/wp/wp-content/uploads/2015/11/lower-blood-pressure-naturally-7-tips.jpg",
+         "ShortText":"Die Diagnose Hypertonie wird gestellt, wenn bei wiederholten Messungen durchgängig Werte von 140/90 mmHg oder darüber...",
+         "Url":"http://www.euro.who.int/de/about-us/whd/past-themes-of-world-health-day/world-health-day-2013-focus-on-high-blood-pressure/about-hypertension"
+      },
+      {  
+         "Title":"Blutdruck",
+         "ImagePath":"https://images.agoramedia.com/everydayhealth/gcms/Things-You-Should-Know-About-High-Blood-Pressure-722x406.jpg",
+         "ShortText":"In der Schweiz hat schätzungsweise jede vierte erwachsene Person einen erhöhten Blutdruck – das sind rund 1,5 Millio...",
+         "Url":"https://www.swissheart.ch/herzkrankheiten-hirnschlag/risikofaktoren/blutdruck.html"
+      },
+      {  
+         "Title":"Hoher Blutdruck: schmerzlos, aber hochgefährlich",
+         "ImagePath":"https://businesstoday.co.ke/wp-content/uploads/2017/10/causes-of-blood-pressure.jpg",
+         "ShortText":"Bluthochdruck ist ein wichtiger Risiko faktor für schwere Erkrankungen wie Herzinfarkt...",
+         "Url":"https://www.myhandicap.ch/gesundheit/koerperliche-behinderung/hypertonie-hoher-blutdruck-ist-schmerzlos-aber-hochgefaehrlich/?gclid=EAIaIQobChMI4_LxsY7F3AIVFvlRCh1ufAFsEAAYASAAEgLXCPD_BwE"
+      },
+      {  
+         "Title":"Gesundheitsfaktor Blutdruck",
+         "ImagePath":"https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzA5Ni83MzUvb3JpZ2luYWwvYmxvb2QtcHJlc3N1cmUtY3VmZi5qcGc=",
+         "ShortText":"Unseren Blutdruck spüren wir meist nicht einmal dann, wenn er zu hoch ist. Kein Grund, ihn zu vernachlässigen.",
+         "Url":"https://www.swissheartcoach.ch/gesundheitsfaktoren/blutdruck/"
+      },
+      {  
+         "Title":"Bluthochdruck – die stille Gefahr",
+         "ImagePath":"https://www.healthline.com/hlcmsresource/images/imce/high-blood-pressure-hypertension-effect-on-body_thumb.jpg",
+         "ShortText":"Die Volkskrankheit verläuft oft unbemerkt, schädigt aber Organe und Gefässe.",
+         "Url":"https://www.migros-impuls.ch/de/medizin/beschwerden/blutdruck/bluthochdruck?gclid=EAIaIQobChMIo7WhhobF3AIV4bDtCh3ywwZMEAAYASAAEgKqM_D_BwE"
+      }
+   ]
+}

@@ -1,0 +1,22 @@
+{  
+   "items":[  
+      {  
+         "Title":"About hypertension",
+         "ImagePath":"https://www.pritikin.com/wp/wp-content/uploads/2015/11/lower-blood-pressure-naturally-7-tips.jpg",
+         "ShortText":"Hypertension is diagnosed if readings on separate occasions consistently show blood pressure to be 140/90 mmHg or higher.",
+         "Url":"http://www.euro.who.int/en/about-us/whd/past-themes-of-world-health-day/world-health-day-2013-focus-on-high-blood-pressure/about-hypertension"
+      },
+      {  
+         "Title":"Everything you need to know about hypertension",
+         "ImagePath":"https://images.agoramedia.com/everydayhealth/gcms/Things-You-Should-Know-About-High-Blood-Pressure-722x406.jpg",
+         "ShortText":"Hypertension can lead to severe complications and increases the risk of heart disease, stroke, and death.",
+         "Url":"https://www.medicalnewstoday.com/articles/150109.php"
+      },
+      {  
+         "Title":"How to Reduce Your High Blood Pressure",
+         "ImagePath":"https://businesstoday.co.ke/wp-content/uploads/2017/10/causes-of-blood-pressure.jpg",
+         "ShortText":"Hypertension, another name for high blood pressure, is often called a “silent killer.”",
+         "Url":"https://www.healthline.com/health/high-blood-pressure-hypertension/how-reduce-high-blood-pressure"
+      }
+   ]
+}
