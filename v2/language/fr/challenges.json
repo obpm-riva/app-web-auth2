@@ -1,27 +1,26 @@
 {  
    "items":[  
       {  
-         "logo":"logolink",
+         "logo":"http://www.healthchecksystems.com/global/images/product_2/203/20388_250X250.jpg",
          "name":"Riva Digital Challenge 1",
-         "biglogo":"biglogoLink",
+         "biglogo":"https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzA5Ni83MzUvb3JpZ2luYWwvYmxvb2QtcHJlc3N1cmUtY3VmZi5qcGc=",
          "text":"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy",
-		 "link":"link"
+		 "link":"https://www.swissheart.ch/herzkrankheiten-hirnschlag/risikofaktoren/blutdruck.html"
       },
 	  {  
-         "logo":"logolink",
+         "logo":"https://cdn.shopify.com/s/files/1/1476/3514/products/81PL_E6XFL._SL1500_530x_1_300x300.jpg?v=1487672757",
          "name":"Riva Digital Challenge 2",
-         "biglogo":"biglogoLink",
+         "biglogo":"https://www.pritikin.com/wp/wp-content/uploads/2015/11/lower-blood-pressure-naturally-7-tips.jpg",
          "text":"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy",
-		 "link":"link"
+		 "link":"http://www.euro.who.int/de/about-us/whd/past-themes-of-world-health-day/world-health-day-2013-focus-on-high-blood-pressure/about-hypertension"
       },
 	  {  
-         "logo":"logolink",
+         "logo":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzaQ88fy8ZMwJwmeWr3MYGTDqyCavYUioIQrGdAFEf8k382Kov",
          "name":"Riva Digital Challenge 3",
-         "biglogo":"biglogoLink",
+         "biglogo":"https://www.healthline.com/hlcmsresource/images/imce/high-blood-pressure-hypertension-effect-on-body_thumb.jpg",
          "text":"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy",
-		 "link":"link"
+		 "link":"https://www.migros-impuls.ch/de/medizin/beschwerden/blutdruck/bluthochdruck?gclid=EAIaIQobChMIo7WhhobF3AIV4bDtCh3ywwZMEAAYASAAEgKqM_D_BwE"
       }
       
    ]
 }
-
