@@ -48095,6 +48095,8 @@ module.exports.requestRegisterUser = function (returnURL, appID, lang, Settings,
 		// case when need to translate for UI
 		if(message==='Invalid email adress'){
 			$('#registerError').text(jQuery.i18n('invalid_email')).show();
+		}else if(message==='This e-mail is known'){
+			$('#registerError').text(jQuery.i18n('email_is_known')).show();
 		}else{
 			$('#registerError').text(message).show();
 		}

@@ -47,6 +47,7 @@ jQuery(document).ready(function() {
 			  
 			  'unknown_username': 'Unknown username',
 			  'passwords_not_match': 'Password does not match the confirm password.',
+			  'email_is_known': 'This email is already registered',
 			  'username_unknown': 'Username unknown: ', 
 			  'unknown_email': 'Unknown e-mail',
 			  'invalid_email': 'Invalid email adress',
@@ -97,6 +98,7 @@ jQuery(document).ready(function() {
 			  
 			  'unknown_username': 'Benutzername unbekannt',
 			  'passwords_not_match': 'Das Passwort stimmt nicht mit dem Bestätigungspasswort überein.',
+			  'email_is_known': 'Diese Email ist bereits registriert',
 			  'username_unknown': 'Benutzername unbekannt: ', 
 			  'unknown_email': 'Email unbekannt',
 			  'invalid_email': 'Email ungültig',
@@ -141,6 +143,7 @@ jQuery(document).ready(function() {
 			  
 			  'unknown_username': 'Utilisateur inconnu',
 			  'passwords_not_match': 'Le mot de passe ne correspond pas au mot de passe de confirmation.',
+			  'email_is_known': 'Cette email est déjà enregistrée',
 			  'username_unknown': 'Utilisateur inconnu: ', 
 			  'unknown_email': 'Email inconnu',
 			  'invalid_email': 'Email invalide',
