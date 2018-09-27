@@ -319,6 +319,16 @@
                "Code":"MEDS032"
             }
          ]
-      }      
+      },
+	   {
+         "Name":"AltInt",
+         "LogoUrl":"",
+         "Campaigns":[
+            {
+               "Name":"AltInt",
+               "Code":"AltranOBPM"
+            }
+         ]
+      }
    ]
 }
