@@ -321,12 +321,32 @@
          ]
       },
 	   {
+         "Name":"PlanèteSanté",
+         "LogoUrl":"",
+         "Campaigns":[
+            {
+               "Name":"PlanèteSanté",
+               "Code":"PS2018"
+            }
+         ]
+      },
+	   {
          "Name":"AltInt",
          "LogoUrl":"",
          "Campaigns":[
             {
                "Name":"AltInt",
                "Code":"AltranOBPM"
+            }
+         ]
+      },
+	   {
+         "Name":"Last",
+         "LogoUrl":"",
+         "Campaigns":[
+            {
+               "Name":"Last",
+               "Code":"Last1"
             }
          ]
       }
