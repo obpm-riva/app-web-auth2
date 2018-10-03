@@ -76,7 +76,7 @@ jQuery(document).ready(function() {
 			'de': {
 			  'login_to_account': 'Einloggen',
 			  'login_button': 'EINLOGGEN',
-			  'no_account_yet': 'Ich habe noch keinen Konto',
+			  'no_account_yet': 'Ich habe noch kein Konto',
 			  'forgot_pass': 'Passwort vergessen?',
 			  'your_email': 'Ihre Email-Adresse',
 			  'password': 'Passwort',
