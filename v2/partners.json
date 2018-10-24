@@ -341,6 +341,16 @@
          ]
       },
 	   {
+         "Name":"digday18",
+         "LogoUrl":"",
+         "Campaigns":[
+            {
+               "Name":"digday18",
+               "Code":"dd18"
+            }
+         ]
+      },
+	   {
          "Name":"Last",
          "LogoUrl":"",
          "Campaigns":[
