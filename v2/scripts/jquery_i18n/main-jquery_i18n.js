@@ -32,7 +32,7 @@ jQuery(document).ready(function() {
 			  
 			  'user_id': 'User ID',
 			  'Confirm_pass': 'Confirm password',
-			  'email_address': 'E-mail adress',
+			  'email_address': 'E-mail address',
 			  'email_address_required': 'Email address is required for password recovery',
 			  'optional': 'optional',
 			  'Already_have_account': 'Already have an account? Sign in.',
