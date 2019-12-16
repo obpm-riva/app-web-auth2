@@ -27,7 +27,7 @@ jQuery(document).ready(function() {
 			  'login_button': 'LOGIN',
 			  'no_account_yet': 'I don’t have an account yet',
 			  'forgot_pass': 'Forgot your password?',
-			  'your_email': 'Your email address',
+			  'your_email': 'Your user id / email address',
 			  'password': 'Password',
 			  
 			  'user_id': 'User ID',
@@ -78,7 +78,7 @@ jQuery(document).ready(function() {
 			  'login_button': 'EINLOGGEN',
 			  'no_account_yet': 'Ich habe noch kein Konto',
 			  'forgot_pass': 'Passwort vergessen?',
-			  'your_email': 'Ihre Email-Adresse',
+			  'your_email': 'Ihre User ID / Email Adresse',
 			  'password': 'Passwort',
 			  
 			  'user_id': 'Benutzer ID',
@@ -123,7 +123,7 @@ jQuery(document).ready(function() {
 			  'login_button': 'CONNECTER',
 			  'no_account_yet': 'Je n\'ai pas encore de compte',
 			  'forgot_pass': 'Mot de passe oublié?',
-			  'your_email': 'Votre adresse email',
+			  'your_email': 'Votre nom d\'utilisateur / adresse e-mail',
 			  'password': 'Mot de passe',
 			  
 			  'user_id': 'ID Utilisateur',
