@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.ab886f82.chunk.css",
-    "main.js": "/static/js/main.3c086da8.chunk.js",
-    "main.js.map": "/static/js/main.3c086da8.chunk.js.map",
+    "main.css": "/static/css/main.ff9fbe77.chunk.css",
+    "main.js": "/static/js/main.1560bbfc.chunk.js",
+    "main.js.map": "/static/js/main.1560bbfc.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.132b4399.js",
     "runtime-main.js.map": "/static/js/runtime-main.132b4399.js.map",
     "static/css/2.bb5ed312.chunk.css": "/static/css/2.bb5ed312.chunk.css",
     "static/js/2.3de60fc4.chunk.js": "/static/js/2.3de60fc4.chunk.js",
     "static/js/2.3de60fc4.chunk.js.map": "/static/js/2.3de60fc4.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.d154f8600c1b8316582ad172b6f47c48.js": "/precache-manifest.d154f8600c1b8316582ad172b6f47c48.js",
+    "precache-manifest.c010328fc6f2c8e8de4d7312499188e1.js": "/precache-manifest.c010328fc6f2c8e8de4d7312499188e1.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.bb5ed312.chunk.css.map": "/static/css/2.bb5ed312.chunk.css.map",
-    "static/css/main.ab886f82.chunk.css.map": "/static/css/main.ab886f82.chunk.css.map",
+    "static/css/main.ff9fbe77.chunk.css.map": "/static/css/main.ff9fbe77.chunk.css.map",
     "static/js/2.3de60fc4.chunk.js.LICENSE.txt": "/static/js/2.3de60fc4.chunk.js.LICENSE.txt",
     "static/media/base.scss": "/static/media/icons-20.cef8cdbb.woff",
     "static/media/birthday_gender.108494fe.svg": "/static/media/birthday_gender.108494fe.svg",
@@ -34,6 +34,7 @@
     "static/media/trackYourVitalIllustration2.5b74a26c.svg": "/static/media/trackYourVitalIllustration2.5b74a26c.svg",
     "static/media/trackYourVitalIllustration3.f50aa0dd.svg": "/static/media/trackYourVitalIllustration3.f50aa0dd.svg",
     "static/media/trackYourVitalIllustration4.733b1930.svg": "/static/media/trackYourVitalIllustration4.733b1930.svg",
+    "static/media/triangle_down.44d12c7f.svg": "/static/media/triangle_down.44d12c7f.svg",
     "static/media/user_id.48062bd8.svg": "/static/media/user_id.48062bd8.svg",
     "static/media/weight_height.18645ee2.svg": "/static/media/weight_height.18645ee2.svg",
     "static/media/zip.ff43d45a.svg": "/static/media/zip.ff43d45a.svg"
@@ -42,7 +43,7 @@
     "static/js/runtime-main.132b4399.js",
     "static/css/2.bb5ed312.chunk.css",
     "static/js/2.3de60fc4.chunk.js",
-    "static/css/main.ab886f82.chunk.css",
-    "static/js/main.3c086da8.chunk.js"
+    "static/css/main.ff9fbe77.chunk.css",
+    "static/js/main.1560bbfc.chunk.js"
   ]
 }
