@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "./buildAuth/static/css/main.81e68350.chunk.css",
-    "main.js": "./buildAuth/static/js/main.6632949b.chunk.js",
-    "main.js.map": "./buildAuth/static/js/main.6632949b.chunk.js.map",
+    "main.js": "./buildAuth/static/js/main.1b6f20b9.chunk.js",
+    "main.js.map": "./buildAuth/static/js/main.1b6f20b9.chunk.js.map",
     "runtime-main.js": "./buildAuth/static/js/runtime-main.470c84d1.js",
     "runtime-main.js.map": "./buildAuth/static/js/runtime-main.470c84d1.js.map",
     "static/css/2.6eb9629e.chunk.css": "./buildAuth/static/css/2.6eb9629e.chunk.css",
     "static/js/2.932f8ab3.chunk.js": "./buildAuth/static/js/2.932f8ab3.chunk.js",
     "static/js/2.932f8ab3.chunk.js.map": "./buildAuth/static/js/2.932f8ab3.chunk.js.map",
     "index.html": "./buildAuth/index.html",
-    "precache-manifest.357df12de2c494ffb0ff75a6e7f70b38.js": "./buildAuth/precache-manifest.357df12de2c494ffb0ff75a6e7f70b38.js",
+    "precache-manifest.02f656c4dc3bd7a2aefd6257dc26345b.js": "./buildAuth/precache-manifest.02f656c4dc3bd7a2aefd6257dc26345b.js",
     "service-worker.js": "./buildAuth/service-worker.js",
     "static/css/2.6eb9629e.chunk.css.map": "./buildAuth/static/css/2.6eb9629e.chunk.css.map",
     "static/css/main.81e68350.chunk.css.map": "./buildAuth/static/css/main.81e68350.chunk.css.map",
@@ -44,6 +44,6 @@
     "static/css/2.6eb9629e.chunk.css",
     "static/js/2.932f8ab3.chunk.js",
     "static/css/main.81e68350.chunk.css",
-    "static/js/main.6632949b.chunk.js"
+    "static/js/main.1b6f20b9.chunk.js"
   ]
 }
