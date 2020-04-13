@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "./buildAuth/static/css/main.376c3933.chunk.css",
-    "main.js": "./buildAuth/static/js/main.1f6c587e.chunk.js",
-    "main.js.map": "./buildAuth/static/js/main.1f6c587e.chunk.js.map",
+    "main.js": "./buildAuth/static/js/main.17811a17.chunk.js",
+    "main.js.map": "./buildAuth/static/js/main.17811a17.chunk.js.map",
     "runtime-main.js": "./buildAuth/static/js/runtime-main.470c84d1.js",
     "runtime-main.js.map": "./buildAuth/static/js/runtime-main.470c84d1.js.map",
     "static/css/2.6eb9629e.chunk.css": "./buildAuth/static/css/2.6eb9629e.chunk.css",
-    "static/js/2.0547c386.chunk.js": "./buildAuth/static/js/2.0547c386.chunk.js",
-    "static/js/2.0547c386.chunk.js.map": "./buildAuth/static/js/2.0547c386.chunk.js.map",
+    "static/js/2.f4ecb2c0.chunk.js": "./buildAuth/static/js/2.f4ecb2c0.chunk.js",
+    "static/js/2.f4ecb2c0.chunk.js.map": "./buildAuth/static/js/2.f4ecb2c0.chunk.js.map",
     "index.html": "./buildAuth/index.html",
-    "precache-manifest.df6d76bf24e87a736a4379705b67a8b1.js": "./buildAuth/precache-manifest.df6d76bf24e87a736a4379705b67a8b1.js",
+    "precache-manifest.66678f12f1015deab3dd95d2d5abea53.js": "./buildAuth/precache-manifest.66678f12f1015deab3dd95d2d5abea53.js",
     "service-worker.js": "./buildAuth/service-worker.js",
     "static/css/2.6eb9629e.chunk.css.map": "./buildAuth/static/css/2.6eb9629e.chunk.css.map",
     "static/css/main.376c3933.chunk.css.map": "./buildAuth/static/css/main.376c3933.chunk.css.map",
-    "static/js/2.0547c386.chunk.js.LICENSE.txt": "./buildAuth/static/js/2.0547c386.chunk.js.LICENSE.txt",
+    "static/js/2.f4ecb2c0.chunk.js.LICENSE.txt": "./buildAuth/static/js/2.f4ecb2c0.chunk.js.LICENSE.txt",
     "static/media/base.scss": "./buildAuth/static/media/icons-20.cef8cdbb.woff",
     "static/media/android_download.d00ad33f.svg": "./buildAuth/static/media/android_download.d00ad33f.svg",
     "static/media/apple_download.e02f1144.svg": "./buildAuth/static/media/apple_download.e02f1144.svg",
@@ -44,8 +44,8 @@
   "entrypoints": [
     "static/js/runtime-main.470c84d1.js",
     "static/css/2.6eb9629e.chunk.css",
-    "static/js/2.0547c386.chunk.js",
+    "static/js/2.f4ecb2c0.chunk.js",
     "static/css/main.376c3933.chunk.css",
-    "static/js/main.1f6c587e.chunk.js"
+    "static/js/main.17811a17.chunk.js"
   ]
 }
