@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f7dbc4c986cab689a04a4af663cd8ad6",
+    "revision": "79b2185379a9a2986de160051cc36e14",
     "url": "./buildAuth/index.html"
   },
   {
-    "revision": "883fea0408a14bd26b63",
+    "revision": "7f150b6d212c9931611e",
     "url": "./buildAuth/static/css/2.6eb9629e.chunk.css"
   },
   {
-    "revision": "6b452162ba39853a2df4",
-    "url": "./buildAuth/static/css/main.81e68350.chunk.css"
+    "revision": "1e123c4f36b22df056b8",
+    "url": "./buildAuth/static/css/main.376c3933.chunk.css"
   },
   {
-    "revision": "883fea0408a14bd26b63",
-    "url": "./buildAuth/static/js/2.c59a1df3.chunk.js"
+    "revision": "7f150b6d212c9931611e",
+    "url": "./buildAuth/static/js/2.0547c386.chunk.js"
   },
   {
     "revision": "589d9a919b71112b09301bd518937f7f",
-    "url": "./buildAuth/static/js/2.c59a1df3.chunk.js.LICENSE.txt"
+    "url": "./buildAuth/static/js/2.0547c386.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6b452162ba39853a2df4",
-    "url": "./buildAuth/static/js/main.8155966d.chunk.js"
+    "revision": "1e123c4f36b22df056b8",
+    "url": "./buildAuth/static/js/main.1f6c587e.chunk.js"
   },
   {
     "revision": "75aa0a518881101186e9",
@@ -46,6 +46,14 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "86fda98796bb4100ba905535a77723bd",
     "url": "./buildAuth/static/media/DINPro-Regular.86fda987.otf"
+  },
+  {
+    "revision": "d00ad33f4693d5756638faf5002101fb",
+    "url": "./buildAuth/static/media/android_download.d00ad33f.svg"
+  },
+  {
+    "revision": "e02f1144b000f93e1d25156637df87ea",
+    "url": "./buildAuth/static/media/apple_download.e02f1144.svg"
   },
   {
     "revision": "108494fe73cdc9f52820e74b3ef46ab5",
