@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "343b503dacdefcd156fdbbfc15d641e8",
+    "revision": "b5c603df3eafe28d4635e54cac4e5ad5",
     "url": "./buildAuth/index.html"
   },
   {
-    "revision": "d0cfaac578340a37a03b",
+    "revision": "22c73d08fb456246e368",
     "url": "./buildAuth/static/css/2.219083bc.chunk.css"
   },
   {
-    "revision": "c8232678dbfefb9840c0",
-    "url": "./buildAuth/static/css/main.80a4a2a3.chunk.css"
+    "revision": "8a6763fa4cb8ffad32fd",
+    "url": "./buildAuth/static/css/main.c34bd8da.chunk.css"
   },
   {
-    "revision": "d0cfaac578340a37a03b",
-    "url": "./buildAuth/static/js/2.ac6433fa.chunk.js"
+    "revision": "22c73d08fb456246e368",
+    "url": "./buildAuth/static/js/2.ff6d649e.chunk.js"
   },
   {
     "revision": "589d9a919b71112b09301bd518937f7f",
-    "url": "./buildAuth/static/js/2.ac6433fa.chunk.js.LICENSE.txt"
+    "url": "./buildAuth/static/js/2.ff6d649e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c8232678dbfefb9840c0",
-    "url": "./buildAuth/static/js/main.b49ec625.chunk.js"
+    "revision": "8a6763fa4cb8ffad32fd",
+    "url": "./buildAuth/static/js/main.9d4aa26d.chunk.js"
   },
   {
     "revision": "75aa0a518881101186e9",
@@ -68,6 +68,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "./buildAuth/static/media/covid19Logo.25f19436.svg"
   },
   {
+    "revision": "0154db1060305dd46240bee5df027a35",
+    "url": "./buildAuth/static/media/cross.0154db10.svg"
+  },
+  {
     "revision": "208f83f9cab64e6ddae79ddf38c2664a",
     "url": "./buildAuth/static/media/eyePassword.208f83f9.svg"
   },
@@ -78,6 +82,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "c78a86ec3552dd38534718dee5ecb3a0",
     "url": "./buildAuth/static/media/flag_sh.c78a86ec.svg"
+  },
+  {
+    "revision": "53b1e4fe1983bf8a734da72ab7e4fea8",
+    "url": "./buildAuth/static/media/hamburger.53b1e4fe.svg"
   },
   {
     "revision": "645da51901bb107e55a870474f40ae79",
@@ -128,8 +136,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "./buildAuth/static/media/registerIllustration.2dc88882.svg"
   },
   {
-    "revision": "b1063d2176c55ce6a68277a905e15d3e",
-    "url": "./buildAuth/static/media/resetPasswordLetter.b1063d21.svg"
+    "revision": "8ce1f13b4001f48b53621f9ab97ab507",
+    "url": "./buildAuth/static/media/resetPasswordLetter.8ce1f13b.svg"
   },
   {
     "revision": "5ebf6597610431fd58d3cf45cfd7e11d",
