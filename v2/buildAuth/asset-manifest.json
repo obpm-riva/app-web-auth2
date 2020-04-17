@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "./buildAuth/static/css/main.9400f702.chunk.css",
-    "main.js": "./buildAuth/static/js/main.dde61474.chunk.js",
-    "main.js.map": "./buildAuth/static/js/main.dde61474.chunk.js.map",
+    "main.css": "./buildAuth/static/css/main.f98e8d90.chunk.css",
+    "main.js": "./buildAuth/static/js/main.bf2df3b1.chunk.js",
+    "main.js.map": "./buildAuth/static/js/main.bf2df3b1.chunk.js.map",
     "runtime-main.js": "./buildAuth/static/js/runtime-main.470c84d1.js",
     "runtime-main.js.map": "./buildAuth/static/js/runtime-main.470c84d1.js.map",
     "static/css/2.219083bc.chunk.css": "./buildAuth/static/css/2.219083bc.chunk.css",
-    "static/js/2.520ba348.chunk.js": "./buildAuth/static/js/2.520ba348.chunk.js",
-    "static/js/2.520ba348.chunk.js.map": "./buildAuth/static/js/2.520ba348.chunk.js.map",
+    "static/js/2.b2e40ea5.chunk.js": "./buildAuth/static/js/2.b2e40ea5.chunk.js",
+    "static/js/2.b2e40ea5.chunk.js.map": "./buildAuth/static/js/2.b2e40ea5.chunk.js.map",
     "index.html": "./buildAuth/index.html",
-    "precache-manifest.7b3a44628c5d30e2cbb8d41143daaf2b.js": "./buildAuth/precache-manifest.7b3a44628c5d30e2cbb8d41143daaf2b.js",
+    "precache-manifest.86246750ce8e32296b0dec4aba84921d.js": "./buildAuth/precache-manifest.86246750ce8e32296b0dec4aba84921d.js",
     "service-worker.js": "./buildAuth/service-worker.js",
     "static/css/2.219083bc.chunk.css.map": "./buildAuth/static/css/2.219083bc.chunk.css.map",
-    "static/css/main.9400f702.chunk.css.map": "./buildAuth/static/css/main.9400f702.chunk.css.map",
-    "static/js/2.520ba348.chunk.js.LICENSE.txt": "./buildAuth/static/js/2.520ba348.chunk.js.LICENSE.txt",
+    "static/css/main.f98e8d90.chunk.css.map": "./buildAuth/static/css/main.f98e8d90.chunk.css.map",
+    "static/js/2.b2e40ea5.chunk.js.LICENSE.txt": "./buildAuth/static/js/2.b2e40ea5.chunk.js.LICENSE.txt",
     "static/media/base.scss": "./buildAuth/static/media/icons-20.cef8cdbb.woff",
     "static/media/android_download.d00ad33f.svg": "./buildAuth/static/media/android_download.d00ad33f.svg",
     "static/media/apple_download.e02f1144.svg": "./buildAuth/static/media/apple_download.e02f1144.svg",
@@ -46,8 +46,8 @@
   "entrypoints": [
     "static/js/runtime-main.470c84d1.js",
     "static/css/2.219083bc.chunk.css",
-    "static/js/2.520ba348.chunk.js",
-    "static/css/main.9400f702.chunk.css",
-    "static/js/main.dde61474.chunk.js"
+    "static/js/2.b2e40ea5.chunk.js",
+    "static/css/main.f98e8d90.chunk.css",
+    "static/js/main.bf2df3b1.chunk.js"
   ]
 }
