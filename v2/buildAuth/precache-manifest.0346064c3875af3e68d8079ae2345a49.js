@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b277606bf997931a2e24cbfa3a21edf5",
+    "revision": "4ef35307832afd7c9896882327992a44",
     "url": "./buildAuth/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "./buildAuth/static/css/2.219083bc.chunk.css"
   },
   {
-    "revision": "21303f4e3dfe42c1edc0",
+    "revision": "ea04ab70ab5323083842",
     "url": "./buildAuth/static/css/main.f98e8d90.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "./buildAuth/static/js/2.b2e40ea5.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "21303f4e3dfe42c1edc0",
-    "url": "./buildAuth/static/js/main.e17361a1.chunk.js"
+    "revision": "ea04ab70ab5323083842",
+    "url": "./buildAuth/static/js/main.abfaf91c.chunk.js"
   },
   {
     "revision": "75aa0a518881101186e9",
